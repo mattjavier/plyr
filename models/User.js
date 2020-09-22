@@ -1,7 +1,7 @@
 const { model, Schema } = require('mongoose')
 
-const User = new Schema ({
-name: {
+const User = new Schema({
+  name: {
     type: String,
     required: true
   },
@@ -16,8 +16,8 @@ name: {
     required: true
   },
   user: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Player'
+    type: Schema.Types.ObjectId,
+    ref: 'Player'
   }]
 }, { timestamps: true })
 
