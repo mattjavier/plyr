@@ -14,7 +14,25 @@ name: {
     type: String,
     unique: true,
     required: true
-  }
-})
+  },
+  user: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Player'
+  }]
+}, { timestamps: true })
 
 module.exports = model('User', User)
+
+
+// Navbar
+// Footer
+// Player
+// Avatar (implements avatar editor and file upload)
+// View Profile (uses Player component)
+// Edit Profile (uses Player component)
+// Login Form
+// Register Form
+// Matches List
+// Match
+// Profile Builder Modal/Page
+// Selection cards (for profile builder)

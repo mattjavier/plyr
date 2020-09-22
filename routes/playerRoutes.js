@@ -8,4 +8,10 @@ router.get('/players', (req, res) => {
     .catch(err => console.error(err))
 })
 
+router.post('/players', (req,res)=> {
+    Player.create(req.body)
+    .then(player => res.json(user))
+    .catch(err => console.error(err))
+})
+
 module.exports= router
