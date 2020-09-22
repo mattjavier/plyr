@@ -15,7 +15,7 @@ name: {
     unique: true,
     required: true
   },
-  user: [{
+  player_profile: [{
       type: Schema.Types.ObjectId,
       ref: 'Player'
   }]

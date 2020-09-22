@@ -6,6 +6,7 @@ const { User } = require('../models')
 
 router.get('/users', (req, res) => {
     User.find()
+    .populate('player_profile')
     .then(user => res.json(user))
     .catch(err => console.error(err))
 })
@@ -21,8 +22,9 @@ router.put('/users/:id', (req, res) => {
 })
 
 router.delete('/users/:id', (req, res) => {
-    
+    User.findByIdAndDelete(req.params.id)
+    .then(() => res.sendStatus(200))
+    .catch(err => console.error(err))
 })
-
 
 module.exports = router
