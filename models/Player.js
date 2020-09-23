@@ -10,15 +10,15 @@ const Player = new Schema({
     required: false
   },
   systems: {
-    type: String,
+    type: Array,
     required: false
   },
   games: {
-    type: String,
+    type: Array,
     required: false
   },
   genres: {
-    type: String,
+    type: Array,
     required: false
   },
   competetive: {

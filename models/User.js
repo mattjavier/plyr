@@ -15,9 +15,9 @@ const User = new Schema({
     unique: true,
     required: true
   },
-  user: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Player'
+  player_profile: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Player'
   }]
 }, { timestamps: true })
 
