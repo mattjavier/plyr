@@ -26,11 +26,11 @@ router.get('/users', passport.authenticate('jwt'), (req, res) => {
     res.json(req.user)
 })
 
-//users can update emails.
-router.put('/users/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, { $set: req.body })
-    .then(user => res.json(user))
-    .catch(err => console.log(err))
+// User put for updating username, email, or password reset
+router.put('users/:id', passport.authenticate('jwt'), (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body)
+        .then(user => res.json(user))
+        .catch(err => console.log(err))
 })
 
 // Delete user for testing. Will be locked later
