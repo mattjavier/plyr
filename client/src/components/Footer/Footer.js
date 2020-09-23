@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#263238',
     textDecoration: 'none',
   },
+  menuPaper: {
+    backgroundColor: '#845bb3'
+  }
 }))
 
 const Footer = () => {
@@ -66,6 +69,7 @@ const Footer = () => {
           open={open}
           onClose={handleClose}
           TransitionComponent={Fade}
+          classes={{ paper: classes.menuPaper}}
         >
           <MenuItem onClick={handleClose} >
             <Link to="/about" className={classes.link}>About</Link>
