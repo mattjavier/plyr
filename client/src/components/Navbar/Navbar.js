@@ -52,7 +52,7 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
             <Drawer
-              anchor="left"
+              anchor="top"
               open={openState.open}
               onClose={toggleDrawer(false)}
             >
