@@ -22,8 +22,15 @@ router.post('/users/login', (req, res) => {
 })
 
 // User get players locked behind token login
-router.get('/users/users', passport.authenticate('jwt'), (req, res) => {
+router.get('/users', passport.authenticate('jwt'), (req, res) => {
     res.json(req.user)
+})
+
+//users can update emails.
+router.put('/users/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, { $set: req.body })
+    .then(user => res.json(user))
+    .catch(err => console.log(err))
 })
 
 // Delete user for testing. Will be locked later
@@ -35,5 +42,7 @@ router.delete('/users/:id', (req, res) => {
         })
         .catch(err => console.log(err))
 })
+
+
 
 module.exports = router
