@@ -141,7 +141,7 @@ const Register = () => {
           </FormControl>
 
 
-          <Button onSubmit={handleSubmit}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </form>
       </p>
     </div>
