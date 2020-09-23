@@ -1,3 +1,4 @@
+// npm that reads the .env file for the SECRET in passport
 require('dotenv').config()
 
 const express = require('express')
@@ -27,7 +28,6 @@ passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET
 }, ({ id }, cb) => User.findById(id)
-  .populate('items')
   .then(user => cb(null, user))
   .catch(err => cb(err))))
 
