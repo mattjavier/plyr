@@ -16,6 +16,11 @@ router.post('/players', (req,res)=> {
     .catch(err => console.error(err))
 })
 
+router.put('/players/:id', (req, res) => {
+    Player.findByIdAndUpdate(req.params.id, req.body)
+    .then(players => res.json(players))
+    .catch(err => console.error(err))
+})
 
 
 router.delete('/players/:id', (req, res) => {

@@ -18,7 +18,9 @@ router.post('/users', (req,res)=> {
 })
 
 router.put('/users/:id', (req, res) => {
-    
+    User.findByIdAndUpdate(req.params.id, req.body)
+    .then(users => res.json(users))
+    .catch(err => console.error(err))
 })
 
 router.delete('/users/:id', (req, res) => {
