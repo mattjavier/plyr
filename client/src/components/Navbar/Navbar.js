@@ -55,7 +55,6 @@ const Navbar = () => {
             </IconButton>
             {/* Controls the drop down menu */}
             <Drawer
-              // drops in from the top
               anchor="top"
               open={openState.open}
               onClose={toggleDrawer(false)}

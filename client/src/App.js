@@ -1,14 +1,17 @@
 import React from 'react'
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles' 
+import logo from './assets/logo.jpg'
+
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+
 import About from './pages/About'
 import LogIn from './pages/LogIn'
 import Matches from './pages/Matches'
 import Profile from './pages/Profile'
-import logo from './assets/logo.jpg'
-import Navbar from './components/Navbar'
-
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
   palette: {
@@ -23,6 +26,10 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#414679',
+    },
+    text: {
+      primary: '#845bb3',
+      secondary: '#f3e5f5'
     },
   },
 })
@@ -40,7 +47,7 @@ const App = () => {
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/matches" component={Matches} />
           </Switch>
-
+          <Footer />
         </div>
       </MuiThemeProvider>
     </Router>

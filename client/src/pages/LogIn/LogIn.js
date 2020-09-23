@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const LogIn = () => {
   const classes = useStyles()
 
