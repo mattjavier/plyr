@@ -46,16 +46,21 @@ const Navbar = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          {/* For the hamburger icon drop down menu. Hidden on screens small and larger */}
           <Hidden smUp>
-
+            {/* Makes icon function like a button */}
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)} >
+              {/* Icon */}
               <MenuIcon />
             </IconButton>
+            {/* Controls the drop down menu */}
             <Drawer
-              anchor="left"
+              // drops in from the top
+              anchor="top"
               open={openState.open}
               onClose={toggleDrawer(false)}
             >
+              {/* links in the drop down menu */}
               <List>
                 <ListItem>
                   <Link to="/matches">
@@ -75,11 +80,13 @@ const Navbar = () => {
               </List>
             </Drawer>
           </Hidden>
+          {/* App name */}
           <Typography variant="h6" className={classes.title}>
             plyr
           </Typography>
-          <Hidden xsDown>
 
+          {/* Links on navbar that are visible from screens small and larger */}
+          <Hidden xsDown>
             <Link to="/matches">
               <Button color="inherit">Matches</Button>
             </Link>
@@ -90,6 +97,7 @@ const Navbar = () => {
               <Button color="inherit">Log In</Button>
             </Link>
           </Hidden>
+
         </Toolbar>
       </AppBar>
     </div>
