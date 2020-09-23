@@ -70,6 +70,7 @@ const Register = () => {
   const handleSubmit = () => {
     setOpen(false);
     // post request goes here
+    // we need some kind of toast or something to indicate account crated
   };
 
   const [values, setValues] = React.useState({
@@ -140,7 +141,7 @@ const Register = () => {
           </FormControl>
 
 
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button onSubmit={handleSubmit}>Submit</Button>
         </form>
       </p>
     </div>

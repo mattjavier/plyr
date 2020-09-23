@@ -47,6 +47,10 @@ const LogIn = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  const handleLogIn = () => {
+    // log in stuff goes here
+  }
+
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
@@ -89,7 +93,7 @@ const LogIn = () => {
             }
           />
         </FormControl>
-        <Button>Log In</Button>
+        <Button onSubmit={handleLogIn}>Log In</Button>
         <Register />
 
       </form>
