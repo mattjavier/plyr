@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -29,34 +30,50 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '25ch',
   },
-}));
+}))
 
 const LogIn = () => {
   const classes = useStyles()
 
-  const [values, setValues] = React.useState({
-    amount: '',
+  // Login
+  const [loginState, setLoginState] = useState({
+    username: '',
     password: '',
-    weight: '',
-    weightRange: '',
     showPassword: false,
-  });
+  })
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  loginState.handleInputChange = event => {
+    setLoginState({ ...loginState, [event.target.name]: event.target.value })
+  }
 
-  const handleLogIn = () => {
-    // log in stuff goes here
+  loginState.handleLogin = event => {
+    event.preventDefault()
+    console.log(loginState)
+    axios.post('/api/users/login', {
+      username: loginState.username,
+      password: loginState.password,
+    })
+      .then(({ data: token }) => {
+        if (token) {
+          localStorage.setItem('user', token)
+          console.log(token)
+          // window.location = '/profile'
+        }
+        else {
+          alert('WRONG!')
+        }})
+      .catch(err => console.log(err))
   }
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
+    setLoginState({ ...loginState, showPassword: !loginState.showPassword })
+  }
+
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
+
 
 
   return (
@@ -67,7 +84,9 @@ const LogIn = () => {
           required
           id="outlined-required"
           label="Username"
+          name="username"
           variant="outlined"
+          onChange={loginState.handleInputChange}
         />
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
@@ -76,9 +95,10 @@ const LogIn = () => {
             id="outlined-adornment-password"
             label="Password"
             variant="outlined"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
+            type={loginState.showPassword ? 'text' : 'password'}
+            value={loginState.password}
+            name="password"
+            onChange={loginState.handleInputChange}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -86,13 +106,13 @@ const LogIn = () => {
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                 >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  {loginState.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
           />
         </FormControl>
-        <Button onSubmit={handleLogIn}>Log In</Button>
+        <Button onSubmit={loginState.handleLogIn}>Log In</Button>
         <Register />
 
       </form>

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react'
+import axios from 'axios'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -13,18 +14,18 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 function rand() {
-  return Math.round(Math.random() * 20) - 10;
+  return Math.round(Math.random() * 20) - 10
 }
 
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+  const top = 50 + rand()
+  const left = 50 + rand()
 
   return {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
-  };
+  }
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -51,53 +52,70 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '25ch',
   },
-}));
+}))
 
 const Register = () => {
-  const classes = useStyles();
+  const classes = useStyles()
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
+  const [modalStyle] = React.useState(getModalStyle)
+  const [open, setOpen] = React.useState(false)
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleSubmit = () => {
-    setOpen(false);
+    setOpen(false)
     // post request goes here
     // we need some kind of toast or something to indicate account crated
-  };
+  }
 
-  const [values, setValues] = React.useState({
-    amount: '',
+  // Register
+  const [registerState, setRegisterState] = useState({
+    name: '',
+    username: '',
+    email: '',
     password: '',
-    weight: '',
-    weightRange: '',
     showPassword: false,
-  });
+  })
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  registerState.handleInputChange = event => {
+    setRegisterState({ ...registerState, [event.target.name]: event.target.value })
+  }
+
+  registerState.handleRegister = event => {
+    event.preventDefault()
+    console.log(registerState)
+    axios.post('/api/users/register', {
+      name: registerState.name,
+      username: registerState.username,
+      email: registerState.email,
+      password: registerState.password,
+    })
+      .then(() => {
+        console.log('Register complete')
+        // Toast or notification function goes here
+      })
+      .catch(err => console.log(err))
+  }
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
+    setRegisterState({ ...registerState, showPassword: !registerState.showPassword })
+  }
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Register</h2>
       <p id="simple-modal-description">
-        <form className={classes.root} noValidate autoComplete="off">
+        <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
           {/* Email Field */}
           <TextField
             required
@@ -105,6 +123,8 @@ const Register = () => {
             label="Email"
             type="email"
             variant="outlined"
+            name="email"
+            onChange={registerState.handleInputChange}
           />
 
           {/* Username Field */}
@@ -112,7 +132,9 @@ const Register = () => {
             required
             id="outlined-required"
             label="Username"
+            name="username"
             variant="outlined"
+            onChange={registerState.handleInputChange}
           />
 
           {/* Password field */}
@@ -123,9 +145,10 @@ const Register = () => {
               id="outlined-adornment-password"
               label="Password"
               variant="outlined"
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              onChange={handleChange('password')}
+              name="password"
+              type={registerState.showPassword ? 'text' : 'password'}
+              value={registerState.password}
+              onChange={registerState.handleInputChange}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -133,19 +156,17 @@ const Register = () => {
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                   >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {registerState.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               }
             />
           </FormControl>
-
-
-          <Button onSubmit={handleSubmit}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </form>
       </p>
     </div>
-  );
+  )
 
   return (
     <div>
@@ -161,7 +182,7 @@ const Register = () => {
         {body}
       </Modal>
     </div>
-  );
+  )
 }
 
 export default Register
