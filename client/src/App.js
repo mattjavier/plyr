@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles' 
 import logo from './assets/logo.jpg'
 
+import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 import About from './pages/About'
@@ -17,11 +18,14 @@ const theme = createMuiTheme({
     background: {
       default: '#263238'
     },
+    surface: {
+      default: '#4f5b62'
+    },
     primary: {
       main: '#845bb3',
     },
     secondary: {
-      main: '#845bb3',
+      main: '#414679',
     },
     text: {
       primary: '#845bb3',
@@ -36,12 +40,12 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <div>
           <CssBaseline />
-          {/* <Navbar /> */}
+          <Navbar />
           <Switch>
-            <Route exact path="/" component={LogIn}/>
-            <Route exact path="/about" component={About}/>
-            <Route exact path="/profile" component={Profile}/>
-            <Route exact path="/match" component={Matches}/>
+            <Route exact path="/" component={LogIn} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/matches" component={Matches} />
           </Switch>
           <Footer />
         </div>
