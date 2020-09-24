@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Tags() {
+const Genre = () => {
   const classes = useStyles();
 
   return (
@@ -62,3 +62,5 @@ const genres = [
   { genre: 'Strategy' },
   { genre: 'Other' },
 ];
+
+export default Genre
