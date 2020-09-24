@@ -68,12 +68,6 @@ const Register = () => {
     setOpen(false)
   }
 
-  const handleSubmit = () => {
-    setOpen(false)
-    // post request goes here
-    // we need some kind of toast or something to indicate account crated
-  }
-
   // Register
   const [registerState, setRegisterState] = useState({
     name: '',

@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-const Player = () => {
+const Player = props => {
   return (
-    <h1>Player</h1>
+    <>
+      <p>{props.player.bio}</p>
+    </>
   )
 }
 

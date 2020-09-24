@@ -1,15 +1,15 @@
 const router = require('express').Router()
-const { User } = require('../models')
+const { User, Player } = require('../models')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 // User registration post
 router.post('/users/register', (req, res) => {
-    const { name, username, email, password } = req.body
-    User.register(new User({ name, username, email }), password, err => {
-        if (err) { console.log(err) }
-        res.sendStatus(200)
-    })
+  const { name, username, email, password } = req.body
+  User.register(new User({ name, username, email }), password, err => {
+    if (err) { console.log(err) }
+    res.sendStatus(200)
+  })
 })
 
 // User login route
@@ -25,6 +25,14 @@ router.post('/users/login', (req, res) => {
 router.get('/users', passport.authenticate('jwt'), (req, res) => {
     res.json(req.user)
 })
+
+router.get('/users/players', passport.authenticate('jwt'), (req, res) => {
+  // res.json(req.user.player_profile)
+  Player.findById(req.user.player_profile[0])
+    .then(player => res.json(player))
+    .catch(err => console.log(err))
+})
+
 
 // User put for updating username, email, or password reset
 router.put('users/:id', passport.authenticate('jwt'), (req, res) => {
