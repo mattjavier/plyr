@@ -16,12 +16,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "@material-ui/core": "^4.11.0",
     "axios": "^0.20.0",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
     "mongoose": "^5.10.6",
     "react-router-dom": "^5.2.0"
+=======
+    "dotenv": "^8.2.0",
+    "axios": "^0.20.0",
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^6.0.1"
+>>>>>>> e441984d90332436b5285435ceff34b1d6b8a574
   },
   "devDependencies": {
     "concurrently": "^5.3.0"
