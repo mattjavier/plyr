@@ -1,14 +1,20 @@
 const { model, Schema } = require('mongoose')
 
-var ImageSchema = new Schema({ 
-    name: String, 
-    description: String, 
-    img: 
-    { 
+const Image = new Schema({
+    name: {
+        type: String,
+        required: false
+    },
+    description: {
+        type: String,
+        required: false
+    },
+    image: {
         data: Buffer,
         contentType: String
-    } 
-}); 
+        
+    }
+}, { timestamps: true })
 
 
-module.exports = new model('Image', ImageSchema)
+module.exports = model('Image', Image)
