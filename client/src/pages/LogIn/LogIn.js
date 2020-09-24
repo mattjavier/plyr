@@ -57,12 +57,15 @@ const LogIn = () => {
         if (token) {
           localStorage.setItem('user', token)
           console.log(token)
-          // window.location = '/profile'
+          window.location = '/profile'
         }
         else {
           alert('WRONG!')
         }})
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        window.location = '/'
+      })
   }
 
   const handleClickShowPassword = () => {
