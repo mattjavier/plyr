@@ -15,7 +15,6 @@ const bodyParser = require('body-parser')
 var Image = require('./models')
 app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(bodyParser.json())
-app.set("view engine", "ejs")
 
 
 if (process.env.NODE_ENV === 'production') {

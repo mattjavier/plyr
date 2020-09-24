@@ -6,45 +6,47 @@ const { join } = require('path')
 // Image upload crap
 var multer = require('multer');
 var storage = multer.diskStorage({
-    destination: function(req, file, cd) {
+    destination: function (req, file, cd) {
         const uploadsDir = join(__dirname, '..', 'uploads', `${Date.now()}`)
         fs.mkdirSync(uploadsDir)
         cb(null, uploadsDir)
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, file.originalname)
     }
 })
-var upload = multer({ storage: storage }); 
+var upload = multer({ storage: storage });
 
 
 
 // Actual routes
-router.get('/images', (req, res) => { 
-    Image.find({}, (err, items) => { 
-        if (err) { 
-            console.log(err); 
-        } 
-        else { 
-            res.render('app', { items: items }); 
-        } 
-    }); 
-}); 
+router.get('/images', (req, res) => {
+    Image.find()
+        .then(item => {
+            res.json(item)
+        })
+        .catch(err => { console.log(err) })
+})
 
 router.post('/images', upload.single('image'), (req, res, next) => {
+
     var obj = {
         name: req.body.name,
+        description: req.body.description,
         img: {
-            data: fs.readFileSync(join(__dirname + '..' + '/uploads/' + req.file.filename)),
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
         }
     }
-    Image.create(obj, (err, item) => {
-        if (err) { console.log(err) }
-        else {
-            res.redirect('/images')
+    imgModel.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
         }
-    })
-})
+        else {
+            // item.save(); 
+            res.json(item)
+        }
+    });
+});
 
 module.exports = router
