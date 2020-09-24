@@ -89,6 +89,7 @@ const Register = () => {
 
   registerState.handleRegister = event => {
     event.preventDefault()
+    setOpen(false)
     console.log(registerState)
     axios.post('/api/users/register', {
       name: registerState.name,
@@ -115,7 +116,17 @@ const Register = () => {
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">Register</h2>
       <p id="simple-modal-description">
-        <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <form className={classes.root} noValidate autoComplete="off" onSubmit={registerState.handleRegister}>
+          {/* Name Field */}
+          <TextField
+            required
+            id="outlined-required"
+            label="Name"
+            variant="outlined"
+            name="name"
+            onChange={registerState.handleInputChange}
+          />
+
           {/* Email Field */}
           <TextField
             required
@@ -162,7 +173,7 @@ const Register = () => {
               }
             />
           </FormControl>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button onClick={registerState.handleRegister}>Submit</Button>
         </form>
       </p>
     </div>
