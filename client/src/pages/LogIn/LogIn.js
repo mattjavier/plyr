@@ -112,7 +112,7 @@ const LogIn = () => {
             }
           />
         </FormControl>
-        <Button onSubmit={loginState.handleLogIn}>Log In</Button>
+        <Button onClick={loginState.handleLogin}>Log In</Button>
         <Register />
 
       </form>
