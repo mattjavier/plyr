@@ -11,7 +11,8 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import Switch from '@material-ui/core/Switch'
-
+import System from '../../components/System'
+import Genre from '../../components/Genre'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,30 +82,42 @@ const Profile = () => {
       <h1>Profile</h1>
 
       <form className={classes.root} noValidate autoComplete="off">
-        {/* Bio */}
-        <p><TextField
-          id="outlined-multiline-static"
-          label="Bio"
-          multiline
-          rows={4}
-          variant="outlined"
-        /></p>
 
+        {/* Bio */}
+        <p>
+          <TextField
+            id="outlined-multiline-static"
+            label="Bio"
+            placeholder="Describe your gaming style."
+            multiline
+            rows={4}
+            variant="outlined"
+          />
+        </p>
+
+        {/* Discord username */}
+        <TextField
+          id="outlined-required"
+          label="Discord Username"
+          variant="outlined"
+        />
 
         {/* Competitive Switch */}
-        <p>Do you consider yourself to be a competitive player?</p>
-        No <Switch
+        <p>Which best describes your playing style?</p>
+        <p>Casual <Switch
           checked={state.checkedA}
           onChange={handleSwitchChange}
           name="checkedA"
           inputProps={{ 'aria-label': 'secondary checkbox' }}
-        /> Yes
+        /> Competitive</p>
+
+        <System />
+
+        <Genre />
 
 
-
-        
         <p>
-        <Button>Save</Button>
+          <Button>Save</Button>
         </p>
       </form>
     </>
