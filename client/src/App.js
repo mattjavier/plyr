@@ -2,7 +2,7 @@ import React from 'react'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles' 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import logo from './assets/logo.jpg'
 
 import Navbar from './components/Navbar'
@@ -47,6 +47,10 @@ const App = () => {
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/matches" component={Matches} />
           </Switch>
+          <br />
+          <br />
+          <br />
+          <br />
           <Footer />
         </div>
       </MuiThemeProvider>
