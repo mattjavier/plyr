@@ -113,6 +113,14 @@ const useStyles = makeStyles((theme) => ({
     left: 'calc(50% - 9px)',
     transition: theme.transitions.create('opacity'),
   },
+  instructions: {
+    color: '#ffffff'
+  },
+  input: {
+    '& .MuiInputBase-root': {
+      backgroundColor: '#161d22'
+    }
+  }
 }));
 
 const System = () => {
@@ -120,8 +128,21 @@ const System = () => {
 
   return (
     <>
-      <p>Which gaming system(s) do you use?</p>
-      <p>(Optional: Provide your player handle for each system.)</p>
+      <Typography
+        variant="overline"
+        className={classes.instructions}
+      >
+        Which gaming system(s) do you use?
+      </Typography>
+      <p>
+        <Typography
+          variant="overline"
+          className={classes.instructions}
+        >
+          (Optional: Provide your player handle for each system.)
+        </Typography>
+      </p>
+      
       <div className={classes.root}>
         {images.map((image) => (
           <ButtonBase
@@ -160,6 +181,7 @@ const System = () => {
                     // labelClassName={classes.['input-label']}
                     // inputProps={{ style: { textAlign: "center", opacity: "100%" } }}
                     variant="outlined"
+                    // className={classes.input}
                   />
                 </div>
               </Typography>

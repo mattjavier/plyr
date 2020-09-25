@@ -14,6 +14,7 @@ import Switch from '@material-ui/core/Switch'
 import System from '../System'
 import Genre from '../Genre'
 import Game from '../Game'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +32,14 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '25ch',
   },
+  instructions: {
+    color: '#ffffff'
+  },
+  input: {
+    '& .MuiInputBase-root': {
+      backgroundColor: '#161d22'
+    }
+  }
 }));
 
 const BuildProfile = () => {
@@ -87,6 +96,7 @@ const BuildProfile = () => {
           multiline
           rows={4}
           variant="outlined"
+          className={classes.input}
         />
       </p>
 
@@ -95,10 +105,18 @@ const BuildProfile = () => {
         id="outlined-required"
         label="Discord Username"
         variant="outlined"
+        className={classes.input}
       />
 
       {/* Competitive Switch */}
-      <p>Which best describes your playing style?</p>
+      <p>
+        <Typography
+          variant="overline"
+          className={classes.instructions}
+        >
+          Which best describes your playing style?
+        </Typography>
+      </p>
       <p>Casual <Switch
         checked={state.checkedA}
         onChange={handleSwitchChange}
