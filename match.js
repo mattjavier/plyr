@@ -10,14 +10,17 @@ const genre1 = ['FPS', 'MOBA', 'Adventure']
 
 const genre2 = ['RPG', 'MOBA', 'Fighting']
 
-const arr1 = games1.concat(systems1).concat(genre1)
-const arr2 = games2.concat(systems2).concat(genre2)
+
+//combining three separate arrays into one large one contatining games, systems and genres. 
+const userArr = games1.concat(systems1).concat(genre1)
+const matchArr = games2.concat(systems2).concat(genre2)
 
 
-function match(arr1, arr2) {
+//this function will compare all the matches between the two arrays and push them into one. 
+function match(userArr, matchArr) {
     const finalarray = []
 
-    arr1.forEach((i) => arr2.forEach((j) => {
+    userArr.forEach((i) => matchArr.forEach((j) => {
         {
             if (i === j) {
                 finalarray.push(i)
@@ -26,8 +29,9 @@ function match(arr1, arr2) {
         }
         
     }))
+    //the final array contains all the similarities between two people and will give a number-percentage based on the user's and other person's interests on how much theyd match
     console.log(finalarray)
-    let points = (finalarray.length / arr1.length) * 100
+    let points = Math.round((finalarray.length / userArr.length) * 100)
     // if (finalarray.length <= 1) {
     //     points++
     // }
@@ -41,7 +45,7 @@ function match(arr1, arr2) {
 }
 
 
-match(arr1, arr2)
+match(userArr, matchArr)
 
 
 
