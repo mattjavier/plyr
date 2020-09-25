@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import Player from '../../components/Player'
+import BuildProfile from '../../components/BuildProfile'
 
 
 const Profile = () => {
@@ -49,7 +50,7 @@ const Profile = () => {
       {
         playerState.exists ? 
         <Player player={playerState} />
-        : <form>Form</form>
+        : <BuildProfile />
       }
     </>
   )
