@@ -26,7 +26,17 @@ const Profile = () => {
       .then(({ data: player }) => {
         console.log(player)
 
-        setPlayerState({ ...playerState, exists: true, avatar: player.avatar, bio: player.bio, systems: player.systems, games: player.games, genres: player.genres, competetive: player.competetive, user: player.user })
+        setPlayerState({ 
+          ...playerState, 
+          exists: true, 
+          avatar: player.avatar, 
+          bio: player.bio, 
+          systems: player.systems, 
+          games: player.games, 
+          genres: player.genres, 
+          competetive: player.competetive, 
+          user: player.user 
+        })
       })
       .catch(err => {
         console.log(err)
