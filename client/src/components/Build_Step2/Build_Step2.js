@@ -1,10 +1,7 @@
 import React from 'react'
 import System from '../System'
 import Genre from '../Genre'
-
-
-
-
+import Game from '../Game'
 
 const Build_Step2 = () => {
 
@@ -14,6 +11,8 @@ const Build_Step2 = () => {
       <System />
 
       <Genre />
+
+      <Game />
     </>
   )
 }
