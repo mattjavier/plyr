@@ -8,16 +8,15 @@ const { Strategy } = require('passport-local')
 const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
 const { User } = require('./models')
 var bodyParser = require('body-parser')
-var mongoose = require('mongoose')
-var fs = require('fs')
-var imgModel = require('./models')
+// var mongoose = require('mongoose')
+// var fs = require('fs')
+// var imgModel = require('./models')
 
 
 const app = express()
 
 // Image npms
-const bodyParser = require('body-parser')
-var Image = require('./models')
+// var Image = require('./models')
 app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(bodyParser.json())
 

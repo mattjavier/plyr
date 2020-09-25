@@ -3,6 +3,7 @@ const { Image } = require('../models')
 var fs = require('fs'); 
 var path = require('path'); 
 var multer = require('multer'); 
+const { Base64 } = require('js-base64')
 
 var storage = multer.diskStorage({ 
 	destination: (req, file, cb) => { 
@@ -22,7 +23,13 @@ router.get('/images', (req, res) => {
             console.log(err)
         }
         else {
-            res.json(items)
+            res.json(items.map(item => ({
+                ...item,
+                image: {
+                    contentType: item.image.contentType,
+                    data: Base64.fromUint8Array(new Uint8Array(item.image.data))
+                }
+            })))
             console.log('works')
         }
     })
