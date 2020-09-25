@@ -41,7 +41,7 @@ const Profile = () => {
       })
       .catch(err => {
         console.log(err)
-        window.location = '/'
+        // window.location = '/'
       })
   }, [])
 

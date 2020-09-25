@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 
 const useStyles = makeStyles((theme) => ({
   paper: { 
@@ -13,9 +15,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: theme.spacing(2),
+    marginTop: 20,
+    margin: 'auto',
     borderRadius: 0,
-    width: '80%',
+    width: '90%',
     height: '100%'
   },
   top: {
@@ -33,12 +36,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 20
   },
   end: {
-    width: '80%',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
+    width: '95%',
     borderRadius: 0,
     marginBottom: 10
   },
@@ -51,17 +49,29 @@ const Player = props => {
   const classes = useStyles()
 
   return (
-    <Paper className={classes.paper} elevation={3}>
-      <Paper className={classes.top}>
-        <Avatar className={classes.avatar}>P</Avatar>
-
-      </Paper> 
-      <Paper className={classes.end} elevation={2}>
-        <Typography className={classes.text}>
-          {props.player.bio}
-        </Typography>
-      </Paper>  
-    </Paper>
+    <Grid>
+      <Paper className={classes.paper} elevation={3}>
+        <Paper className={classes.top}>
+          <Avatar className={classes.avatar}>P</Avatar>
+          <Typography
+            className={classes.text} 
+            variant="overline"
+          >
+            Discord: Name
+          </Typography>
+        </Paper> 
+        <Paper className={classes.end} elevation={5}>
+          <div>
+            <Typography className={classes.text}>
+              Player Bio: {props.player.bio}
+            </Typography>
+            <Typography className={classes.text}>
+              
+            </Typography>
+          </div>
+        </Paper>  
+      </Paper>
+    </Grid>
   )
 }
 

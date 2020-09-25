@@ -94,6 +94,13 @@ const Register = () => {
       .then(() => {
         console.log('Register complete')
         // Toast or notification function goes here
+        setRegisterState({
+          ...registerState,
+          name: '',
+          email: '',
+          username: '',
+          password: ''
+        })
       })
       .catch(err => console.log(err))
   }
