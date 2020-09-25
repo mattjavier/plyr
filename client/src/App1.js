@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 
+
 const App = () => {
     const [imageState, setImageState] = useState({
         images: []
@@ -18,7 +19,6 @@ const App = () => {
 
     return (
         <>
-          {/* <img src={imageState.images[0].data}/> */}
           {imageState.images.map(({data}) => <img src={`data:image/jpeg;base64,${data}`} />)}
                             
         </>

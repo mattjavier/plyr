@@ -4,10 +4,17 @@ const { Player, User } = require('../models')
 
 router.get('/players', (req, res) => {
     Player.find()
-    // .populate('user')
-    .then(player => res.json(player))
+    .populate('user')
+    .then(players => res.json(players))
     .catch(err => console.error(err))
 })
+
+// router.get('/players/match', (req, res) => {
+//     Player.find({ competetive: false })
+//      .then(players => res.json(players))
+//      .catch(err => console.log(err))
+ 
+//  })
 
 router.post('/players', (req,res)=> {
     Player.create(req.body)

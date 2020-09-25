@@ -25,6 +25,10 @@ const Player = new Schema({
     type: Boolean,
     required: false
   },
+  discord:{
+    type: String,
+    required: false
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
