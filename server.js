@@ -7,8 +7,19 @@ const passport = require('passport')
 const { Strategy } = require('passport-local')
 const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
 const { User } = require('./models')
+var bodyParser = require('body-parser')
+// var mongoose = require('mongoose')
+// var fs = require('fs')
+// var imgModel = require('./models')
+
 
 const app = express()
+
+// Image npms
+// var Image = require('./models')
+app.use(bodyParser.urlencoded({ extended: false })) 
+app.use(bodyParser.json())
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(join(__dirname, 'client', 'build')))
@@ -16,6 +27,8 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+
 
 app.use(passport.initialize())
 app.use(passport.session())
