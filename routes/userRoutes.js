@@ -23,7 +23,18 @@ router.post('/users/login', (req, res) => {
 
 // User get players locked behind token login
 router.get('/users', passport.authenticate('jwt'), (req, res) => {
-    res.json(req.user)
+    User.findById(req.user._id)
+    .populate('player_profile')
+    .then(users => res.json(users))
+    .catch(err => console.error(err))
+})
+
+router.get('/users/all', passport.authenticate('jwt'), (req, res) => {
+    User.find()
+    .then(users => {
+        res.json(users)
+    })
+    .catch(err => console.log(err))
 })
 
 router.get('/users/players', passport.authenticate('jwt'), (req, res) => {
