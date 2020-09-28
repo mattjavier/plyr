@@ -4,6 +4,7 @@ const { Player, User } = require('../models')
 router.get('/players', (req, res) => {
     Player.find()
     // .populate('user')
+    // .populate('avatar')
     .then(player => res.json(player))
     .catch(err => console.error(err))
 })
