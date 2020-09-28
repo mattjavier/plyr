@@ -51,6 +51,10 @@ const Navbar = () => {
     setOpen({ ...openState, open })
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+  }
+
 
   return (
     <div className={classes.root}>
@@ -88,6 +92,13 @@ const Navbar = () => {
                     <Button className={classes.link} onClick={toggleDrawer(false)}>Log In</Button>
                   </Link>
                 </ListItem>
+                <ListItem>
+                  <Link className={classes.link} to="/" onClick={handleLogout}>
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>
+                      Logout
+                    </Button>
+                  </Link>
+                </ListItem>
               </List>
             </Drawer>
           </Hidden>
@@ -106,6 +117,9 @@ const Navbar = () => {
             </Link>
             <Link className={classes.link} to="/">
               <Button className={classes.link}>Log In</Button>
+            </Link>
+            <Link className={classes.link} to="/">
+              <Button className={classes.link} onClick={handleLogout}>Logout</Button>
             </Link>
           </Hidden>
 

@@ -19,6 +19,10 @@ const Profile = () => {
   })
 
   useEffect(() => {
+
+    // get user, if they do not exist return to login page
+    
+    // get player corresponding to user if any, if not, build profile
     axios.get('/api/users/players', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
@@ -41,7 +45,7 @@ const Profile = () => {
       })
       .catch(err => {
         console.log(err)
-        // window.location = '/'
+        //window.location = '/'
       })
   }, [])
 
