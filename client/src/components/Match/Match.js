@@ -35,7 +35,7 @@ const Match = props => {
         <Grid container spacing={2}>
           <Grid item xs="40px">
             <div className={classes.avatar}>
-              <Avatar>{props.match.username.slice(0, 1)}</Avatar>
+              <Avatar>{props.match.username.slice(0, 1).toUpperCase()}</Avatar>
             </div>
           </Grid>
           <Grid item xs={6} sm={3}>

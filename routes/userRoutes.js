@@ -21,6 +21,11 @@ router.post('/users/login', (req, res) => {
     })
 })
 
+// Get player info from user token
+router.get('/users/myself', passport.authenticate('jwt'), (req, res) => {
+  res.json(req.user)
+})
+
 // User get players locked behind token login
 router.get('/users', passport.authenticate('jwt'), (req, res) => {
     User.findById(req.user._id)
@@ -37,9 +42,11 @@ router.get('/users/all', passport.authenticate('jwt'), (req, res) => {
     .catch(err => console.log(err))
 })
 
-// Get player info from user token
-router.get('/users/myself', passport.authenticate('jwt'), (req, res) => {
-    res.json(req.user)
+router.get('/users/players', passport.authenticate('jwt'), (req, res) => {
+  // res.json(req.user.player_profile)
+  Player.findById(req.user.player_profile)
+    .then(player => res.json(player))
+    .catch(err => console.log(err))
 })
 
 // User put for updating username, email, or password reset
