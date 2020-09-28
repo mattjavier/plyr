@@ -10,9 +10,9 @@ const App = () => {
 
     matchesState.handleMatch = event => {
         event.preventDefault()
-        // console.log(matchesState.userGames)
+        // console.log(matchesState.userProfile)
         // console.log(matchesState.matches[1])
-        const userArr = matchesState.userGames.games.concat(matchesState.userGames.systems).concat(matchesState.userGames.genres)
+        const userArr = matchesState.userProfile.games.concat(matchesState.userProfile.systems).concat(matchesState.userProfile.genres)
 
         matchesState.matches.map(player => {
             console.log(player)
@@ -60,8 +60,9 @@ const App = () => {
         console.log('Finding Players')
         axios.get('/api/players')
             .then(({ data }) => {
-                console.log(data)
-                setMatchesState({ ...matchesState, matches: data })
+                let player_profile = matchesState.userProfile._id
+                let filteredResults = data.filter(res => res._id !== player_profile)
+                setMatchesState({ ...matchesState, matches: filteredResults })
             })
             .catch(err => console.log(err))
     }
@@ -96,7 +97,7 @@ const App = () => {
                 axios.get(`/api/players/${player_profile}`)
                     .then(({ data }) => {
                         console.log(data)
-                        setMatchesState({ ...matchesState, userGames: data })
+                        setMatchesState({ ...matchesState, userProfile: data })
                     })
                     .catch(err => console.log(err))
             })
