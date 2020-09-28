@@ -55,11 +55,44 @@ const Matches = () => {
                 console.log(filteredResults)
 
                 // Part 3
-                const userArr = userProfileData.games.concat(userProfileData.systems).concat(userProfileData.genres)
+                let userArr = userProfileData.games.concat(userProfileData.genres)
+
+                if (userProfileData.xbox.length > 0) {
+                  userArr = [...userArr, 'xbox']
+                }
+
+                if (userProfileData.playstation.length > 0) {
+                  userArr = [...userArr, 'playstation']
+                }
+
+                if (userProfileData.nintendoSwitch.length > 0) {
+                  userArr = [...userArr, 'nintendo switch']
+                }
+
+                if (userProfileData.pc.length > 0) {
+                  userArr = [...userArr, 'pc']
+                }
 
                 filteredResults.map(player => {
                   console.log(player)
-                  const matchArr = player.games.concat(player.systems).concat(player.genres)
+                  let matchArr = player.games.concat(player.genres)
+                  
+                  if (player.xbox.length > 0) {
+                    matchArr = [...matchArr, 'xbox']
+                  }
+  
+                  if (player.playstation.length > 0) {
+                    matchArr = [...matchArr, 'playstation']
+                  }
+  
+                  if (player.nintendoSwitch.length > 0) {
+                    matchArr = [...matchArr, 'nintendo switch']
+                  }
+  
+                  if (player.pc.length > 0) {
+                    matchArr = [...matchArr, 'pc']
+                  }
+
                   const finalarray = []
                   userArr.forEach((i) => matchArr.forEach((j) => {
                     {
@@ -71,12 +104,14 @@ const Matches = () => {
                   console.log(finalarray)
                   let points = Math.round((finalarray.length / userArr.length) * 100)
                   console.log(points)
-                  setMatchesState({ ...matchesState, finalMatches: {
+                  let newArray = matchesState.finalMatches
+                  newArray.push({
                     playerId: player._id,
                     username: player.user.username,
                     matches: finalarray,
                     points: points
-                  } })
+                  })
+                  setMatchesState({ ...matchesState, finalMatches: newArray })
                 })
 
               })
@@ -99,13 +134,13 @@ const Matches = () => {
         </Grid>
         { matchesState.finalMatches.length > 0 ? (
           matchesState.finalMatches.map(match => (
-            console.log(match)
-            // <Match
-            //   match={match}
-            //   key={match.username}
-            //   />
+            // console.log(match)
+            <Match
+              match={match}
+              key={match.username}
+            />
           ))
-        ): console.log('nothing in finalmatches') }
+        ) : console.log('nothing in finalmatches') }
       </div >
     </>
   )

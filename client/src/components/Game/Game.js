@@ -1,23 +1,11 @@
 /* eslint-disable no-use-before-define */
-<<<<<<< HEAD
 import React, { useState, useContext } from 'react'
 import Button from '@material-ui/core/Button'
-import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import API from '../../utils/API'
 import Chip from '@material-ui/core/Chip'
-import DoneIcon from '@material-ui/icons/Done'
 import ProfileContext from '../../utils/ProfileContext'
 
-=======
-import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-// import API from '../../utils/API'
-import Chip from '@material-ui/core/Chip';
->>>>>>> f8f58690ef4881abc04b892d808c19682a380895
 
 const useStyles = makeStyles((theme) => ({
   root: {
