@@ -3,7 +3,6 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles' 
-import logo from './assets/logo.jpg'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
