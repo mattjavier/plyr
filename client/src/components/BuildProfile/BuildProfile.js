@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -119,7 +118,7 @@ const BuildProfile = () => {
       .catch(err => console.log(err))
  
   }
-  
+
   return (
     <form 
       className={classes.root} 
