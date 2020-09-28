@@ -3,11 +3,17 @@ const { Player, User } = require('../models')
 
 router.get('/players', (req, res) => {
     Player.find()
-    // .populate('user')
-    // .populate('avatar')
-    .then(player => res.json(player))
+    .populate('user')
+    .then(players => res.json(players))
     .catch(err => console.error(err))
 })
+
+// router.get('/players/match', (req, res) => {
+//     Player.find({ competetive: false })
+//      .then(players => res.json(players))
+//      .catch(err => console.log(err))
+ 
+//  })
 
 router.get('/players/:id', (req, res) => {
     Player.findById(req.params.id)
