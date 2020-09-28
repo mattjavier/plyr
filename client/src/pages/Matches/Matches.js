@@ -123,7 +123,7 @@ const Matches = () => {
       })
       .catch(err => {
         console.log(err)
-      }) 
+      })
   }, [])
 
   return (
@@ -132,10 +132,9 @@ const Matches = () => {
         localStorage.getItem('user') ? (
           <div className={classes.root}>
             <h1>Matches</h1>
-            <button onClick={matchesState.handleCheckResults}>Check filtered results</button>
 
             <Grid container spacing={3}>
-              {/* <Match /> */}
+
             </Grid>
             { matchesState.finalMatches.length > 0 ? (
               matchesState.finalMatches.map(match => (
@@ -145,7 +144,7 @@ const Matches = () => {
                   key={match.username}
                 />
               ))
-            ) : console.log('nothing in finalmatches') }
+            ) : console.log('nothing in finalmatches')}
           </div >
         ) : window.location = '/'
       }
