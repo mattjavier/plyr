@@ -48,7 +48,7 @@ const Match = props => {
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Modal />
+            <Modal playerInfo={props.match.playerInfo} />
           </Grid>
         </Grid>
       </Paper>

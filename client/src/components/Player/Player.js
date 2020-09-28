@@ -7,7 +7,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
-  paper: { 
+  paper: {
     backgroundColor: '#ffffff',
     display: 'flex',
     flexWrap: 'wrap',
@@ -46,56 +46,70 @@ const useStyles = makeStyles((theme) => ({
 
 const Player = props => {
   const classes = useStyles()
-
+  console.log(props.player)
   return (
     <Grid>
       <Paper className={classes.paper} elevation={3}>
         <Paper className={classes.top}>
           <Avatar className={classes.avatar}>{props.player.avatar.toUpperCase()}</Avatar>
           <Typography
-            className={classes.text} 
+            className={classes.text}
             variant="overline"
           >
             Discord: {props.player.discord}
           </Typography>
-        </Paper> 
-        <Paper className={classes.end} elevation={5}>
-          <div>
-            <Typography className={classes.text}>
-              Player Bio: {props.player.bio}
-            </Typography>
-            {
-              props.player.xbox.length > 0 ? (
-                <Typography className={classes.text}>
-                  Xbox: {props.player.xbox}
-                </Typography> 
-              ) : null
-            }
-            {
-              props.player.playstation.length > 0 ? (
-                <Typography className={classes.text}>
-                  PlayStation: {props.player.playstation}
-                </Typography> 
-              ) : null
-            }
-            {
-              props.player.nintendoSwitch.length > 0 ? (
-                <Typography className={classes.text}>
-                  Nintendo Switch: {props.player.nintendoSwitch}
-                </Typography> 
-              ) : null
-            }
-            {
-              props.player.pc.length > 0 ? (
-                <Typography className={classes.text}>
-                  PC: {props.player.pc}
-                </Typography> 
-              ) : null
-            }
-            <Typography className={classes.text}>
-            </Typography>
-          </div>
-        </Paper>  
+        </Paper>
+        {/* <Paper className={classes.end} elevation={5}> */}
+        <div>
+          <Typography className={classes.text}>
+            Player Bio: {props.player.bio}
+          </Typography>
+          {
+            props.player.xbox.length > 0 ? (
+              <Typography className={classes.text}>
+                Xbox: {props.player.xbox}
+              </Typography>
+            ) : null
+          }
+          {
+            props.player.playstation.length > 0 ? (
+              <Typography className={classes.text}>
+                PlayStation: {props.player.playstation}
+              </Typography>
+            ) : null
+          }
+          {
+            props.player.nintendoSwitch.length > 0 ? (
+              <Typography className={classes.text}>
+                Nintendo Switch: {props.player.nintendoSwitch}
+              </Typography>
+            ) : null
+          }
+          {
+            props.player.pc.length > 0 ? (
+              <Typography className={classes.text}>
+                PC: {props.player.pc}
+              </Typography>
+            ) : null
+          }
+          {
+            props.player.genres.length > 0 ? (
+              <Typography className={classes.text}>
+                Genres: {props.player.genres.join(", ")}
+              </Typography>
+            ) : null
+          }
+          {
+            props.player.games.length > 0 ? (
+              <Typography className={classes.text}>
+                Games: {props.player.games.join(", ")}
+              </Typography>
+            ) : null
+          }
+          <Typography className={classes.text}>
+          </Typography>
+        </div>
+        {/* </Paper>   */}
       </Paper>
     </Grid>
   )
