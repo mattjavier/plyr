@@ -1,12 +1,17 @@
 const router = require('express').Router()
 const { Player, User } = require('../models')
 
-
 router.get('/players', (req, res) => {
     Player.find()
     // .populate('user')
     .then(player => res.json(player))
     .catch(err => console.error(err))
+})
+
+router.get('/players/:id', (req, res) => {
+    Player.findById(req.params.id)
+    .then(player => res.json(player))
+    .catch(err => console.log(err))
 })
 
 router.post('/players', (req,res)=> {

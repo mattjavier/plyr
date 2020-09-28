@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User } = require('../models')
+const { User, Player } = require('../models')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
@@ -24,6 +24,14 @@ router.post('/users/login', (req, res) => {
 // User get players locked behind token login
 router.get('/users', passport.authenticate('jwt'), (req, res) => {
     res.json(req.user)
+})
+
+// Get player info from user token
+router.get('/users/myself', passport.authenticate('jwt'), (req, res) => {
+    res.json(req.user)
+    Player.findById(req.user._id)
+        .then(player => res.json(player))
+        .catch(err => console.log(err))
 })
 
 // User put for updating username, email, or password reset
