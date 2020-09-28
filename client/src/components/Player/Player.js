@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
+import YoutubeEmbedVideo from 'youtube-embed-video'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
 const Player = props => {
   const classes = useStyles()
   console.log(props.player)
+
+  let video = 'https://www.youtube.com/watch?v='
+  let start = video.indexOf('=')
+
   return (
     <Grid>
       <Paper className={classes.paper} elevation={3}>
@@ -106,8 +111,11 @@ const Player = props => {
               </Typography>
             ) : null
           }
-          <Typography className={classes.text}>
-          </Typography>
+          {
+            props.player.highlight ? (
+              <YoutubeEmbedVideo videoId={props.player.highlight.slice(start+1)} suggestions={false} />
+            ) : null
+          }
         </div>
         {/* </Paper>   */}
       </Paper>

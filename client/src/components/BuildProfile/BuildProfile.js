@@ -101,6 +101,7 @@ const BuildProfile = () => {
           genres: profileState.genres,
           competetive: profileState.competetive,
           discord: profileState.discord,
+          highlight: profileState.highlight,
           user: data._id
         }
 
