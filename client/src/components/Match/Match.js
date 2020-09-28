@@ -23,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Match = () => {
+const Match = props => {
   const classes = useStyles();
+
 
   return (
 
@@ -34,17 +35,17 @@ const Match = () => {
         <Grid container spacing={2}>
           <Grid item xs="40px">
             <div className={classes.avatar}>
-              <Avatar>H</Avatar>
+              <Avatar>{props.match.username.slice(0, 1)}</Avatar>
             </div>
           </Grid>
           <Grid item xs={6} sm={3}>
             <Typography color="textPrimary" variant="h5" component="h5">
-              Username
+              {props.match.username}
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
             <Typography variant="h6" color="textPrimary" component="h6">
-              Match: 100%
+              {props.match.points}%
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>

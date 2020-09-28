@@ -49,7 +49,6 @@ router.get('/users/players', passport.authenticate('jwt'), (req, res) => {
     .catch(err => console.log(err))
 })
 
-
 // User put for updating username, email, or password reset
 router.put('users/:id', passport.authenticate('jwt'), (req, res) => {
     User.findByIdAndUpdate(req.params.id, req.body)
