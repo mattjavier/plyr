@@ -29,42 +29,6 @@ const Matches = () => {
     console.log(matchesState.finalMatches)
   }
 
-  // matchesState.handleMatch = event => {
-  //   event.preventDefault()
-  //   const userArr = matchesState.userProfile.games.concat(matchesState.userProfile.systems).concat(matchesState.userProfile.genres)
-
-  //   matchesState.matches.map(player => {
-  //     console.log(player)
-  //     const matchArr = player.games.concat(player.systems).concat(player.genres)
-  //     const finalarray = []
-  //     userArr.forEach((i) => matchArr.forEach((j) => {
-  //       {
-  //         if (i === j) {
-  //           finalarray.push(i)
-  //         }
-
-  //       }
-
-  //     }))
-  //     console.log(finalarray)
-  //     let points = Math.round((finalarray.length / userArr.length) * 100)
-  //     console.log(points)
-  //   })
-  // }
-
-
-  // matchesState.handlePlayers = event => {
-  //   event.preventDefault()
-  //   console.log('Finding Players')
-  //   axios.get('/api/players')
-  //     .then(({ data }) => {
-  //       let player_profile = matchesState.userProfile._id
-  //       let filteredResults = data.filter(res => res._id !== player_profile)
-  //       setMatchesState({ ...matchesState, matches: filteredResults })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
   useEffect(() => {
     // Part 1
     axios.get('/api/users/myself', {
@@ -108,6 +72,7 @@ const Matches = () => {
                   let points = Math.round((finalarray.length / userArr.length) * 100)
                   console.log(points)
                   setMatchesState({ ...matchesState, finalMatches: {
+                    playerId: player._id,
                     username: player.user.username,
                     matches: finalarray,
                     points: points
@@ -121,38 +86,6 @@ const Matches = () => {
       })
       .catch(err => console.log(err))
 
-
-    // Second Part
-    // console.log('Finding Players')
-    // axios.get('/api/players')
-    //   .then(({ data }) => {
-    //     let player_profileId = matchesState.userProfile._id
-    //     let filteredResults = data.filter(res => res._id !== player_profileId)
-    //     setMatchesState({ ...matchesState, matches: filteredResults })
-    //   })
-    //   .catch(err => console.log(err))
-
-    // Third Part
-    // const userArr = matchesState.userProfile.games.concat(matchesState.userProfile.systems).concat(matchesState.userProfile.genres)
-
-    // matchesState.matches.map(player => {
-    //   console.log(player)
-    //   const matchArr = player.games.concat(player.systems).concat(player.genres)
-    //   const finalarray = []
-    //   userArr.forEach((i) => matchArr.forEach((j) => {
-    //     {
-    //       if (i === j) {
-    //         finalarray.push(i)
-    //       }
-
-    //     }
-
-    //   }))
-    //   console.log(finalarray)
-    //   let points = Math.round((finalarray.length / userArr.length) * 100)
-    //   console.log(points)
-    // })
-
   }, [])
 
   return (
@@ -162,8 +95,17 @@ const Matches = () => {
         <button onClick={matchesState.handleCheckResults}>Check filtered results</button>
 
         <Grid container spacing={3}>
-          <Match />
+          {/* <Match /> */}
         </Grid>
+        { matchesState.finalMatches.length > 0 ? (
+          matchesState.finalMatches.map(match => (
+            console.log(match)
+            // <Match
+            //   match={match}
+            //   key={match.username}
+            //   />
+          ))
+        ): console.log('nothing in finalmatches') }
       </div >
     </>
   )
