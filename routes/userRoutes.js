@@ -5,11 +5,11 @@ const jwt = require('jsonwebtoken')
 
 // User registration post
 router.post('/users/register', (req, res) => {
-    const { name, username, email, password } = req.body
-    User.register(new User({ name, username, email }), password, err => {
-        if (err) { console.log(err) }
-        res.sendStatus(200)
-    })
+  const { name, username, email, password } = req.body
+  User.register(new User({ name, username, email }), password, err => {
+    if (err) { console.log(err) }
+    res.sendStatus(200)
+  })
 })
 
 // User login route
@@ -19,6 +19,11 @@ router.post('/users/login', (req, res) => {
         if (err) { console.log(err) }
         res.json(user ? jwt.sign({ id: user._id }, process.env.SECRET) : null)
     })
+})
+
+// Get player info from user token
+router.get('/users/myself', passport.authenticate('jwt'), (req, res) => {
+  res.json(req.user)
 })
 
 // User get players locked behind token login
@@ -37,12 +42,11 @@ router.get('/users/all', passport.authenticate('jwt'), (req, res) => {
     .catch(err => console.log(err))
 })
 
-// Get player info from user token
-router.get('/users/myself', passport.authenticate('jwt'), (req, res) => {
-    res.json(req.user)
-    // Player.findById(req.user._id)
-    //     .then(player => res.json(player))
-    //     .catch(err => console.log(err))
+router.get('/users/players', passport.authenticate('jwt'), (req, res) => {
+  // res.json(req.user.player_profile)
+  Player.findById(req.user.player_profile)
+    .then(player => res.json(player))
+    .catch(err => console.log(err))
 })
 
 // User put for updating username, email, or password reset

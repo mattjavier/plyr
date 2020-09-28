@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import { localsName } from 'ejs'
 
 
 const App = () => {
@@ -44,9 +45,10 @@ const App = () => {
               Authorization: `Bearer ${localStorage.getItem('user')}`
             }})
             .then(({data}) => {
-                console.log(data)
+                setImageState({ ...imageState, player: data._id})
             })
             .catch(err => console.log(err))
+        
 
         // axios.get('/api/images/5f6e5f6b54eb5217ac0a971f')
         // .then(({ data }) => {
@@ -61,6 +63,8 @@ const App = () => {
 
     return (
         <>
+            {imageState.images.map(({data}) => <img src={`data:image/jpeg;base64,${data}`} />)}
+                            
             <h1>Photo testing</h1>
             {<img src={`data:${imageState.singleImage.contentType};base64,` + `${imageState.singleImage.data}`} />}
             {/* {imageState.images.map(({image}) => {

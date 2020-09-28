@@ -4,16 +4,27 @@ const Player = new Schema({
   avatar: {
     // type: Schema.Types.ObjectId,
     // ref: 'Image',
-    // required: false
-    type: String, 
+    type: String,
     required: false
   },
   bio: {
     type: String,
     required: false
   },
-  systems: {
-    type: Array,
+  xbox: {
+    type: String,
+    required: false
+  },
+  playstation: {
+    type: String,
+    required: false
+  },
+  nintendoSwitch: {
+    type: String,
+    required: false
+  },
+  pc: {
+    type: String,
     required: false
   },
   games: {

@@ -48,7 +48,7 @@ const LogIn = () => {
 
   loginState.handleLogin = event => {
     event.preventDefault()
-    console.log(loginState)
+    //console.log(loginState)
     axios.post('/api/users/login', {
       username: loginState.username,
       password: loginState.password,
@@ -60,7 +60,8 @@ const LogIn = () => {
           window.location = '/profile'
         }
         else {
-          alert('WRONG!')
+          //alert('WRONG!')
+          setLoginState({ ...loginState, username: '', password: '' })
         }})
       .catch(err => {
         console.log(err)
@@ -89,6 +90,7 @@ const LogIn = () => {
           label="Username"
           name="username"
           variant="outlined"
+          value={loginState.username}
           onChange={loginState.handleInputChange}
         />
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">

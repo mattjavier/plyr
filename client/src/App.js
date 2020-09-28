@@ -2,8 +2,7 @@ import React from 'react'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles' 
-import logo from './assets/logo.jpg'
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles' 
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -34,19 +33,29 @@ const theme = createMuiTheme({
   },
 })
 
+const useStyles = makeStyles((theme) => ({
+  div: {
+    paddingBottom: 50
+  }
+}))
+
 const App = () => {
+  const classes = useStyles()
+
   return (
     <Router>
       <MuiThemeProvider theme={theme}>
         <div>
           <CssBaseline />
           <Navbar />
-          <Switch>
-            <Route exact path="/" component={LogIn} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/matches" component={Matches} />
-          </Switch>
+          <div className={classes.div}>
+            <Switch>
+              <Route exact path="/" component={LogIn} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/matches" component={Matches} />
+            </Switch>
+          </div>
           <Footer />
         </div>
       </MuiThemeProvider>

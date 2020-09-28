@@ -69,8 +69,14 @@ router.post('/images', upload.single('image'), (req, res, next) => {
         if (err) { console.log(err) }
         else {
             item.save()
-            console.log(item._id)
             res.redirect('/api/images')
+            console.log(item._id)
+            Player.findByIdAndUpdate(req.body.player, {avatar: item._id} )
+                .then(player => {
+                    console.log('image uploaded to player')
+                    console.log(player)
+                })
+                .catch(err => console.log(err))
         }
     })
 

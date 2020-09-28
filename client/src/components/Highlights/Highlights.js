@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Avatar = () => {
+const Highlights = () => {
   return (
     <>
     </>
   )
 }
 
-export default Avatar
+export default Highlights

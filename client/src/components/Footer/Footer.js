@@ -26,8 +26,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   link: {
-    color: '#263238',
+    color: '#ffffff',
     textDecoration: 'none',
+    '&:hover': {
+      color: '#414679'
+    }
   },
   menuPaper: {
     backgroundColor: '#845bb3'
@@ -72,7 +75,7 @@ const Footer = () => {
           classes={{ paper: classes.menuPaper}}
         >
           <MenuItem onClick={handleClose} >
-            <Link to="/about" className={classes.link}>About</Link>
+            <Link to="/about" className={classes.link}>ABOUT</Link>
           </MenuItem>
         </Menu>
       </Toolbar>
