@@ -1,20 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import IconButton from '@material-ui/core/IconButton'
-import InputLabel from '@material-ui/core/InputLabel'
-import Visibility from '@material-ui/icons/Visibility'
-import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import Switch from '@material-ui/core/Switch'
 import System from '../System'
 import Genre from '../Genre'
 import Game from '../Game'
-import { Typography } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
+import ProfileContext from '../../utils/ProfileContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,52 +34,54 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#161d22'
     }
   }
-}));
+}))
 
 const BuildProfile = () => {
 
   const classes = useStyles()
 
-  const [state, setState] = React.useState({
+  const [compState, setCompState] = useState({
     checkedA: false
-  });
+  })
 
-  const handleSwitchChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  compState.handleSwitchChange = (event) => {
+    setCompState({ ...compState, [event.target.name]: event.target.checked })
+  }
 
-  const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-  });
+  const [profileState, setProfileState] = useState({
+    avatar: '', 
+    bio: '', 
+    xbox: '',
+    playstation: '',
+    switch: '',
+    pc: '', 
+    games: [], 
+    genres: [], 
+    competetive: false, 
+    discord: '',
+    user: '' 
+  })
 
-  const [profile, setBuild_Step1] = React.useState({
-    username: '',
-    bio: '',
-    competitive: false,
-    systems: [],
-    games: [],
-    genres: [],
-    profiles: []
-  });
+  profileState.handleInputChange = (event) => {
+    setProfileState({ ...profileState, [event.target.name]: event.target.value })
+  }
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  profileState.handlePlayerHandle = event => {
+    setProfileState({ ...profileState, [event.target.name]: event.target.value })
+  }
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
+  profileState.handleSave = event => {
+    event.preventDefault()
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    console.log(profileState)
+  }
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form 
+      className={classes.root} 
+      noValidate 
+      autoComplete="off"
+    >
 
       {/* Bio */}
       <p>
@@ -96,7 +92,10 @@ const BuildProfile = () => {
           multiline
           rows={4}
           variant="outlined"
+          name="bio"
+          value={profileState.bio}
           className={classes.input}
+          onChange={profileState.handleInputChange}
         />
       </p>
 
@@ -105,7 +104,10 @@ const BuildProfile = () => {
         id="outlined-required"
         label="Discord Username"
         variant="outlined"
+        name="discord"
+        value={profileState.discord}
         className={classes.input}
+        onChange={profileState.handleInputChange}
       />
 
       {/* Competitive Switch */}
@@ -117,20 +119,24 @@ const BuildProfile = () => {
           Which best describes your playing style?
         </Typography>
       </p>
-      <p>Casual <Switch
-        checked={state.checkedA}
-        onChange={handleSwitchChange}
-        name="checkedA"
-        inputProps={{ 'aria-label': 'secondary checkbox' }}
-      /> Competitive</p>
-
-
-      <System />
-      <Genre />
-      <Game />
+      <p>
+        Casual 
+        <Switch
+          checked={compState.checkedA}
+          onChange={compState.handleSwitchChange}
+          name="checkedA"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+        /> 
+        Competitive
+      </p>
+      <ProfileContext.Provider value={profileState}>
+        <System />
+        <Genre />
+        <Game />
+      </ProfileContext.Provider>
 
       <p>
-        <Button>Save</Button>
+        <Button onClick={profileState.handleSave}>Save</Button>
       </p>
     </form>
   )

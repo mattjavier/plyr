@@ -36,7 +36,7 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
   div: {
-    marginBottom: 10
+    paddingBottom: 50
   }
 }))
 

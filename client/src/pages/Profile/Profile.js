@@ -11,17 +11,19 @@ const Profile = () => {
     exists: false,
     avatar: '',
     bio: '',
-    systems: [],
+    xbox: '',
+    playstation: '',
+    nintendoSwitch: '',
+    pc: '',
     games: [],
     genres: [],
     competetive: false,
+    discord: '',
     user: ''
   })
 
   useEffect(() => {
 
-    // get user, if they do not exist return to login page
-    
     // get player corresponding to user if any, if not, build profile
     axios.get('/api/users/players', {
       headers: {
@@ -36,10 +38,14 @@ const Profile = () => {
           exists: true, 
           avatar: player.avatar, 
           bio: player.bio, 
-          systems: player.systems, 
+          xbox: player.xbox,
+          playstation: player.playstation,
+          switch: player.switch,
+          pc: player.pc, 
           games: player.games, 
           genres: player.genres, 
           competetive: player.competetive, 
+          discord: player.discord,
           user: player.user 
         })
       })

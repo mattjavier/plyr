@@ -89,6 +89,7 @@ const LogIn = () => {
           label="Username"
           name="username"
           variant="outlined"
+          value={loginState.username}
           onChange={loginState.handleInputChange}
         />
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
