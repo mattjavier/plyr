@@ -9,14 +9,13 @@ const Image = new Schema({
         type: String,
         required: false
     },
+    player: {
+        type: Schema.Types.ObjectId,
+        ref: 'Player'
+    },
     image: {
         data: Buffer,
         contentType: String
-        
-    },
-    playerId: {
-        type: String,
-        
     }
 }, { timestamps: true })
 

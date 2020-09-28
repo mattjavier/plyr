@@ -2,7 +2,8 @@ const { model, Schema } = require('mongoose')
 
 const Player = new Schema({
   avatar: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Image',
     required: false
   },
   bio: {
