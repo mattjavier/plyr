@@ -9,6 +9,7 @@ import Genre from '../Genre'
 import Game from '../Game'
 import Typography from '@material-ui/core/Typography'
 import ProfileContext from '../../utils/ProfileContext'
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +54,7 @@ const BuildProfile = () => {
     bio: '', 
     xbox: '',
     playstation: '',
-    switch: '',
+    nintendoSwitch: '',
     pc: '', 
     games: [], 
     genres: [], 
@@ -88,7 +89,35 @@ const BuildProfile = () => {
   profileState.handleSave = event => {
     event.preventDefault()
 
-    console.log(profileState)
+    axios.get('/api/users/myself', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
+      .then(({ data }) => {
+        let player = {
+          avatar: profileState.avatar,
+          bio: profileState.bio,
+          xbox: profileState.xbox,
+          playstation: profileState.playstation,
+          nintendoSwitch: profileState.nintendoSwitch,
+          pc: profileState.pc,
+          games: profileState.games,
+          genres: profileState.genres,
+          competetive: profileState.competetive,
+          discord: profileState.discord,
+          user: data._id
+        }
+
+        axios.post('/api/players', player)
+          .then(() => {
+            window.location = '/matches'
+          })
+          .catch(err => console.log(err))
+
+      })
+      .catch(err => console.log(err))
+ 
   }
 
   return (

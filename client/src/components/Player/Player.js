@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
-import Autocomplete from '@material-ui/lab/Autocomplete'
 
 const useStyles = makeStyles((theme) => ({
   paper: { 
@@ -57,7 +56,7 @@ const Player = props => {
             className={classes.text} 
             variant="overline"
           >
-            Discord: Name
+            Discord: {props.player.discord}
           </Typography>
         </Paper> 
         <Paper className={classes.end} elevation={5}>

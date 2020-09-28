@@ -48,7 +48,7 @@ const LogIn = () => {
 
   loginState.handleLogin = event => {
     event.preventDefault()
-    console.log(loginState)
+    //console.log(loginState)
     axios.post('/api/users/login', {
       username: loginState.username,
       password: loginState.password,
@@ -60,7 +60,8 @@ const LogIn = () => {
           window.location = '/profile'
         }
         else {
-          alert('WRONG!')
+          //alert('WRONG!')
+          setLoginState({ ...loginState, username: '', password: '' })
         }})
       .catch(err => {
         console.log(err)

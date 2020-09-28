@@ -23,6 +23,12 @@ router.post('/players', (req,res)=> {
     .catch(err => console.error(err))
 })
 
+router.get('/players/:id', (req, res) => {
+  Player.findById(req.params.id)
+  .then(player => res.json(player))
+  .catch(err => console.log(err))
+})
+
 router.put('/players/:id', (req, res) => {
     Player.findByIdAndUpdate(req.params.id, req.body)
     .then(players => res.json(players))

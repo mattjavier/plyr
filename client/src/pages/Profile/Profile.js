@@ -8,7 +8,8 @@ import BuildProfile from '../../components/BuildProfile'
 const Profile = () => {
 
   const [playerState, setPlayerState] = useState({
-    exists: false,
+    playerExists: false,
+    player_profile: '',
     avatar: '',
     bio: '',
     xbox: '',
@@ -30,38 +31,39 @@ const Profile = () => {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
     })
-      .then(({ data: player }) => {
-        console.log(player)
+      .then(({ data }) => {
+        //console.log(data)
 
-        setPlayerState({ 
-          ...playerState, 
-          exists: true, 
-          avatar: player.avatar, 
-          bio: player.bio, 
-          xbox: player.xbox,
-          playstation: player.playstation,
-          switch: player.switch,
-          pc: player.pc, 
-          games: player.games, 
-          genres: player.genres, 
-          competetive: player.competetive, 
-          discord: player.discord,
-          user: player.user 
+        setPlayerState({
+          ...playerState,
+          playerExists: true, 
+          player_profile: data._id,
+          user: data.user,
+          avatar: data.avatar,
+          bio: data.bio,
+          xbox: data.xbox,
+          playstation: data.playstation,
+          nintendoSwitch: data.nintendoSwitch,
+          pc: data.pc,
+          games: data.games,
+          genres: data.genres,
+          competetive: data.competetive,
+          discord: data.discord
         })
       })
       .catch(err => {
         console.log(err)
-        //window.location = '/'
+        return (<BuildProfile />)
       })
   }, [])
 
   return (
     <>
-      {
-        playerState.exists ? 
-        <Player player={playerState} />
-        : <BuildProfile />
-      }
+    {
+      playerState.playerExists ? 
+      <Player player={playerState} /> :
+      <BuildProfile />
+    }
     </>
   )
 }
