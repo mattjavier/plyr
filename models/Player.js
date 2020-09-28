@@ -39,7 +39,11 @@ const Player = new Schema({
     type: Boolean,
     required: false
   },
-  discord:{
+  discord: {
+    type: String,
+    required: false
+  },
+  highlight: {
     type: String,
     required: false
   },

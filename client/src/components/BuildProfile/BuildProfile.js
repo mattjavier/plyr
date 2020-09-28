@@ -13,12 +13,9 @@ import axios from 'axios'
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
       width: '75%',
     },
-  },
-  margin: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
   },
   withoutLabel: {
     marginTop: theme.spacing(3),
@@ -30,9 +27,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#ffffff'
   },
   input: {
-    '& .MuiInputBase-root': {
-      backgroundColor: '#161d22'
-    }
+    backgroundColor: '#161d22'
   }
 }))
 
@@ -49,18 +44,19 @@ const BuildProfile = () => {
   }
 
   const [profileState, setProfileState] = useState({
-    avatar: '', 
-    bio: '', 
+    avatar: '',
+    bio: '',
     xbox: '',
     playstation: '',
     nintendoSwitch: '',
-    pc: '', 
-    games: [], 
-    genres: [], 
-    competetive: false, 
+    pc: '',
+    games: [],
+    genres: [],
+    competetive: false,
     discord: '',
+    highlight: '',
     user: '',
-    searchGames: '' 
+    searchGames: ''
   })
 
   profileState.handleInputChange = (event) => {
@@ -116,13 +112,13 @@ const BuildProfile = () => {
 
       })
       .catch(err => console.log(err))
- 
+
   }
 
   return (
-    <form 
-      className={classes.root} 
-      noValidate 
+    <form
+      className={classes.root}
+      noValidate
       autoComplete="off"
     >
 
@@ -148,7 +144,20 @@ const BuildProfile = () => {
         label="Discord Username"
         variant="outlined"
         name="discord"
+        placeholder="enter your Discord username"
         value={profileState.discord}
+        className={classes.input}
+        onChange={profileState.handleInputChange}
+      />
+
+      {/* Highlight Video */}
+      <TextField
+        id="outlined-required"
+        label="Video Highlight Link"
+        variant="outlined"
+        name="highlight"
+        placeholder="paste the video YouTube link"
+        value={profileState.highlight}
         className={classes.input}
         onChange={profileState.handleInputChange}
       />
@@ -163,13 +172,13 @@ const BuildProfile = () => {
         </Typography>
       </p>
       <p>
-        Casual 
+        Casual
         <Switch
           checked={compState.checkedA}
           onChange={compState.handleSwitchChange}
           name="checkedA"
           inputProps={{ 'aria-label': 'secondary checkbox' }}
-        /> 
+        />
         Competitive
       </p>
       <ProfileContext.Provider value={profileState}>
