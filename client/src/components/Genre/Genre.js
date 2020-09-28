@@ -9,8 +9,7 @@ import axios from 'axios'
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    '& > * + *': {
-    },
+
   },
   input: {
     marginTop: theme.spacing(2),
@@ -57,8 +56,8 @@ const Genre = () => {
           <TextField
             {...params}
             variant="outlined"
-            label="Favorite Genres"
-            placeholder="Genres"
+            label="Favorite Genre(s)"
+            placeholder="favorite genre(s)"
             className={classes.input}
           />
         )}
@@ -66,28 +65,5 @@ const Genre = () => {
     </div>
   )
 }
-
-// Genre list made to match available genres at https://api.rawg.io/api/genres
-// const genres = [
-//   { genre: 'Action' },
-//   { genre: 'Adventure' },
-//   { genre: 'Arcade' },
-//   { genre: 'Board Games' },
-//   { genre: 'Card' },
-//   { genre: 'Casual' },
-//   { genre: 'Educational' },
-//   { genre: 'Family' },
-//   { genre: 'Fighting' },
-//   { genre: 'Indie' },
-//   { genre: 'Massively Multiplayer' },
-//   { genre: 'Platformer' },
-//   { genre: 'Puzzle' },
-//   { genre: 'Racing' },
-//   { genre: 'RPG' },
-//   { genre: 'Shooter' },
-//   { genre: 'Simulation' },
-//   { genre: 'Strategy' },
-//   { genre: 'Other' },
-// ]
 
 export default Genre
