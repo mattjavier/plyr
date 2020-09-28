@@ -8,54 +8,64 @@ import BuildProfile from '../../components/BuildProfile'
 const Profile = () => {
 
   const [playerState, setPlayerState] = useState({
-    exists: false,
+    playerExists: false,
+    player_profile: '',
     avatar: '',
     bio: '',
-    systems: [],
+    xbox: '',
+    playstation: '',
+    nintendoSwitch: '',
+    pc: '',
     games: [],
     genres: [],
     competetive: false,
+    discord: '',
     user: ''
   })
 
   useEffect(() => {
-
-    // get user, if they do not exist return to login page
-    
+  
     // get player corresponding to user if any, if not, build profile
     axios.get('/api/users/players', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
     })
-      .then(({ data: player }) => {
-        console.log(player)
+      .then(({ data }) => {
+        //console.log(data)
 
-        setPlayerState({ 
-          ...playerState, 
-          exists: true, 
-          avatar: player.avatar, 
-          bio: player.bio, 
-          systems: player.systems, 
-          games: player.games, 
-          genres: player.genres, 
-          competetive: player.competetive, 
-          user: player.user 
+        setPlayerState({
+          ...playerState,
+          playerExists: true, 
+          player_profile: data._id,
+          user: data.user,
+          avatar: data.avatar,
+          bio: data.bio,
+          xbox: data.xbox,
+          playstation: data.playstation,
+          nintendoSwitch: data.nintendoSwitch,
+          pc: data.pc,
+          games: data.games,
+          genres: data.genres,
+          competetive: data.competetive,
+          discord: data.discord
         })
       })
       .catch(err => {
         console.log(err)
-        //window.location = '/'
+        return (<BuildProfile />)
       })
   }, [])
 
   return (
     <>
-      {
-        playerState.exists ? 
-        <Player player={playerState} />
-        : <BuildProfile />
-      }
+    {
+      localStorage.getItem('user') ? (
+          playerState.playerExists ? 
+          <Player player={playerState} /> :
+          <BuildProfile />
+      ) : window.location = '/'
+    }
     </>
   )
 }

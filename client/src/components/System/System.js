@@ -1,12 +1,13 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
+import React, { useContext } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import ButtonBase from '@material-ui/core/ButtonBase'
+import Typography from '@material-ui/core/Typography'
 import xbox from '../../assets/xbox.jpg'
 import playstation from '../../assets/playstation.jpg'
 import nintendo from '../../assets/nintendo-switch.jpeg'
 import pc from '../../assets/pc.jpg'
 import TextField from '@material-ui/core/TextField'
+import ProfileContext from '../../utils/ProfileContext'
 
 const images = [
   {
@@ -29,7 +30,7 @@ const images = [
     title: 'PC',
     width: '25%',
   },
-];
+]
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -121,10 +122,14 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#161d22'
     }
   }
-}));
+}))
 
 const System = () => {
-  const classes = useStyles();
+  const classes = useStyles()
+
+  const {
+    handlePlayerHandle
+  } = useContext(ProfileContext)
 
   return (
     <>
@@ -155,7 +160,9 @@ const System = () => {
               }}
             />
             <span className={classes.imageBackdrop} />
-            <span className={classes.imageButton}>
+            <span 
+              className={classes.imageButton}
+            >
               <Typography
                 component="span"
                 variant="subtitle1"
@@ -167,15 +174,11 @@ const System = () => {
                 <div>
                   {/* username */}
                   <TextField
-                    // className={classes.root['& label']}
-                    id="outlined"
-                    // label="player handle"
                     placeholder="player handle"
-                    // labelProps={{ style: { textAlign: "center", color: "red" } }}
-                    // labelClassName={classes.['input-label']}
-                    // inputProps={{ style: { textAlign: "center", opacity: "100%" } }}
+                    id={image.title}
                     variant="outlined"
-                    // className={classes.input}
+                    name={image.title === 'Nintendo Switch' ? 'nintendoSwitch' : image.title.toLowerCase()}
+                    onChange={handlePlayerHandle}
                   />
                 </div>
               </Typography>
@@ -184,7 +187,7 @@ const System = () => {
         ))}
       </div>
     </>
-  );
+  )
 }
 
 export default System

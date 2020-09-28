@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Match from '../../components/Match'
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios'
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,11 +56,44 @@ const Matches = () => {
                 console.log(filteredResults)
 
                 // Part 3
-                const userArr = userProfileData.games.concat(userProfileData.systems).concat(userProfileData.genres)
+                let userArr = userProfileData.games.concat(userProfileData.genres)
+
+                if (userProfileData.xbox.length > 0) {
+                  userArr = [...userArr, 'xbox']
+                }
+
+                if (userProfileData.playstation.length > 0) {
+                  userArr = [...userArr, 'playstation']
+                }
+
+                if (userProfileData.nintendoSwitch.length > 0) {
+                  userArr = [...userArr, 'nintendo switch']
+                }
+
+                if (userProfileData.pc.length > 0) {
+                  userArr = [...userArr, 'pc']
+                }
 
                 filteredResults.map(player => {
                   console.log(player)
-                  const matchArr = player.games.concat(player.systems).concat(player.genres)
+                  let matchArr = player.games.concat(player.genres)
+                  
+                  if (player.xbox.length > 0) {
+                    matchArr = [...matchArr, 'xbox']
+                  }
+  
+                  if (player.playstation.length > 0) {
+                    matchArr = [...matchArr, 'playstation']
+                  }
+  
+                  if (player.nintendoSwitch.length > 0) {
+                    matchArr = [...matchArr, 'nintendo switch']
+                  }
+  
+                  if (player.pc.length > 0) {
+                    matchArr = [...matchArr, 'pc']
+                  }
+
                   const finalarray = []
                   userArr.forEach((i) => matchArr.forEach((j) => {
                     {
@@ -71,20 +105,15 @@ const Matches = () => {
                   console.log(finalarray)
                   let points = Math.round((finalarray.length / userArr.length) * 100)
                   console.log(points)
-                  let obj = {
+                  let newArray = matchesState.finalMatches
+                  newArray.push({
                     playerInfo: player,
                     username: player.user.username,
                     matchingArray: finalarray,
                     points: points
-                  }
-                  let newArray = []
-                  newArray = matchesState.finalMatches
-                  newArray.push(obj)
-                  console.log(newArray)
+                  })
+                  newArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
                   setMatchesState({ ...matchesState, finalMatches: newArray })
-                  console.log(matchesState.finalMatches)
-                  // End of useEffect
-
                 })
 
               })
@@ -92,29 +121,34 @@ const Matches = () => {
           })
           .catch(err => console.log(err))
       })
-      .catch(err => console.log(err))
-
+      .catch(err => {
+        console.log(err)
+      }) 
   }, [])
 
   return (
     <>
-      <div className={classes.root}>
-        <h1>Matches</h1>
-        <button onClick={matchesState.handleCheckResults}>Check filtered results</button>
+      {
+        localStorage.getItem('user') ? (
+          <div className={classes.root}>
+            <h1>Matches</h1>
+            {/* <button onClick={matchesState.handleCheckResults}>Check filtered results</button> */}
 
-        <Grid container spacing={3}>
-          {/* <Match /> */}
-        </Grid>
-        { matchesState.finalMatches.length > 0 ? (
-          matchesState.finalMatches.map(match => (
-            console.log(match)
-            // <Match
-            //   match={match}
-            //   key={match.username}
-            //   />
-          ))
-        ): console.log('nothing in finalmatches') }
-      </div >
+            <Grid container spacing={3}>
+              {/* <Match /> */}
+            </Grid>
+            { matchesState.finalMatches.length > 0 ? (
+              matchesState.finalMatches.map(match => (
+                // console.log(match)
+                <Match
+                  match={match}
+                  key={match.username}
+                />
+              ))
+            ) : console.log('nothing in finalmatches') }
+          </div >
+        ) : window.location = '/'
+      }
     </>
   )
 }

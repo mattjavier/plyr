@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Modal from '../Modal'
 
@@ -28,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 const Match = props => {
   const classes = useStyles();
 
-
   return (
 
 
@@ -37,7 +34,7 @@ const Match = props => {
         <Grid container spacing={2}>
           <Grid item xs="40px">
             <div className={classes.avatar}>
-              <Avatar>{props.match.username.slice(0, 1)}</Avatar>
+              <Avatar>{props.match.username.slice(0, 1).toUpperCase()}</Avatar>
             </div>
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -51,7 +48,7 @@ const Match = props => {
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Modal />
+            <Modal playerInfo={props.match.playerInfo} />
           </Grid>
         </Grid>
       </Paper>

@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useEffect, useLocation } from 'react'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles' 
-import logo from './assets/logo.jpg'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -12,6 +11,7 @@ import About from './pages/About'
 import LogIn from './pages/LogIn'
 import Matches from './pages/Matches'
 import Profile from './pages/Profile'
+import axios from 'axios'
 
 const theme = createMuiTheme({
   palette: {
@@ -36,12 +36,18 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
   div: {
-    marginBottom: 10
+    paddingBottom: 50
   }
 }))
 
 const App = () => {
   const classes = useStyles()
+
+  // useEffect(() => {
+  //   if (!localStorage.getItem('user')) {
+
+  //   }
+  // }, [])
 
   return (
     <Router>
