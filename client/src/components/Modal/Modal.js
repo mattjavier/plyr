@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import Player from '../Player'
+import axios from 'axios'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleModal() {
+export default function SimpleModal(props) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -38,6 +39,8 @@ export default function SimpleModal() {
 
   const handleOpen = () => {
     setOpen(true);
+    // axios.get(`/api/players/${props.id}`)
+    // .then(({ data}) =>{})
   };
 
   const handleClose = () => {
@@ -46,8 +49,7 @@ export default function SimpleModal() {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      {/* <Player /> */}
-      Test content
+      <Player player={props.playerInfo} />
     </div>
   );
 
