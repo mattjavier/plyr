@@ -106,7 +106,7 @@ const Matches = () => {
                   console.log(points)
                   let newArray = matchesState.finalMatches
                   newArray.push({
-                    playerId: player._id,
+                    playerInfo: player,
                     username: player.user.username,
                     matches: finalarray,
                     points: points
