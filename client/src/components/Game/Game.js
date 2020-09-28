@@ -63,14 +63,8 @@ const Game = () => {
   }
 
   const handleDelete = (gameToDelete) => () => {
-    console.log(gameToDelete)
-    let games = gamesState.games
-    setGamesState({ ...gamesState, games })
-    gamesState.games = gamesState.games.filter(game => gameToDelete !== game)
-    console.log(gamesState.games)
-    setGamesState({ ...gamesState, games })
-    console.log(gamesState.games)
-  };
+    setGamesState({ ...gamesState, games: gamesState.games.filter(game => gameToDelete !== game) })
+  }
 
   return (
     <>
