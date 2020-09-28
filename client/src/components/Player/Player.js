@@ -51,7 +51,7 @@ const Player = props => {
     <Grid>
       <Paper className={classes.paper} elevation={3}>
         <Paper className={classes.top}>
-          <Avatar className={classes.avatar}>P</Avatar>
+          <Avatar className={classes.avatar}>{props.player.avatar.toUpperCase()}</Avatar>
           <Typography
             className={classes.text} 
             variant="overline"
@@ -64,8 +64,35 @@ const Player = props => {
             <Typography className={classes.text}>
               Player Bio: {props.player.bio}
             </Typography>
+            {
+              props.player.xbox.length > 0 ? (
+                <Typography className={classes.text}>
+                  Xbox: {props.player.xbox}
+                </Typography> 
+              ) : null
+            }
+            {
+              props.player.playstation.length > 0 ? (
+                <Typography className={classes.text}>
+                  PlayStation: {props.player.playstation}
+                </Typography> 
+              ) : null
+            }
+            {
+              props.player.nintendoSwitch.length > 0 ? (
+                <Typography className={classes.text}>
+                  Nintendo Switch: {props.player.nintendoSwitch}
+                </Typography> 
+              ) : null
+            }
+            {
+              props.player.pc.length > 0 ? (
+                <Typography className={classes.text}>
+                  PC: {props.player.pc}
+                </Typography> 
+              ) : null
+            }
             <Typography className={classes.text}>
-              
             </Typography>
           </div>
         </Paper>  
