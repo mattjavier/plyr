@@ -96,7 +96,7 @@ const BuildProfile = () => {
     })
       .then(({ data }) => {
         let player = {
-          avatar: profileState.avatar,
+          avatar: data.username.slice(0, 1),
           bio: profileState.bio,
           xbox: profileState.xbox,
           playstation: profileState.playstation,
@@ -119,7 +119,7 @@ const BuildProfile = () => {
       .catch(err => console.log(err))
  
   }
-
+  
   return (
     <form 
       className={classes.root} 
