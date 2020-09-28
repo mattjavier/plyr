@@ -12,10 +12,12 @@ const ProfileContext = createContext({
   competetive: false,
   discord: '',
   user: '',
+  searchGames: '',
   handleInputChange: () => { },
   handlePlayerHandle: () => { },
   handleGenre: () => { },
-  handleGames: () => { }
+  handleGames: () => { },
+  handleDeleteGames: () => { }
 })
 
 export default ProfileContext

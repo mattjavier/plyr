@@ -59,7 +59,8 @@ const BuildProfile = () => {
     genres: [], 
     competetive: false, 
     discord: '',
-    user: '' 
+    user: '',
+    searchGames: '' 
   })
 
   profileState.handleInputChange = (event) => {
@@ -72,6 +73,16 @@ const BuildProfile = () => {
 
   profileState.handleGenre = (event, values) => {
     setProfileState({ ...profileState, genres: values.map(value => value.genre) })
+  }
+
+  profileState.handleGames = () => {
+    let games = profileState.games
+    setProfileState({ ...profileState, games, searchGames: '' })
+    profileState.games.push(profileState.searchGames)
+  }
+
+  profileState.handleDeleteGames = (gameToDelete) => () => {
+    setProfileState({ ...profileState, games: profileState.games.filter(game => gameToDelete !== game) })
   }
 
   profileState.handleSave = event => {

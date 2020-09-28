@@ -1,12 +1,13 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import React, { useState, useContext } from 'react'
+import Button from '@material-ui/core/Button'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 import API from '../../utils/API'
-import Chip from '@material-ui/core/Chip';
-import DoneIcon from '@material-ui/icons/Done';
+import Chip from '@material-ui/core/Chip'
+import DoneIcon from '@material-ui/icons/Done'
+import ProfileContext from '../../utils/ProfileContext'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,24 +25,32 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(0.5),
     },
   }
-}));
+}))
 
 const Game = () => {
-  const classes = useStyles();
+  const classes = useStyles()
+
+  const { 
+    handleInputChange,
+    handleGames,
+    handleDeleteGames,
+    searchGames,
+    games,
+  } = useContext(ProfileContext)
 
   const handleClick = () => {
-    console.info('You clicked the Chip.');
-  };
-
-  const [gamesState, setGamesState] = useState({
-    searchGames: '',
-    games: []
-  })
-
-  gamesState.handleInputChange = event => {
-    setGamesState({ ...gamesState, [event.target.name]: event.target.value })
-    // console.log(gamesState.searchGames)
+    console.info('You clicked the Chip.')
   }
+
+  // const [gamesState, setGamesState] = useState({
+  //   searchGames: '',
+  //   games: []
+  // })
+
+  // gamesState.handleInputChange = event => {
+  //   setGamesState({ ...gamesState, [event.target.name]: event.target.value })
+  //   // console.log(gamesState.searchGames)
+  // }
 
   // gamesState.handleSearchRAWG = event => {
   //   event.preventDefault()
@@ -54,41 +63,41 @@ const Game = () => {
   //     })
   //     .catch(err => console.error(err))
   // }
-  
-  const handleAdd = () => {
-    let games = gamesState.games
-    setGamesState({ ...gamesState, games })
-    gamesState.games.push(gamesState.searchGames)
-    console.log(gamesState.games)
-  }
 
-  const handleDelete = (gameToDelete) => () => {
-    setGamesState({ ...gamesState, games: gamesState.games.filter(game => gameToDelete !== game) })
-  }
+  // const handleAdd = () => {
+  //   let games = gamesState.games
+  //   setGamesState({ ...gamesState, games })
+  //   gamesState.games.push(gamesState.searchGames)
+  //   //console.log(gamesState.games)
+  // }
+
+  // const handleDelete = (gameToDelete) => () => {
+  //   setGamesState({ ...gamesState, games: gamesState.games.filter(game => gameToDelete !== game) })
+  // }
 
   return (
     <>
       <form className={classes.root} noValidate autoComplete="off">
         <TextField
-          onChange={gamesState.handleInputChange}
+          onChange={handleInputChange}
           id="outlined-basic"
           variant="outlined"
           label="Favorite Games"
           name="searchGames"
-          value={gamesState.searchGames}
+          value={searchGames}
         />
-        <Button onClick={handleAdd}>Add</Button>
+        <Button onClick={handleGames}>Add</Button>
         <div className={classes.chip}>
-          {gamesState.games.map(game => (
+          {games.map(game => (
 
-            <Chip key={game} label={game} color="primary" onDelete={game === 'React' ? undefined : handleDelete(game)} />
+            <Chip key={game} label={game} color="primary" onDelete={game === 'React' ? undefined : handleDeleteGames(game)} />
           ))}
         </div>
       </form>
 
     </>
 
-  );
+  )
 }
 // 
 // API.getGames('tetris')
