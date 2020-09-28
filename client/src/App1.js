@@ -63,10 +63,8 @@ const App = () => {
 
     return (
         <>
-<<<<<<< HEAD
-          {imageState.images.map(({data}) => <img src={`data:image/jpeg;base64,${data}`} />)}
+            {imageState.images.map(({data}) => <img src={`data:image/jpeg;base64,${data}`} />)}
                             
-=======
             <h1>Photo testing</h1>
             {<img src={`data:${imageState.singleImage.contentType};base64,` + `${imageState.singleImage.data}`} />}
             {/* {imageState.images.map(({image}) => {
@@ -94,7 +92,6 @@ const App = () => {
                 </p>
             </form> 
 
->>>>>>> 526d918b65c0eaf338aaad7c0fd4b7b7da2096f7
         </>
     )
 }
