@@ -24,10 +24,7 @@ const Profile = () => {
   })
 
   useEffect(() => {
-    if (localStorage.getItem('user') === null) {
-      window.location = '/'
-    }
-    
+  
     // get player corresponding to user if any, if not, build profile
     axios.get('/api/users/players', {
       headers: {
@@ -63,9 +60,11 @@ const Profile = () => {
   return (
     <>
     {
-      playerState.playerExists ? 
-      <Player player={playerState} /> :
-      <BuildProfile />
+      localStorage.getItem('user') ? (
+          playerState.playerExists ? 
+          <Player player={playerState} /> :
+          <BuildProfile />
+      ) : window.location = '/'
     }
     </>
   )

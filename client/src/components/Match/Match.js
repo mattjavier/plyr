@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 const Match = props => {
   const classes = useStyles();
 
-
   return (
 
     <>

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Match from '../../components/Match'
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios'
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,28 +121,34 @@ const Matches = () => {
           })
           .catch(err => console.log(err))
       })
-      .catch(err => console.log(err))
-
+      .catch(err => {
+        console.log(err)
+      }) 
   }, [])
 
   return (
     <>
-      <div className={classes.root}>
-        <h1>Matches</h1>
+      {
+        localStorage.getItem('user') ? (
+          <div className={classes.root}>
+            <h1>Matches</h1>
+            <button onClick={matchesState.handleCheckResults}>Check filtered results</button>
 
-        <Grid container spacing={3}>
-        </Grid>
-        {matchesState.finalMatches.length > 0 ? (
-          matchesState.finalMatches.map(match => (
-
-            <Match
-              match={match}
-              key={match.username}
-            />
-            
-          ))
-        ) : console.log('nothing in finalmatches')}
-      </div >
+            <Grid container spacing={3}>
+              {/* <Match /> */}
+            </Grid>
+            { matchesState.finalMatches.length > 0 ? (
+              matchesState.finalMatches.map(match => (
+                // console.log(match)
+                <Match
+                  match={match}
+                  key={match.username}
+                />
+              ))
+            ) : console.log('nothing in finalmatches') }
+          </div >
+        ) : window.location = '/'
+      }
     </>
   )
 }
