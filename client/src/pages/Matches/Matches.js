@@ -71,12 +71,20 @@ const Matches = () => {
                   console.log(finalarray)
                   let points = Math.round((finalarray.length / userArr.length) * 100)
                   console.log(points)
-                  setMatchesState({ ...matchesState, finalMatches: {
-                    playerId: player._id,
+                  let obj = {
+                    playerInfo: player,
                     username: player.user.username,
-                    matches: finalarray,
+                    matchingArray: finalarray,
                     points: points
-                  } })
+                  }
+                  let newArray = []
+                  newArray = matchesState.finalMatches
+                  newArray.push(obj)
+                  console.log(newArray)
+                  setMatchesState({ ...matchesState, finalMatches: newArray })
+                  console.log(matchesState.finalMatches)
+                  // End of useEffect
+
                 })
 
               })

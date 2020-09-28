@@ -40,31 +40,30 @@ const App = () => {
     }
 
     useEffect(() => {
-        axios.get('/api/users/myself', {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('user')}`
-            }})
-            .then(({data}) => {
-                setImageState({ ...imageState, player: data._id})
-            })
-            .catch(err => console.log(err))
+        // axios.get('/api/users/myself', {
+        //     headers: {
+        //       Authorization: `Bearer ${localStorage.getItem('user')}`
+        //     }})
+        //     .then(({data}) => {
+        //         setImageState({ ...imageState, player: data._id})
+        //     })
+        //     .catch(err => console.log(err))
         
 
-        // axios.get('/api/images/5f6e5f6b54eb5217ac0a971f')
-        // .then(({ data }) => {
-        //     console.log(data)
-        //     // console.log(Base64.fromUint8Array(new Uint8Array(data[0].image.data)))
-        //     setImageState({...imageState, singleImage: data.image})
-        //     // console.log(imageState.images)
-        // })
-        // .catch(err => console.log(err))
+        axios.get('/api/images/5f723ed12799b231dc024769')
+        .then(({ data }) => {
+            console.log(data)
+            // console.log(Base64.fromUint8Array(new Uint8Array(data[0].image.data)))
+            setImageState({...imageState, singleImage: data.image})
+            // console.log(imageState.images)
+        })
+        .catch(err => console.log(err))
     }, []) 
 
 
     return (
         <>
             {imageState.images.map(({data}) => <img src={`data:image/jpeg;base64,${data}`} />)}
-                            
             <h1>Photo testing</h1>
             {<img src={`data:${imageState.singleImage.contentType};base64,` + `${imageState.singleImage.data}`} />}
             {/* {imageState.images.map(({image}) => {
