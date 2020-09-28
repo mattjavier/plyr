@@ -13,6 +13,10 @@ const Image = new Schema({
         data: Buffer,
         contentType: String
         
+    },
+    playerId: {
+        type: String,
+        
     }
 }, { timestamps: true })
 
