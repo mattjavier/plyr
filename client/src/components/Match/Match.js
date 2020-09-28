@@ -28,7 +28,8 @@ const Match = props => {
 
   return (
 
-
+    <>
+    <br />
     <Grid key="Username" item xs={12}>
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
@@ -53,6 +54,7 @@ const Match = props => {
         </Grid>
       </Paper>
     </Grid>
+    </>
   );
 }
 
