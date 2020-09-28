@@ -70,6 +70,10 @@ const BuildProfile = () => {
     setProfileState({ ...profileState, [event.target.name]: event.target.value })
   }
 
+  profileState.handleGenre = (event, values) => {
+    setProfileState({ ...profileState, genres: values.map(value => value.genre) })
+  }
+
   profileState.handleSave = event => {
     event.preventDefault()
 

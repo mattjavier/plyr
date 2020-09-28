@@ -1,9 +1,10 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
-import Chip from '@material-ui/core/Chip';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import React, { useContext } from 'react'
+import Chip from '@material-ui/core/Chip'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import ProfileContext from '../../utils/ProfileContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,10 +13,14 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(3),
     },
   },
-}));
+}))
 
 const Genre = () => {
-  const classes = useStyles();
+  const classes = useStyles()
+
+  const {
+    handleGenre
+  } = useContext(ProfileContext)
 
   return (
     <div className={classes.root}>
@@ -27,6 +32,8 @@ const Genre = () => {
         getOptionLabel={(option) => option.genre}
         // defaultValue={[genres[13]]}
         filterSelectedOptions
+        name="genres"
+        onChange={handleGenre}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -37,7 +44,7 @@ const Genre = () => {
         )}
       />
     </div>
-  );
+  )
 }
 
 // Genre list made to match available genres at https://api.rawg.io/api/genres
@@ -61,6 +68,6 @@ const genres = [
   { genre: 'Simulation' },
   { genre: 'Strategy' },
   { genre: 'Other' },
-];
+]
 
 export default Genre

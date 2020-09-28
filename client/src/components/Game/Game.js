@@ -9,7 +9,6 @@ import Chip from '@material-ui/core/Chip';
 import DoneIcon from '@material-ui/icons/Done';
 
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -55,6 +54,7 @@ const Game = () => {
   //     })
   //     .catch(err => console.error(err))
   // }
+  
   const handleAdd = () => {
     let games = gamesState.games
     setGamesState({ ...gamesState, games })

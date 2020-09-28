@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Typography from '@material-ui/core/Typography'
@@ -128,10 +128,6 @@ const System = () => {
   const classes = useStyles()
 
   const {
-    xbox,
-    playstation,
-    nintendoSwitch,
-    pc,
     handlePlayerHandle
   } = useContext(ProfileContext)
 

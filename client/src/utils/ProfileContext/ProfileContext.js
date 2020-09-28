@@ -13,7 +13,9 @@ const ProfileContext = createContext({
   discord: '',
   user: '',
   handleInputChange: () => { },
-  handlePlayerHandle: () => { }
+  handlePlayerHandle: () => { },
+  handleGenre: () => { },
+  handleGames: () => { }
 })
 
 export default ProfileContext
