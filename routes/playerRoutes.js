@@ -40,4 +40,5 @@ router.delete('/players/:id', (req, res) => {
     .then(() => res.sendStatus(200))
     .catch(err => console.error(err))
 })
+
 module.exports= router

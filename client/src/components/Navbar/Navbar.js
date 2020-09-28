@@ -23,6 +23,16 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  link: {
+    color: '#ffffff',
+    textDecoration: 'none',
+    '&:hover': {
+      color: '#414679'
+    }
+  },
+  drawer: {
+    backgroundColor: '#845bb3'
+  }
 }));
 
 
@@ -39,6 +49,10 @@ const Navbar = () => {
       return
     }
     setOpen({ ...openState, open })
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('user')
   }
 
 
@@ -59,22 +73,30 @@ const Navbar = () => {
               anchor="top"
               open={openState.open}
               onClose={toggleDrawer(false)}
+              classes={{ paper: classes.drawer }}
             >
               {/* links in the drop down menu */}
               <List>
                 <ListItem>
-                  <Link to="/matches">
-                    <Button onClick={toggleDrawer(false)}>Matches</Button>
+                  <Link className={classes.link} to="/matches">
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>Matches</Button>
                   </Link>
                 </ListItem>
                 <ListItem>
-                  <Link to="/profile">
-                    <Button onClick={toggleDrawer(false)}>Profile</Button>
+                  <Link className={classes.link} to="/profile">
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>Profile</Button>
                   </Link>
                 </ListItem>
                 <ListItem>
-                  <Link to="/">
-                    <Button onClick={toggleDrawer(false)}>Log In</Button>
+                  <Link className={classes.link} to="/">
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>Log In</Button>
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link className={classes.link} to="/" onClick={handleLogout}>
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>
+                      Logout
+                    </Button>
                   </Link>
                 </ListItem>
               </List>
@@ -87,14 +109,17 @@ const Navbar = () => {
 
           {/* Links on navbar that are visible from screens small and larger */}
           <Hidden xsDown>
-            <Link to="/matches">
-              <Button color="inherit">Matches</Button>
+            <Link className={classes.link} to="/matches">
+              <Button className={classes.link}>Matches</Button>
             </Link>
-            <Link to="/profile">
-              <Button color="inherit">Profile</Button>
+            <Link className={classes.link} to="/profile">
+              <Button className={classes.link}>Profile</Button>
             </Link>
-            <Link to="/">
-              <Button color="inherit">Log In</Button>
+            <Link className={classes.link} to="/">
+              <Button className={classes.link}>Log In</Button>
+            </Link>
+            <Link className={classes.link} to="/">
+              <Button className={classes.link} onClick={handleLogout}>Logout</Button>
             </Link>
           </Hidden>
 
