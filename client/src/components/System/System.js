@@ -128,18 +128,12 @@ const System = () => {
 
   return (
     <>
-      <Typography
-        variant="overline"
-        className={classes.instructions}
-      >
-        Which gaming system(s) do you use?
-      </Typography>
       <p>
         <Typography
           variant="overline"
           className={classes.instructions}
         >
-          (Optional: Provide your player handle for each system.)
+          Provide your player handle for any system you wish to connect with other plyr users on.
         </Typography>
       </p>
       
