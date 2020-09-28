@@ -37,13 +37,10 @@ router.get('/users/all', passport.authenticate('jwt'), (req, res) => {
     .catch(err => console.log(err))
 })
 
-router.get('/users/players', passport.authenticate('jwt'), (req, res) => {
-  // res.json(req.user.player_profile)
-  Player.findById(req.user.player_profile[0])
-    .then(player => res.json(player))
-    .catch(err => console.log(err))
+// Get player info from user token
+router.get('/users/myself', passport.authenticate('jwt'), (req, res) => {
+    res.json(req.user)
 })
-
 
 // User put for updating username, email, or password reset
 router.put('users/:id', passport.authenticate('jwt'), (req, res) => {

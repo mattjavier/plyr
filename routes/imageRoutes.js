@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Image } = require('../models')
+const { Image, Player } = require('../models')
 var fs = require('fs'); 
 var path = require('path'); 
 var multer = require('multer'); 
@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }); 
 
-
+// GET all images
 router.get('/images', (req, res) => {
     Image.find({}, (err, items) =>{
         if (err) {
@@ -35,23 +35,48 @@ router.get('/images', (req, res) => {
     })
 })
 
+// GET image by id
+router.get('/images/:id', (req, res) => {
+    Image.findById((req.params.id), (err, item) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.json({
+                image: {
+                    contentType: item.image.contentType,
+                    data: Base64.fromUint8Array(new Uint8Array(item.image.data))
+                }})
+        }
+    })
+})
 
+
+// POST image
 router.post('/images', upload.single('image'), (req, res, next) => {
     console.log(req.body)
     var obj = {
     name: req.body.name,
     description: req.body.description,
+    player: req.body.player,
     image: {
         data: fs.readFileSync(path.join(__dirname, 'uploads', req.file.filename)), 
             contentType: 'image/jpg'
-     }
+     },
     }
     console.log(obj)
     Image.create(obj, (err, item) => {
-        if (err) {console.log(err)}
+        if (err) { console.log(err) }
         else {
             item.save()
             res.redirect('/api/images')
+            console.log(item._id)
+            Player.findByIdAndUpdate(req.body.player, {avatar: item._id} )
+                .then(player => {
+                    console.log('image uploaded to player')
+                    console.log(player)
+                })
+                .catch(err => console.log(err))
         }
     })
 
