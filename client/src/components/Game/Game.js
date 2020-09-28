@@ -5,6 +5,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import API from '../../utils/API'
+import Chip from '@material-ui/core/Chip';
+import DoneIcon from '@material-ui/icons/Done';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,11 +17,22 @@ const useStyles = makeStyles((theme) => ({
       width: '25ch',
     },
   },
+  chip: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  }
 }));
 
 const Game = () => {
   const classes = useStyles();
 
+  const handleClick = () => {
+    console.info('You clicked the Chip.');
+  };
 
   const [gamesState, setGamesState] = useState({
     searchGames: '',
@@ -30,18 +44,33 @@ const Game = () => {
     // console.log(gamesState.searchGames)
   }
 
-  gamesState.handleSearchRAWG = event => {
-    event.preventDefault()
-    API.getGames(gamesState.searchGames)
-      .then(({ data }) => {
-        const games = data.results.map(game => game.name)
-        setGamesState({ ...gamesState, games, searchGames: '' })
-        console.log(gamesState.games)
-        console.log(gamesState.searchGames)
-      })
-      .catch(err => console.error(err))
+  // gamesState.handleSearchRAWG = event => {
+  //   event.preventDefault()
+  //   API.getGames(gamesState.searchGames)
+  //     .then(({ data }) => {
+  //       const games = data.results.map(game => game.name)
+  //       setGamesState({ ...gamesState, games, searchGames: '' })
+  //       console.log(gamesState.games)
+  //       console.log(gamesState.searchGames)
+  //     })
+  //     .catch(err => console.error(err))
+  // }
+  const handleAdd = () => {
+    let games = gamesState.games
+    setGamesState({ ...gamesState, games })
+    gamesState.games.push(gamesState.searchGames)
+    console.log(gamesState.games)
   }
 
+  const handleDelete = (gameToDelete) => () => {
+    console.log(gameToDelete)
+    let games = gamesState.games
+    setGamesState({ ...gamesState, games })
+    gamesState.games = gamesState.games.filter(game => gameToDelete !== game)
+    console.log(gamesState.games)
+    setGamesState({ ...gamesState, games })
+    console.log(gamesState.games)
+  };
 
   return (
     <>
@@ -54,7 +83,13 @@ const Game = () => {
           name="searchGames"
           value={gamesState.searchGames}
         />
-        <Button onClick={gamesState.handleSearchRAWG}>Search</Button>
+        <Button onClick={handleAdd}>Add</Button>
+        <div className={classes.chip}>
+          {gamesState.games.map(game => (
+
+            <Chip key={game} label={game} color="primary" onDelete={game === 'React' ? undefined : handleDelete(game)} />
+          ))}
+        </div>
       </form>
 
     </>
