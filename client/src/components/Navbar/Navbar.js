@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+
   },
   link: {
     color: '#ffffff',
@@ -33,12 +34,10 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     backgroundColor: '#845bb3'
   }
-}));
-
-
+}))
 
 const Navbar = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const [openState, setOpen] = useState({
     open: false
@@ -53,6 +52,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('user')
+    window.location = '/'
   }
 
 
@@ -87,18 +87,17 @@ const Navbar = () => {
                     <Button className={classes.link} onClick={toggleDrawer(false)}>Profile</Button>
                   </Link>
                 </ListItem>
-                <ListItem>
-                  <Link className={classes.link} to="/">
-                    <Button className={classes.link} onClick={toggleDrawer(false)}>Log In</Button>
-                  </Link>
-                </ListItem>
-                <ListItem>
-                  <Link className={classes.link} to="/" onClick={handleLogout}>
-                    <Button className={classes.link} onClick={toggleDrawer(false)}>
-                      Logout
-                    </Button>
-                  </Link>
-                </ListItem>
+                {
+                  (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
+                    <ListItem>
+                      <Link className={classes.link} to="/" onClick={handleLogout}>
+                        <Button className={classes.link} onClick={toggleDrawer(false)}>
+                          Logout
+                        </Button>
+                      </Link>
+                    </ListItem>
+                  )
+                }
               </List>
             </Drawer>
           </Hidden>
@@ -115,18 +114,19 @@ const Navbar = () => {
             <Link className={classes.link} to="/profile">
               <Button className={classes.link}>Profile</Button>
             </Link>
-            <Link className={classes.link} to="/">
-              <Button className={classes.link}>Log In</Button>
-            </Link>
-            <Link className={classes.link} to="/">
-              <Button className={classes.link} onClick={handleLogout}>Logout</Button>
-            </Link>
+            {
+              (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
+                <Link className={classes.link} to="/">
+                  <Button className={classes.link} onClick={handleLogout}>Logout</Button>
+                </Link>
+              )
+            }
           </Hidden>
 
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )
 }
 
 export default Navbar
