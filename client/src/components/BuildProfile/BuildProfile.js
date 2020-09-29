@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Switch from '@material-ui/core/Switch'
 import System from '../System'
+import System2 from '../System2'
+import System3 from '../System3'
 import Genre from '../Genre'
 import Game from '../Game'
 import Typography from '@material-ui/core/Typography'
@@ -20,15 +22,14 @@ const useStyles = makeStyles((theme) => ({
   withoutLabel: {
     marginTop: theme.spacing(3),
   },
-  textField: {
-    width: '25ch',
-  },
   instructions: {
     color: '#ffffff'
   },
   input: {
-    backgroundColor: '#161d22'
-  }
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    backgroundColor: '#161d22',
+  },
 }))
 
 const BuildProfile = () => {
@@ -124,7 +125,7 @@ const BuildProfile = () => {
     >
 
       {/* Bio */}
-      <p>
+      
         <TextField
           id="outlined-multiline-static"
           label="Bio"
@@ -137,7 +138,7 @@ const BuildProfile = () => {
           className={classes.input}
           onChange={profileState.handleInputChange}
         />
-      </p>
+     
 
       {/* Discord username */}
       <TextField
@@ -157,7 +158,7 @@ const BuildProfile = () => {
         label="Video Highlight Link"
         variant="outlined"
         name="highlight"
-        placeholder="paste the video YouTube link"
+        placeholder="enter video's YouTube link"
         value={profileState.highlight}
         className={classes.input}
         onChange={profileState.handleInputChange}
@@ -183,7 +184,9 @@ const BuildProfile = () => {
         Competitive
       </p>
       <ProfileContext.Provider value={profileState}>
-        <System />
+        {/* <System /> */}
+        <System2 />
+        {/* <System3 /> */}
         <Genre />
         <Game />
       </ProfileContext.Provider>
