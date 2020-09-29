@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
   },
   avatar: {
-    margin: 20
+    margin: 20,
+    boxShadow: theme.shadows[3]
   },
   end: {
     width: '95%',
