@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Switch from '@material-ui/core/Switch'
 import System from '../System'
-import System3 from '../System3'
 import Genre from '../Genre'
 import Game from '../Game'
 import Typography from '@material-ui/core/Typography'
@@ -183,7 +182,7 @@ const BuildProfile = () => {
       </p>
       <ProfileContext.Provider value={profileState}>
         {/* <System /> */}
-        <System3 />
+        <System />
         <Genre />
         <Game />
       </ProfileContext.Provider>
