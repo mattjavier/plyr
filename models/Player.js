@@ -49,12 +49,12 @@ const Player = new Schema({
   },
   friendsList: {
     type: Array,
-    unique: true,
+    unique: false,
     required: false
   },
   pendingRequest: {
     type: Array,
-    unique: true,
+    unique: false,
     required: false
   },
   user: {

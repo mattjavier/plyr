@@ -109,7 +109,7 @@ const Matches = () => {
                   newArray.push({
                     playerInfo: player,
                     username: player.user.username,
-                    matchingArray: finalarray,
+                    matches: finalarray,
                     points: points
                   })
                   newArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
@@ -154,10 +154,3 @@ const Matches = () => {
 }
 
 export default Matches
-
-
-
-
-
-
-
