@@ -77,19 +77,19 @@ const Matches = () => {
                 filteredResults.map(player => {
                   console.log(player)
                   let matchArr = player.games.concat(player.genres)
-                  
+
                   if (player.xbox.length > 0) {
                     matchArr = [...matchArr, 'xbox']
                   }
-  
+
                   if (player.playstation.length > 0) {
                     matchArr = [...matchArr, 'playstation']
                   }
-  
+
                   if (player.nintendoSwitch.length > 0) {
                     matchArr = [...matchArr, 'nintendo switch']
                   }
-  
+
                   if (player.pc.length > 0) {
                     matchArr = [...matchArr, 'pc']
                   }
@@ -109,7 +109,7 @@ const Matches = () => {
                   newArray.push({
                     playerInfo: player,
                     username: player.user.username,
-                    matches: finalarray,
+                    matchingArray: finalarray,
                     points: points
                   })
                   newArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
@@ -123,7 +123,7 @@ const Matches = () => {
       })
       .catch(err => {
         console.log(err)
-      }) 
+      })
   }, [])
 
   return (
@@ -135,7 +135,7 @@ const Matches = () => {
             {/* <button onClick={matchesState.handleCheckResults}>Check filtered results</button> */}
 
             <Grid container spacing={3}>
-              {/* <Match /> */}
+
             </Grid>
             { matchesState.finalMatches.length > 0 ? (
               matchesState.finalMatches.map(match => (
@@ -145,7 +145,7 @@ const Matches = () => {
                   key={match.username}
                 />
               ))
-            ) : console.log('nothing in finalmatches') }
+            ) : console.log('nothing in finalmatches')}
           </div >
         ) : window.location = '/'
       }

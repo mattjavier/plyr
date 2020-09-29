@@ -11,6 +11,7 @@ const ProfileContext = createContext({
   genres: [],
   competetive: false,
   discord: '',
+  highlight: '',
   user: '',
   searchGames: '',
   handleInputChange: () => { },

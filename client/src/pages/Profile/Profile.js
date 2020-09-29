@@ -24,7 +24,7 @@ const Profile = () => {
   })
 
   useEffect(() => {
-  
+
     // get player corresponding to user if any, if not, build profile
     axios.get('/api/users/players', {
       headers: {
@@ -36,7 +36,7 @@ const Profile = () => {
 
         setPlayerState({
           ...playerState,
-          playerExists: true, 
+          playerExists: true,
           player_profile: data._id,
           user: data.user,
           avatar: data.avatar,
@@ -48,7 +48,8 @@ const Profile = () => {
           games: data.games,
           genres: data.genres,
           competetive: data.competetive,
-          discord: data.discord
+          discord: data.discord,
+          highlight: data.highlight
         })
       })
       .catch(err => {
@@ -59,13 +60,13 @@ const Profile = () => {
 
   return (
     <>
-    {
-      localStorage.getItem('user') ? (
-          playerState.playerExists ? 
-          <Player player={playerState} /> :
-          <BuildProfile />
-      ) : window.location = '/'
-    }
+      {
+        localStorage.getItem('user') ? (
+          playerState.playerExists ?
+            <Player player={playerState} /> :
+            <BuildProfile />
+        ) : window.location = '/'
+      }
     </>
   )
 }

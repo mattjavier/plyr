@@ -8,10 +8,13 @@ import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 500,
+    width: "100%",
     '& > * + *': {
-      marginTop: theme.spacing(3),
     },
+  },
+  input: {
+    marginTop: theme.spacing(2),
+    backgroundColor: '#161d22'
   },
 }))
 
@@ -56,6 +59,7 @@ const Genre = () => {
             variant="outlined"
             label="Favorite Genres"
             placeholder="Genres"
+            className={classes.input}
           />
         )}
       />
