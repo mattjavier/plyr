@@ -40,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     width: '75%',
+  },
+  inputLabel: {
+    position: 'relative',
+    top: 33,
   }
 }))
 
@@ -91,25 +95,25 @@ const Game = () => {
 
   return (
     <>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form className={classes.root} noValidate autoComplete="off" onSubmit={handleGames}>
         <FormControl className={clsx(classes.textField)} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-add">Favorite Game(s)</InputLabel>
+          <InputLabel className={classes.inputLabel} htmlFor="outlined-adornment-add">Favorite Game(s)</InputLabel>
           <OutlinedInput
             id="outlined-adornment-add"
             name="searchGames"
             value={searchGames}
             type="text"
-            placeholder="favorite game(s)"
+            label="favorite game(s)"
+            placeholder="game title"
             className={classes.input}
             // onChange={handleChange('password')}
             onChange={handleInputChange}
+            onKeyPress="if (event.keyCode == 13) {handleGames}"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  // type="submit"
                   aria-label="add game"
                   onClick={handleGames}
-                  // onMouseDown={handleMouseDownPassword}
                   edge="end"
                   className={classes.iconButton}
                 >

@@ -4,8 +4,6 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Switch from '@material-ui/core/Switch'
 import System from '../System'
-import System2 from '../System2'
-import System3 from '../System3'
 import Genre from '../Genre'
 import Game from '../Game'
 import Typography from '@material-ui/core/Typography'
@@ -72,7 +70,8 @@ const BuildProfile = () => {
     setProfileState({ ...profileState, genres: values.map(value => value.genre) })
   }
 
-  profileState.handleGames = () => {
+  profileState.handleGames = event => {
+    event.preventDefault()
     let games = profileState.games
     setProfileState({ ...profileState, games, searchGames: '' })
     profileState.games.push(profileState.searchGames)
@@ -122,23 +121,24 @@ const BuildProfile = () => {
       className={classes.root}
       noValidate
       autoComplete="off"
+      onSubmit={event => event.preventDefault()}
     >
 
       {/* Bio */}
-      
-        <TextField
-          id="outlined-multiline-static"
-          label="Bio"
-          placeholder="Describe your gaming style."
-          multiline
-          rows={4}
-          variant="outlined"
-          name="bio"
-          value={profileState.bio}
-          className={classes.input}
-          onChange={profileState.handleInputChange}
-        />
-     
+
+      <TextField
+        id="outlined-multiline-static"
+        label="Bio"
+        placeholder="Describe your gaming style."
+        multiline
+        rows={4}
+        variant="outlined"
+        name="bio"
+        value={profileState.bio}
+        className={classes.input}
+        onChange={profileState.handleInputChange}
+      />
+
 
       {/* Discord username */}
       <TextField
@@ -185,14 +185,13 @@ const BuildProfile = () => {
       </p>
       <ProfileContext.Provider value={profileState}>
         {/* <System /> */}
-        <System2 />
-        {/* <System3 /> */}
+        <System />
         <Genre />
         <Game />
       </ProfileContext.Provider>
 
       <p>
-        <Button onClick={profileState.handleSave}>Save</Button>
+        <Button variant="contained" color="primary" onClick={profileState.handleSave}>Save</Button>
       </p>
     </form>
   )

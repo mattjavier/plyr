@@ -2,7 +2,7 @@ import React, { useEffect, useLocation } from 'react'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles' 
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -36,7 +36,7 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
   div: {
-    paddingBottom: 50
+    paddingBottom: 65
   }
 }))
 
