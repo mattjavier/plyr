@@ -60,13 +60,13 @@ const useStyles = makeStyles((theme) => ({
     '&:hover, &$focusVisible': {
       zIndex: 1,
       '& $imageBackdrop': {
-        opacity: 0.15,
+        opacity: 0.9,
       },
       '& $imageMarked': {
         opacity: 0,
       },
       '& $imageTitle': {
-        border: '4px solid currentColor',
+        border: '4px solid #845bb3',
       },
     },
   },
@@ -118,9 +118,13 @@ const useStyles = makeStyles((theme) => ({
     color: '#ffffff'
   },
   input: {
-    '& .MuiInputBase-root': {
-      backgroundColor: '#161d22'
-    }
+    backgroundColor: '#161d22',
+    opacity: 0.5,
+    width: 'fit'
+    // display: 'none',
+    // '&:hover': {
+    //   display: 'block !important'
+    // }
   }
 }))
 
@@ -141,7 +145,7 @@ const System = () => {
           Provide your player handle for any system you wish to connect with other plyr users on.
         </Typography>
       </p>
-      
+
       <div className={classes.root}>
         {images.map((image) => (
           <ButtonBase
@@ -160,7 +164,7 @@ const System = () => {
               }}
             />
             <span className={classes.imageBackdrop} />
-            <span 
+            <span
               className={classes.imageButton}
             >
               <Typography
@@ -175,6 +179,7 @@ const System = () => {
                   {/* username */}
                   <TextField
                     placeholder="player handle"
+                    className={classes.input}
                     id={image.title}
                     variant="outlined"
                     name={image.title === 'Nintendo Switch' ? 'nintendoSwitch' : image.title.toLowerCase()}
