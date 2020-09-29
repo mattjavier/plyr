@@ -93,7 +93,7 @@ export default function FullWidthGrid() {
             >
               {system.title}
             </Typography>
-            <form className={classes.form} noValidate autoComplete="off">
+            <form className={classes.form} noValidate autoComplete="off" onSubmit={event => event.preventDefault()}>
               <TextField
                 variant="outlined"
                 id={system.title}

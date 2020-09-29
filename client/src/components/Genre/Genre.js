@@ -57,7 +57,7 @@ const Genre = () => {
             {...params}
             variant="outlined"
             label="Favorite Genre(s)"
-            placeholder="favorite genre(s)"
+            placeholder="genre"
             className={classes.input}
           />
         )}
