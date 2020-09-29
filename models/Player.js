@@ -47,6 +47,14 @@ const Player = new Schema({
     type: String,
     required: false
   },
+  friendsList: {
+    type: Array,
+    required: false
+  },
+  pendingRequest: {
+    type: Array,
+    required: false
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
