@@ -43,12 +43,6 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles()
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem('user')) {
-
-  //   }
-  // }, [])
-
   return (
     <Router>
       <MuiThemeProvider theme={theme}>

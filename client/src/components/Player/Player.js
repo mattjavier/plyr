@@ -30,20 +30,34 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     borderRadius: 0,
-    marginBottom: 10,
+    marginBottom: 20,
+    paddingBottom: 10
+  },
+  content: {
+    width: '95%',
+    margin: 10,
+    borderRadius: 0,
   },
   avatar: {
+    width: 100,
+    height: 100,
+    fontSize: 50,
     margin: 20,
-    boxShadow: theme.shadows[3]
+    boxShadow: theme.shadows[6],
   },
-  end: {
+  discord: {
+    color: '#ffffff',
+    letterSpacing: 2
+  },
+  video: {
     width: '95%',
     borderRadius: 0,
-    marginBottom: 10
+    marginBottom: 10,
+    boxShadow: theme.shadows[6],
   },
   text: {
     color: '#1a1a1a'
-  }
+  },
 }))
 
 const Player = props => {
@@ -59,14 +73,13 @@ const Player = props => {
         <Paper className={classes.top}>
           <Avatar className={classes.avatar}>{props.player.avatar.toUpperCase()}</Avatar>
           <Typography
-            className={classes.text}
-            variant="overline"
+            className={classes.discord}
+            variant="h6"
           >
             Discord: {props.player.discord}
           </Typography>
         </Paper>
-        {/* <Paper className={classes.end} elevation={5}> */}
-        <div>
+        <Paper className={classes.content} elevation={5}>
           <Typography className={classes.text}>
             Player Bio: {props.player.bio}
           </Typography>
@@ -112,13 +125,12 @@ const Player = props => {
               </Typography>
             ) : null
           }
-          {
-            props.player.highlight ? (
-              <YoutubeEmbedVideo videoId={props.player.highlight.slice(start+1)} suggestions={false} />
-            ) : null
-          }
-        </div>
-        {/* </Paper>   */}
+        </Paper>
+        {
+          props.player.highlight ? (
+            <YoutubeEmbedVideo className={classes.video} videoId={props.player.highlight.slice(start+1)} suggestions={false} />
+          ) : null
+        }
       </Paper>
     </Grid>
   )
