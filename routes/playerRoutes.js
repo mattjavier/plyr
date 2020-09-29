@@ -54,7 +54,7 @@ router.delete('/players/:id', (req, res) => {
 
 //in this put, we need Adder NAme, Adder ID, the person who's getting added
 router.put('/players/addfriend/:id', (req, res) => {
-    Player.findByIdAndUpdate(req.params.id. req.body)
+    Player.findByIdAndUpdate(req.params.id, { $push: { pendingRequest: req.body } })
     .then(players => res.json(players))
     .catch(err => console.error(err))
 })
