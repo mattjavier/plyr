@@ -52,9 +52,9 @@ router.delete('/players/:id', (req, res) => {
 
 // Friending Functionality
 
-//in this put, we need Adder NAme, Adder ID, the person who's getting added
+//in this put, we need Adder Name, Adder ID, the person who's getting added.
 router.put('/players/addfriend/:id', (req, res) => {
-    Player.findByIdAndUpdate(req.params.id. req.body)
+    Player.findByIdAndUpdate(req.params.id, req.body)
     .then(players => res.json(players))
     .catch(err => console.error(err))
 })
