@@ -44,11 +44,6 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    '& input::placeholder': {
-      opacity: '100%',
-      textAlign: 'center',
-      // color: 'green',
-    }
   },
   image: {
     position: 'relative',
@@ -118,9 +113,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#ffffff'
   },
   input: {
-    backgroundColor: '#161d22',
-    opacity: 0.5,
-    width: 'fit'
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    // opacity: 0.5,
+    // width: 'fit'
     // display: 'none',
     // '&:hover': {
     //   display: 'block !important'

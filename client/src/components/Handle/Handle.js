@@ -1,26 +1,23 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      // margin: theme.spacing(1),
       width: '100% !important',
     },
   },
   input: {
     backgroundColor: '#161d22',
-    // opacity: 0.5,
   },
   form: {
     justifyContent: 'center',
-    // width: '100% !important',
   }
-}));
+}))
 
 export default function BasicTextFields() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <form className={classes.form} noValidate autoComplete="off">
@@ -34,5 +31,5 @@ export default function BasicTextFields() {
       />
 
     </form>
-  );
+  )
 }
