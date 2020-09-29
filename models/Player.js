@@ -44,10 +44,12 @@ const Player = new Schema({
     required: false
   },
   friendsList: {
-    type: Array
+    type: Array,
+    required: false
   },
   pendingRequest: {
-    type: Array
+    type: Array,
+    required: false
   },
   user: {
     type: Schema.Types.ObjectId,
