@@ -27,7 +27,7 @@ const Matches = () => {
 
   matchesState.handleCheckResults = event => {
     event.preventDefault()
-    console.log(matchesState.finalMatches)
+    // console.log(matchesState.finalMatches)
   }
 
   useEffect(() => {
@@ -38,22 +38,28 @@ const Matches = () => {
       }
     })
       .then(({ data }) => {
-        console.log(data)
+        // console.log(data)
         let player_profile = data.player_profile
         setMatchesState({ ...matchesState, userPlayer: data })
         axios.get(`/api/players/${player_profile}`)
           .then(({ data }) => {
-            console.log(data)
             let userProfileData = data
             setMatchesState({ ...matchesState, userProfile: data })
 
             // Part 2
-            console.log('Finding Players')
             axios.get('/api/players')
               .then(({ data }) => {
                 let filteredResults = data.filter(res => res._id !== player_profile)
+                if (userProfileData.competetive) {
+                  filteredResults = filteredResults.filter(res => {
+                    return res.competetive === true
+                  })
+                } else {
+                  filteredResults = filteredResults.filter(res => {
+                    return res.competetive === false
+                  })
+                }
                 setMatchesState({ ...matchesState, matches: filteredResults })
-                console.log(filteredResults)
 
                 // Part 3
                 let userArr = userProfileData.games.concat(userProfileData.genres)
@@ -75,7 +81,6 @@ const Matches = () => {
                 }
 
                 filteredResults.map(player => {
-                  console.log(player)
                   let matchArr = player.games.concat(player.genres)
 
                   if (player.xbox.length > 0) {
@@ -102,9 +107,7 @@ const Matches = () => {
                       }
                     }
                   }))
-                  console.log(finalarray)
                   let points = Math.round((finalarray.length / userArr.length) * 100)
-                  console.log(points)
                   let newArray = matchesState.finalMatches
                   newArray.push({
                     playerInfo: player,
@@ -132,14 +135,12 @@ const Matches = () => {
         localStorage.getItem('user') ? (
           <div className={classes.root}>
             <h1>Matches</h1>
-            {/* <button onClick={matchesState.handleCheckResults}>Check filtered results</button> */}
 
             <Grid container spacing={3}>
 
             </Grid>
             { matchesState.finalMatches.length > 0 ? (
               matchesState.finalMatches.map(match => (
-                // console.log(match)
                 <Match
                   match={match}
                   key={match.username}

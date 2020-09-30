@@ -6,6 +6,7 @@ import Switch from '@material-ui/core/Switch'
 import System from '../System'
 import Genre from '../Genre'
 import Game from '../Game'
+import Avatar from '../AvatarArray'
 import Typography from '@material-ui/core/Typography'
 import ProfileContext from '../../utils/ProfileContext'
 import axios from 'axios'
@@ -20,29 +21,27 @@ const useStyles = makeStyles((theme) => ({
   withoutLabel: {
     marginTop: theme.spacing(3),
   },
-  textField: {
-    width: '25ch',
-  },
   instructions: {
     color: '#ffffff'
   },
   input: {
-    backgroundColor: '#161d22'
-  }
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    backgroundColor: '#161d22',
+  },
 }))
 
 const BuildProfile = () => {
 
   const classes = useStyles()
 
-  const [compState, setCompState] = useState({
-    checkedA: false
-  })
+  const [isCompetitive, setCompetitive] = useState(false)
 
-  compState.handleSwitchChange = (event) => {
-    setCompState({ ...compState, [event.target.name]: event.target.checked })
+  const handleSwitchChange = () => {
+    setCompetitive(!isCompetitive)
+    console.log(isCompetitive)
   }
-
+  
   const [profileState, setProfileState] = useState({
     avatar: '',
     bio: '',
@@ -71,10 +70,17 @@ const BuildProfile = () => {
     setProfileState({ ...profileState, genres: values.map(value => value.genre) })
   }
 
-  profileState.handleGames = () => {
+  profileState.handleGames = event => {
+    event.preventDefault()
     let games = profileState.games
     setProfileState({ ...profileState, games, searchGames: '' })
     profileState.games.push(profileState.searchGames)
+  }
+
+  profileState.handleAvatar = (event, values) => {
+    // setProfileState({ ...profileState, genres: values.map(value => value.genre) })
+    setProfileState({ ...profileState, [event.target.name]: event.target.value })
+    console.log(profileState.avatar)
   }
 
   profileState.handleDeleteGames = (gameToDelete) => () => {
@@ -91,7 +97,7 @@ const BuildProfile = () => {
     })
       .then(({ data }) => {
         let player = {
-          avatar: data.username.slice(0, 1),
+          avatar: profileState.avatar || data.username.slice(0, 1),
           bio: profileState.bio,
           xbox: profileState.xbox,
           playstation: profileState.playstation,
@@ -99,12 +105,12 @@ const BuildProfile = () => {
           pc: profileState.pc,
           games: profileState.games,
           genres: profileState.genres,
-          competetive: profileState.competetive,
+          competetive: isCompetitive,
           discord: profileState.discord,
           highlight: profileState.highlight,
           user: data._id
         }
-
+        console.log(player)
         axios.post('/api/players', player)
           .then(() => {
             window.location = '/matches'
@@ -121,23 +127,24 @@ const BuildProfile = () => {
       className={classes.root}
       noValidate
       autoComplete="off"
+      onSubmit={event => event.preventDefault()}
     >
-
+      <h1>Build Profile</h1>
       {/* Bio */}
-      <p>
-        <TextField
-          id="outlined-multiline-static"
-          label="Bio"
-          placeholder="Describe your gaming style."
-          multiline
-          rows={4}
-          variant="outlined"
-          name="bio"
-          value={profileState.bio}
-          className={classes.input}
-          onChange={profileState.handleInputChange}
-        />
-      </p>
+
+      <TextField
+        id="outlined-multiline-static"
+        label="Bio"
+        placeholder="Describe your gaming style."
+        multiline
+        rows={4}
+        variant="outlined"
+        name="bio"
+        value={profileState.bio}
+        className={classes.input}
+        onChange={profileState.handleInputChange}
+      />
+
 
       {/* Discord username */}
       <TextField
@@ -157,7 +164,7 @@ const BuildProfile = () => {
         label="Video Highlight Link"
         variant="outlined"
         name="highlight"
-        placeholder="paste the video YouTube link"
+        placeholder="enter video's YouTube link"
         value={profileState.highlight}
         className={classes.input}
         onChange={profileState.handleInputChange}
@@ -175,9 +182,9 @@ const BuildProfile = () => {
       <p>
         Casual
         <Switch
-          checked={compState.checkedA}
-          onChange={compState.handleSwitchChange}
-          name="checkedA"
+          checked={isCompetitive}
+          onClick={handleSwitchChange}
+          name="competetive"
           inputProps={{ 'aria-label': 'secondary checkbox' }}
         />
         Competitive
@@ -186,10 +193,11 @@ const BuildProfile = () => {
         <System />
         <Genre />
         <Game />
+        <Avatar />
       </ProfileContext.Provider>
 
       <p>
-        <Button onClick={profileState.handleSave}>Save</Button>
+        <Button variant="contained" color="primary" onClick={profileState.handleSave}>Save</Button>
       </p>
     </form>
   )
