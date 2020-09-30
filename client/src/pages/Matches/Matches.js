@@ -21,13 +21,22 @@ const Matches = () => {
   const classes = useStyles();
 
   const [matchesState, setMatchesState] = useState({
-    userPlayer: '',
     finalMatches: []
   })
 
   matchesState.handleCheckResults = event => {
     event.preventDefault()
     console.log(matchesState.finalMatches)
+    console.log(matchesState.userPlayer)
+    // axios.get('/api/users/myself', {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('user')}`
+    //   }
+    // })
+    // .then(({data}) => {
+    //   setMatchesState({ ...matchesState, userPlayer: data})
+    // })
+    // .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -154,11 +163,11 @@ const Matches = () => {
                   key={match.username}
                 />
               ))
-            ) : console.log('nothing in finalmatches')}
+            ) : null }
           </div >
         ) : window.location = '/'
       }
-      {/* <button onClick={matchesState.handleCheckResults}>Final matches check</button> */}
+      <button onClick={matchesState.handleCheckResults}>Final matches check</button>
     </>
   )
 }

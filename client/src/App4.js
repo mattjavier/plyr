@@ -28,7 +28,7 @@ const App = () => {
         }
         let requestId = friendState.dummyPlayerId
         console.log(`axios request to player from ${friendState.myPlayerId}`)
-        axios.put(`/api/players/addfriend/5f71bb3d4b7664428cf8115c`, {pendingRequest: myself} )
+        axios.put(`/api/players/addfriend/${requestId}`, {pendingRequest: myself} )
             .then(data => {
                 console.log(data)
                 console.log('Request Sent')
