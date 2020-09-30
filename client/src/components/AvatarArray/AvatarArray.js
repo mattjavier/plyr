@@ -100,46 +100,76 @@ import duck097 from '../../assets/userIcons/png/097-duck.png'
 import explosion098 from '../../assets/userIcons/png/098-explosion.png'
 import batman099 from '../../assets/userIcons/png/099-batman.png'
 import crown1100 from '../../assets/userIcons/png/100-crown-1.png'
-import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import { makeStyles } from '@material-ui/core/styles'
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
+    marginTop: theme.spacing(2),
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background,
   },
   gridList: {
     width: 500,
-    height: 450,
+    height: 350,
+    padding: '8px',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    backgroundColor: '#161d22',
   },
   large: {
     width: theme.spacing(7),
     height: theme.spacing(7),
+    backgroundColor: '#263238',
   },
-}));
+}))
 
 let avatars = [
-  ball001, controller002, xbox003, nintendoswitch004, supernintendo005, gameboy006, pokemongo007, wizard008, dwarf009, wolf010, littleredridinghood011, gnome012, reaper013, kraken014, weapons015, mermaid016, superhero017, superhero1018, monster019, monster1020, mushroom021, minecraft022, pikachu023, supermario024, angrybirds025, pokeball026, box027, worldofwarcraft028, carnivorousplant029, bomberman030, tetris031, brickwall032, pick033, diamond034, worms035, gun036, computergame037, hearts038, dice039, virtualreality040, gaming041, arcade042, sword043, tictactoe044, mobilegame045, gameboy1046, mobilegame1047, cards048, gamecontroller049, slotmachine050, billiard051, gamecontroller1052, chips053, gamecontroller2054, bomb055, tetris1056, puzzle057, crown058, ghost059, tetris2060, chess061, shield062, winner063, gamecontroller3064, cards1065, mouse066, glove067, console068, darts069, bowling070, gamecontroller4071, gamecontroller5072, swords073, diamond1074, gun1075, arrows076, hammer077, level078, axe079, treasure080, potion081, gem082, bomb1083, poison084, helmet085, potion1086, monster2087, game088, ufo089, trophy090, spaceship091, casino092, manekineko093, helmet1094, devil095, pinball096, duck097, explosion098, batman099, crown1100
+  computergame037, ball001, controller002, xbox003, nintendoswitch004, supernintendo005, gameboy006, wizard008, dwarf009, wolf010, littleredridinghood011, gnome012, reaper013, kraken014, weapons015, mermaid016, superhero017, superhero1018, monster019, monster1020, mushroom021, minecraft022, pikachu023, supermario024, angrybirds025, pokeball026, box027, worldofwarcraft028, carnivorousplant029, bomberman030, tetris031, brickwall032, pick033, diamond034, worms035, gun036, hearts038, dice039, virtualreality040, gaming041, arcade042, sword043, tictactoe044, mobilegame045, gameboy1046, mobilegame1047, cards048, gamecontroller049, slotmachine050, billiard051, gamecontroller1052, chips053, gamecontroller2054, bomb055, tetris1056, puzzle057, crown058, ghost059, tetris2060, chess061, shield062, winner063, gamecontroller3064, cards1065, mouse066, glove067, console068, darts069, bowling070, gamecontroller4071, gamecontroller5072, pokemongo007, swords073, diamond1074, gun1075, arrows076, hammer077, level078, axe079, treasure080, potion081, gem082, bomb1083, poison084, helmet085, potion1086, monster2087, game088, ufo089, trophy090, spaceship091, casino092, manekineko093, helmet1094, devil095, pinball096, duck097, explosion098, batman099, crown1100
 ]
 
+
 const AvatarArray = () => {
-  const classes = useStyles();
+  const classes = useStyles()
+
+  const [value, setValue] = React.useState(computergame037);
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   return (
     <>
       <div className={classes.root}>
-        <GridList cellHeight={160} className={classes.gridList} cols={5}>
+        <FormControl component="fieldset">
+          <FormLabel className={classes.formLabel} component="legend">
+            <Typography
+              variant="overline"
+            >
+              Select an avatar:
+        </Typography>
+          </FormLabel>
+          <RadioGroup aria-label="User Avatar" name="userAvatar" value={value} onChange={handleChange}>
+            <GridList cellHeight={110} className={classes.gridList} cols={5}>
+              {avatars.map((avatar) => (
+                <GridListTile key={avatar} cols={1}>
 
-          {avatars.map((avatar) => (
-            <GridListTile key={avatar} cols={1}>
-              <Avatar src={avatar} alt={avatar} className={classes.large} display="inline" />
-            </GridListTile>
-          ))}
-        </GridList>
+                  <FormControlLabel value={avatar} control={<Radio />} label={<Avatar src={avatar} alt={avatar} className={classes.large} display=" inline" />} labelPlacement="top" />
+                </GridListTile>
+              ))}
+            </GridList>
+          </RadioGroup>
+        </FormControl>
       </div>
 
     </>
