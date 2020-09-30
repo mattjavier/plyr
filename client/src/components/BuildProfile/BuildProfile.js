@@ -60,6 +60,7 @@ const BuildProfile = () => {
 
   profileState.handleInputChange = (event) => {
     setProfileState({ ...profileState, [event.target.name]: event.target.value })
+    console.log(profileState)
   }
 
   profileState.handlePlayerHandle = event => {

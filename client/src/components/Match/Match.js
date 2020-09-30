@@ -30,17 +30,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-let avatar
-
 const Match = props => {
   const classes = useStyles()
 
-  const avatarCode = playerInfo => {
-    console.log(playerInfo)
-    if (playerInfo.avatar === "") {
-      return (<Avatar className={classes.avatarLetter}>{playerInfo.username.slice(0, 1).toUpperCase()}</Avatar>)
+  // const avatarCode = playerInfo => {
+  //   console.log(playerInfo)
+  //   if (playerInfo.avatar === "") {
+  //     return (<Avatar className={classes.avatarLetter}>{playerInfo.username.slice(0, 1).toUpperCase()}</Avatar>)
+  //   } else {
+  //     return (<Avatar src={playerInfo.avatar} className={classes.avatarImage} />)
+  const avatarCode = avatar => {
+    console.log(avatar)
+    if (avatar.length === 1) {
+      return (<Avatar>{avatar}</Avatar>)
     } else {
-      return (<Avatar src={playerInfo.avatar} className={classes.avatarImage} />)
+      return (<Avatar src={avatar} />)
     }
   }
 
@@ -53,7 +57,7 @@ const Match = props => {
           <Grid container spacing={2}>
             <Grid item xs="40px">
               <div className={classes.avatar}>
-                {avatarCode(props.match.playerInfo)}
+                {avatarCode(props.match.playerInfo.avatar)}
               </div>
             </Grid>
             <Grid item xs={6} sm={3}>

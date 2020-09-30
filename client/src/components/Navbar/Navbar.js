@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
+import Avatar from '@material-ui/core/Avatar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
@@ -37,8 +39,59 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+
+
+
 const Navbar = () => {
   const classes = useStyles()
+
+
+
+  const [playerState, setPlayerState] = useState({
+    playerExists: false,
+    avatar: '',
+    user: ''
+  })
+
+  useEffect(() => {
+
+    // get player corresponding to user if any, if not, build profile
+    axios.get('/api/users/players', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
+      .then(({ data }) => {
+        // console.log(data)
+
+        setPlayerState({
+          ...playerState,
+          playerExists: true,
+          avatar: data.avatar,
+        })
+
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+
+    axios.get('/api/users/myself', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
+      .then(({ data }) => {
+        // console.log(data)
+
+        setPlayerState({
+          ...playerState,
+          user: data.user,
+        })
+
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   const [openState, setOpen] = useState({
     open: false
@@ -56,6 +109,18 @@ const Navbar = () => {
     window.location = '/'
   }
 
+  const avatarCode = avatar => {
+    console.log(avatar)
+    if (avatar.length === 1) {
+      return (<Avatar>{avatar}</Avatar>)
+    } else {
+      return (<Avatar src={avatar} />)
+    }
+  }
+
+  const defaultAvatar = user => {
+    console.log(user)
+  }
 
   return (
     <div className={classes.root}>
@@ -123,7 +188,11 @@ const Navbar = () => {
               )
             }
           </Hidden>
-
+          {
+            (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
+              avatarCode(playerState.avatar)
+            )
+          }
         </Toolbar>
       </AppBar>
     </div>

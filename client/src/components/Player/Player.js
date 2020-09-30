@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { join } from 'path'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -67,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-let avatarSrc
+
 
 const Player = props => {
   const classes = useStyles()
@@ -75,8 +74,14 @@ const Player = props => {
   console.log(props.player.avatar.length)
 
 
-
-  console.log(avatarSrc)
+  const avatarCode = avatar => {
+    console.log(avatar)
+    if (avatar.length === 1) {
+      return (<Avatar>{avatar}</Avatar>)
+    } else {
+      return (<Avatar src={avatar} />)
+    }
+  }
 
   let video = 'https://www.youtube.com/watch?v='
   let start = video.indexOf('=')
@@ -108,11 +113,7 @@ const Player = props => {
     <Grid>
       <Paper className={classes.paper} elevation={3}>
         <Paper className={classes.top}>
-          <Avatar
-            className={classes.avatar}
-            alt="avatar"
-            src={props.player.avatar}
-          />
+          {avatarCode(props.player.avatar)}
           <Typography
             className={classes.discord}
             variant="h6"
