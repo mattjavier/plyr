@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import { join } from 'path'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -169,13 +169,6 @@ const Player = props => {
   console.log(props.player.avatar.length)
 
 
-  if (props.player.avatar.length > 1) {
-
-    let str = props.player.avatar
-    let end = str.indexOf(".")
-
-    avatarSrc = `../../assets/userIcons/png${str.substring(13, end)}.png`
-  }
 
   console.log(avatarSrc)
 
@@ -189,7 +182,7 @@ const Player = props => {
           <Avatar
             className={classes.avatar}
             alt="avatar"
-            src={avatarSrc}
+            src={props.player.avatar}
           />
           <Typography
             className={classes.discord}

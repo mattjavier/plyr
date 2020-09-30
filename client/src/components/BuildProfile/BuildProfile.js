@@ -98,7 +98,7 @@ const BuildProfile = () => {
     })
       .then(({ data }) => {
         let player = {
-          avatar: profileState.avatar || data.username.slice(0, 1),
+          avatar: profileState.avatar,
           bio: profileState.bio,
           xbox: profileState.xbox,
           playstation: profileState.playstation,
