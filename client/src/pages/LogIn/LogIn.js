@@ -12,6 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import Register from '../../components/Register'
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     width: '25ch',
+  },
+  snack: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
   },
 }))
 
@@ -61,6 +69,7 @@ const LogIn = () => {
         }
         else {
           //alert('WRONG!')
+          handleClick()
           setLoginState({ ...loginState, username: '', password: '' })
         }})
       .catch(err => {
@@ -78,6 +87,21 @@ const LogIn = () => {
     event.preventDefault()
   }
 
+    
+    //SNACKBAR STUFF
+    const [open, setOpen] = useState(false)
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
 
   return (
@@ -121,6 +145,12 @@ const LogIn = () => {
         <Register />
 
       </form>
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Invalid Login Credentials!
+        </Alert>
+      </Snackbar>
     </>
   )
 }
