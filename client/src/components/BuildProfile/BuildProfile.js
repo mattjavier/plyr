@@ -34,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
 const BuildProfile = () => {
 
   const classes = useStyles()
+
+  const [isCompetitive, setCompetitive] = useState(false)
+
+  const handleSwitchChange = () => {
+    setCompetitive(!isCompetitive)
+    console.log(isCompetitive)
+  }
   
   const [profileState, setProfileState] = useState({
     avatar: '',
@@ -50,11 +57,6 @@ const BuildProfile = () => {
     user: '',
     searchGames: ''
   })
-  
-  profileState.handleSwitchChange = (event) => {
-    setProfileState({ ...profileState, [event.target.name]: event.target.checked })
-    console.log(profileState.competetive)
-  }
 
   profileState.handleInputChange = (event) => {
     setProfileState({ ...profileState, [event.target.name]: event.target.value })
@@ -95,7 +97,7 @@ const BuildProfile = () => {
     })
       .then(({ data }) => {
         let player = {
-          avatar: profileState.avatar,
+          avatar: profileState.avatar || data.username.slice(0, 1),
           bio: profileState.bio,
           xbox: profileState.xbox,
           playstation: profileState.playstation,
@@ -103,12 +105,12 @@ const BuildProfile = () => {
           pc: profileState.pc,
           games: profileState.games,
           genres: profileState.genres,
-          competetive: profileState.competetive,
+          competetive: isCompetitive,
           discord: profileState.discord,
           highlight: profileState.highlight,
           user: data._id
         }
-
+        console.log(player)
         axios.post('/api/players', player)
           .then(() => {
             window.location = '/matches'
@@ -180,8 +182,8 @@ const BuildProfile = () => {
       <p>
         Casual
         <Switch
-          checked={profileState.competetive}
-          onChange={profileState.handleSwitchChange}
+          checked={isCompetitive}
+          onClick={handleSwitchChange}
           name="competetive"
           inputProps={{ 'aria-label': 'secondary checkbox' }}
         />

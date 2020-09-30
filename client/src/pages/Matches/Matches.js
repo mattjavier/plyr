@@ -54,6 +54,10 @@ const Matches = () => {
                   filteredResults = filteredResults.filter(res => {
                     return res.competetive === true
                   })
+                } else {
+                  filteredResults = filteredResults.filter(res => {
+                    return res.competetive === false
+                  })
                 }
                 setMatchesState({ ...matchesState, matches: filteredResults })
 
