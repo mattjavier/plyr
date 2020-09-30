@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let avatar
-
 const Match = props => {
   const classes = useStyles();
 

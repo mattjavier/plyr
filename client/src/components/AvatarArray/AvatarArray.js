@@ -256,286 +256,286 @@ let avatars = [
     img: bomberman030,
     name: 'bomberman030',
   },
-  // {
-  //   img: tetris031,
-  //   name: 'tetris031',
-  // },
-  // {
-  //   img: brickwall032,
-  //   name: 'brickwall032',
-  // },
-  // {
-  //   img: pick033,
-  //   name: 'pick033',
-  // },
-  // {
-  //   img: diamond034,
-  //   name: 'diamond034',
-  // },
-  // {
-  //   img: worms035,
-  //   name: 'worms035',
-  // },
-  // {
-  //   img: gun036,
-  //   name: 'gun036',
-  // },
-  // {
-  //   img: computergame037,
-  //   name: 'computergame037',
-  // },
-  // {
-  //   img: hearts038,
-  //   name: 'hearts038',
-  // },
-  // {
-  //   img: dice039,
-  //   name: 'dice039',
-  // },
-  // {
-  //   img: virtualreality040,
-  //   name: 'virtualreality040',
-  // },
-  // {
-  //   img: gaming041,
-  //   name: 'gaming041',
-  // },
-  // {
-  //   img: arcade042,
-  //   name: 'arcade042',
-  // },
-  // {
-  //   img: sword043,
-  //   name: 'sword043',
-  // },
-  // {
-  //   img: tictactoe044,
-  //   name: 'tictactoe044',
-  // },
-  // {
-  //   img: mobilegame045,
-  //   name: 'mobilegame045',
-  // },
-  // {
-  //   img: gameboy1046,
-  //   name: 'gameboy1046',
-  // },
-  // {
-  //   img: mobilegame1047,
-  //   name: 'mobilegame1047',
-  // },
-  // {
-  //   img: cards048,
-  //   name: 'cards048',
-  // },
-  // {
-  //   img: gamecontroller049,
-  //   name: 'gamecontroller049',
-  // },
-  // {
-  //   img: slotmachine050,
-  //   name: 'slotmachine050',
-  // },
-  // {
-  //   img: billiard051,
-  //   name: 'billiard051',
-  // },
-  // {
-  //   img: gamecontroller1052,
-  //   name: 'gamecontroller1052',
-  // },
-  // {
-  //   img: chips053,
-  //   name: 'chips053',
-  // },
-  // {
-  //   img: gamecontroller2054,
-  //   name: 'gamecontroller2054',
-  // },
-  // {
-  //   img: bomb055,
-  //   name: 'bomb055',
-  // },
-  // {
-  //   img: tetris1056,
-  //   name: 'tetris1056',
-  // },
-  // {
-  //   img: puzzle057,
-  //   name: 'puzzle057',
-  // },
-  // {
-  //   img: crown058,
-  //   name: 'crown058',
-  // },
-  // {
-  //   img: ghost059,
-  //   name: 'ghost059',
-  // },
-  // {
-  //   img: tetris2060,
-  //   name: 'tetris2060',
-  // },
-  // {
-  //   img: chess061,
-  //   name: 'chess061',
-  // },
-  // {
-  //   img: shield062,
-  //   name: 'shield062',
-  // },
-  // {
-  //   img: winner063,
-  //   name: 'winner063',
-  // },
-  // {
-  //   img: gamecontroller3064,
-  //   name: 'gamecontroller3064',
-  // },
-  // {
-  //   img: cards1065,
-  //   name: 'cards1065',
-  // },
-  // {
-  //   img: mouse066,
-  //   name: 'mouse066',
-  // },
-  // {
-  //   img: glove067,
-  //   name: 'glove067',
-  // },
-  // {
-  //   img: console068,
-  //   name: 'console068',
-  // },
-  // {
-  //   img: darts069,
-  //   name: 'darts069',
-  // },
-  // {
-  //   img: bowling070,
-  //   name: 'bowling070',
-  // },
-  // {
-  //   img: gamecontroller4071,
-  //   name: 'gamecontroller4071',
-  // },
-  // {
-  //   img: gamecontroller5072,
-  //   name: 'gamecontroller5072',
-  // },
-  // {
-  //   img: swords073,
-  //   name: 'swords073',
-  // },
-  // {
-  //   img: diamond1074,
-  //   name: 'diamond1074',
-  // },
-  // {
-  //   img: gun1075,
-  //   name: 'gun1075',
-  // },
-  // {
-  //   img: arrows076,
-  //   name: 'arrows076',
-  // },
-  // {
-  //   img: hammer077,
-  //   name: 'hammer077',
-  // },
-  // {
-  //   img: level078,
-  //   name: 'level078',
-  // },
-  // {
-  //   img: axe079,
-  //   name: 'axe079',
-  // },
-  // {
-  //   img: treasure080,
-  //   name: 'treasure080',
-  // },
-  // {
-  //   img: potion081,
-  //   name: 'potion081',
-  // },
-  // {
-  //   img: gem082,
-  //   name: 'gem082',
-  // },
-  // {
-  //   img: bomb1083,
-  //   name: 'bomb1083',
-  // },
-  // {
-  //   img: poison084,
-  //   name: 'poison084',
-  // },
-  // {
-  //   img: helmet085,
-  //   name: 'helmet085',
-  // },
-  // {
-  //   img: potion1086,
-  //   name: 'potion1086',
-  // },
-  // {
-  //   img: monster2087,
-  //   name: 'monster2087',
-  // },
-  // {
-  //   img: game088,
-  //   name: 'game088',
-  // },
-  // {
-  //   img: ufo089,
-  //   name: 'ufo089',
-  // },
-  // {
-  //   img: trophy090,
-  //   name: 'trophy090',
-  // },
-  // {
-  //   img: spaceship091,
-  //   name: 'spaceship091',
-  // },
-  // {
-  //   img: casino092,
-  //   name: 'casino092',
-  // },
-  // {
-  //   img: manekineko093,
-  //   name: 'manekineko093',
-  // },
-  // {
-  //   img: helmet1094,
-  //   name: 'helmet1094',
-  // },
-  // {
-  //   img: devil095,
-  //   name: 'devil095',
-  // },
-  // {
-  //   img: pinball096,
-  //   name: 'pinball096',
-  // },
-  // {
-  //   img: duck097,
-  //   name: 'duck097',
-  // },
-  // {
-  //   img: explosion098,
-  //   name: 'explosion098',
-  // },
-  // {
-  //   img: batman099,
-  //   name: 'batman099',
-  // },
-  // {
-  //   img: crown1100,
-  //   name: 'crown1100',
-  // },
+  {
+    img: tetris031,
+    name: 'tetris031',
+  },
+  {
+    img: brickwall032,
+    name: 'brickwall032',
+  },
+  {
+    img: pick033,
+    name: 'pick033',
+  },
+  {
+    img: diamond034,
+    name: 'diamond034',
+  },
+  {
+    img: worms035,
+    name: 'worms035',
+  },
+  {
+    img: gun036,
+    name: 'gun036',
+  },
+  {
+    img: computergame037,
+    name: 'computergame037',
+  },
+  {
+    img: hearts038,
+    name: 'hearts038',
+  },
+  {
+    img: dice039,
+    name: 'dice039',
+  },
+  {
+    img: virtualreality040,
+    name: 'virtualreality040',
+  },
+  {
+    img: gaming041,
+    name: 'gaming041',
+  },
+  {
+    img: arcade042,
+    name: 'arcade042',
+  },
+  {
+    img: sword043,
+    name: 'sword043',
+  },
+  {
+    img: tictactoe044,
+    name: 'tictactoe044',
+  },
+  {
+    img: mobilegame045,
+    name: 'mobilegame045',
+  },
+  {
+    img: gameboy1046,
+    name: 'gameboy1046',
+  },
+  {
+    img: mobilegame1047,
+    name: 'mobilegame1047',
+  },
+  {
+    img: cards048,
+    name: 'cards048',
+  },
+  {
+    img: gamecontroller049,
+    name: 'gamecontroller049',
+  },
+  {
+    img: slotmachine050,
+    name: 'slotmachine050',
+  },
+  {
+    img: billiard051,
+    name: 'billiard051',
+  },
+  {
+    img: gamecontroller1052,
+    name: 'gamecontroller1052',
+  },
+  {
+    img: chips053,
+    name: 'chips053',
+  },
+  {
+    img: gamecontroller2054,
+    name: 'gamecontroller2054',
+  },
+  {
+    img: bomb055,
+    name: 'bomb055',
+  },
+  {
+    img: tetris1056,
+    name: 'tetris1056',
+  },
+  {
+    img: puzzle057,
+    name: 'puzzle057',
+  },
+  {
+    img: crown058,
+    name: 'crown058',
+  },
+  {
+    img: ghost059,
+    name: 'ghost059',
+  },
+  {
+    img: tetris2060,
+    name: 'tetris2060',
+  },
+  {
+    img: chess061,
+    name: 'chess061',
+  },
+  {
+    img: shield062,
+    name: 'shield062',
+  },
+  {
+    img: winner063,
+    name: 'winner063',
+  },
+  {
+    img: gamecontroller3064,
+    name: 'gamecontroller3064',
+  },
+  {
+    img: cards1065,
+    name: 'cards1065',
+  },
+  {
+    img: mouse066,
+    name: 'mouse066',
+  },
+  {
+    img: glove067,
+    name: 'glove067',
+  },
+  {
+    img: console068,
+    name: 'console068',
+  },
+  {
+    img: darts069,
+    name: 'darts069',
+  },
+  {
+    img: bowling070,
+    name: 'bowling070',
+  },
+  {
+    img: gamecontroller4071,
+    name: 'gamecontroller4071',
+  },
+  {
+    img: gamecontroller5072,
+    name: 'gamecontroller5072',
+  },
+  {
+    img: swords073,
+    name: 'swords073',
+  },
+  {
+    img: diamond1074,
+    name: 'diamond1074',
+  },
+  {
+    img: gun1075,
+    name: 'gun1075',
+  },
+  {
+    img: arrows076,
+    name: 'arrows076',
+  },
+  {
+    img: hammer077,
+    name: 'hammer077',
+  },
+  {
+    img: level078,
+    name: 'level078',
+  },
+  {
+    img: axe079,
+    name: 'axe079',
+  },
+  {
+    img: treasure080,
+    name: 'treasure080',
+  },
+  {
+    img: potion081,
+    name: 'potion081',
+  },
+  {
+    img: gem082,
+    name: 'gem082',
+  },
+  {
+    img: bomb1083,
+    name: 'bomb1083',
+  },
+  {
+    img: poison084,
+    name: 'poison084',
+  },
+  {
+    img: helmet085,
+    name: 'helmet085',
+  },
+  {
+    img: potion1086,
+    name: 'potion1086',
+  },
+  {
+    img: monster2087,
+    name: 'monster2087',
+  },
+  {
+    img: game088,
+    name: 'game088',
+  },
+  {
+    img: ufo089,
+    name: 'ufo089',
+  },
+  {
+    img: trophy090,
+    name: 'trophy090',
+  },
+  {
+    img: spaceship091,
+    name: 'spaceship091',
+  },
+  {
+    img: casino092,
+    name: 'casino092',
+  },
+  {
+    img: manekineko093,
+    name: 'manekineko093',
+  },
+  {
+    img: helmet1094,
+    name: 'helmet1094',
+  },
+  {
+    img: devil095,
+    name: 'devil095',
+  },
+  {
+    img: pinball096,
+    name: 'pinball096',
+  },
+  {
+    img: duck097,
+    name: 'duck097',
+  },
+  {
+    img: explosion098,
+    name: 'explosion098',
+  },
+  {
+    img: batman099,
+    name: 'batman099',
+  },
+  {
+    img: crown1100,
+    name: 'crown1100',
+  },
 ]
 
 let columns

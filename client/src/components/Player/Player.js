@@ -169,6 +169,14 @@ const Player = props => {
   console.log(props.player.avatar.length)
 
 
+  const avatarCode = avatar => {
+    console.log(avatar)
+    if (avatar.length === 1) {
+      return (<Avatar>{avatar}</Avatar>)
+    } else {
+      return (<Avatar src={avatar} />)
+    }
+  }
 
   console.log(avatarSrc)
 
@@ -179,11 +187,7 @@ const Player = props => {
     <Grid>
       <Paper className={classes.paper} elevation={3}>
         <Paper className={classes.top}>
-          <Avatar
-            className={classes.avatar}
-            alt="avatar"
-            src={props.player.avatar}
-          />
+          {avatarCode(props.player.avatar)}
           <Typography
             className={classes.discord}
             variant="h6"
