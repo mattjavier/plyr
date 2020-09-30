@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-
+    letterSpacing: 3,
+    marginLeft: 0
   },
   link: {
     color: '#ffffff',
@@ -102,7 +103,7 @@ const Navbar = () => {
             </Drawer>
           </Hidden>
           {/* App name */}
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h5" className={classes.title}>
             plyr
           </Typography>
 

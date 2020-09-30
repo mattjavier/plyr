@@ -1,138 +1,78 @@
-import React, { useContext } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import ButtonBase from '@material-ui/core/ButtonBase'
+import React, { useContext } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid';
 import xbox from '../../assets/xbox.jpg'
 import playstation from '../../assets/playstation.jpg'
 import nintendo from '../../assets/nintendo-switch.jpeg'
 import pc from '../../assets/pc.jpg'
-import TextField from '@material-ui/core/TextField'
+import Handle from '../Handle'
 import ProfileContext from '../../utils/ProfileContext'
-
-const images = [
-  {
-    url: xbox,
-    title: 'XBOX',
-    width: '25%',
-  },
-  {
-    url: playstation,
-    title: 'PlayStation',
-    width: '25%',
-  },
-  {
-    url: nintendo,
-    title: 'Nintendo Switch',
-    width: '25%',
-  },
-  {
-    url: pc,
-    title: 'PC',
-    width: '25%',
-  },
-]
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    minWidth: 300,
-    width: '100%',
-    '& label': {
-      color: 'blue',
-      textAlign: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    '& input::placeholder': {
-      opacity: '100%',
-      textAlign: 'center',
-      // color: 'green',
-    }
+    flexGrow: 1,
   },
-  image: {
-    position: 'relative',
-    height: 200,
-    [theme.breakpoints.down('xs')]: {
-      width: '100% !important', // Overrides inline-style
-      height: 100,
-    },
-    '&:hover, &$focusVisible': {
-      zIndex: 1,
-      '& $imageBackdrop': {
-        opacity: 0.15,
-      },
-      '& $imageMarked': {
-        opacity: 0,
-      },
-      '& $imageTitle': {
-        border: '4px solid currentColor',
-      },
-    },
-  },
-  focusVisible: {},
-  imageButton: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: theme.palette.common.white,
-  },
-  imageSrc: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+  gridItem: {
+    textAlign: 'center',
     backgroundSize: 'cover',
     backgroundPosition: 'center 40%',
-  },
-  imageBackdrop: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    backgroundColor: theme.palette.common.black,
-    opacity: 0.7,
-    transition: theme.transitions.create('opacity'),
-  },
-  imageTitle: {
-    position: 'relative',
-    padding: `${theme.spacing(2)}px ${theme.spacing(4)}px ${theme.spacing(1) + 6}px`,
-  },
-  imageMarked: {
-    height: 3,
-    width: 18,
-    backgroundColor: theme.palette.common.white,
-    position: 'absolute',
-    bottom: -2,
-    left: 'calc(50% - 9px)',
-    transition: theme.transitions.create('opacity'),
+    height: '200px',
+    marginBottom: '2px',
   },
   instructions: {
-    color: '#ffffff'
+    color: '#ffffff',
+  },
+  systemName: {
+    color: '#ffffff',
+    fontSize: '16px',
+    position: 'relative',
+    top: 8,
   },
   input: {
-    '& .MuiInputBase-root': {
-      backgroundColor: '#161d22'
-    }
-  }
-}))
+    backgroundColor: '#161d22',
+    position: 'relative',
+    bottom: -112,
+    verticalAlign: 'bottom',
+  },
+  form: {
+    justifyContent: 'center',
+    // display: 'block',
+  },
+}));
 
-const System = () => {
-  const classes = useStyles()
+const systems = [
+  {
+    img: xbox,
+    title: 'XBOX',
+  },
+  {
+    img: playstation,
+    title: 'PlayStation',
+  },
+  {
+    img: nintendo,
+    title: 'Nintendo Switch',
+  },
+  {
+    img: pc,
+    title: 'PC',
+  },
+];
+
+export default function FullWidthGrid() {
+  const classes = useStyles();
+
 
   const {
     handlePlayerHandle
   } = useContext(ProfileContext)
 
   return (
-    <>
+    <div className={classes.root}>
       <p>
         <Typography
           variant="overline"
@@ -141,53 +81,34 @@ const System = () => {
           Provide your player handle for any system you wish to connect with other plyr users on.
         </Typography>
       </p>
-      
-      <div className={classes.root}>
-        {images.map((image) => (
-          <ButtonBase
-            focusRipple
-            key={image.title}
-            className={classes.image}
-            focusVisibleClassName={classes.focusVisible}
-            style={{
-              width: image.width,
-            }}
-          >
-            <span
-              className={classes.imageSrc}
-              style={{
-                backgroundImage: `url(${image.url})`,
-              }}
-            />
-            <span className={classes.imageBackdrop} />
-            <span 
-              className={classes.imageButton}
-            >
-              <Typography
-                component="span"
-                variant="subtitle1"
-                color="inherit"
-                className={classes.imageTitle}
-              >
-                {image.title}
-                <span className={classes.imageMarked} />
-                <div>
-                  {/* username */}
-                  <TextField
-                    placeholder="player handle"
-                    id={image.title}
-                    variant="outlined"
-                    name={image.title === 'Nintendo Switch' ? 'nintendoSwitch' : image.title.toLowerCase()}
-                    onChange={handlePlayerHandle}
-                  />
-                </div>
-              </Typography>
-            </span>
-          </ButtonBase>
-        ))}
-      </div>
-    </>
-  )
-}
+      <Grid container spacing={0}>
+        {systems.map((system) => (
 
-export default System
+          <Grid key={system.title} item xs={12} sm={6} md={3} className={classes.gridItem} style={{
+            backgroundImage: `url(${system.img})`,
+          }}>
+            <Typography
+              variant="overline"
+              className={classes.systemName}
+            >
+              {system.title}
+            </Typography>
+            <form className={classes.form} noValidate autoComplete="off" onSubmit={event => event.preventDefault()}>
+              <TextField
+                variant="outlined"
+                id={system.title}
+                label="Player Handle"
+                placeholder="player handle"
+                name={system.title === 'Nintendo Switch' ? 'nintendoSwitch' : system.title.toLowerCase()}
+                onChange={handlePlayerHandle}
+                size="small"
+                className={classes.input}
+              />
+            </form>
+          </Grid>
+
+        ))}
+      </Grid>
+    </div>
+  );
+}
