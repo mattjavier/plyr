@@ -61,6 +61,7 @@ const BuildProfile = () => {
 
   profileState.handleInputChange = (event) => {
     setProfileState({ ...profileState, [event.target.name]: event.target.value })
+    console.log(profileState)
   }
 
   profileState.handlePlayerHandle = event => {
@@ -98,7 +99,7 @@ const BuildProfile = () => {
     })
       .then(({ data }) => {
         let player = {
-          avatar: profileState.avatar,
+          avatar: profileState.avatar || data.username.slice(0, 1),
           bio: profileState.bio,
           xbox: profileState.xbox,
           playstation: profileState.playstation,
