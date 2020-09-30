@@ -158,7 +158,7 @@ const Matches = () => {
           </div >
         ) : window.location = '/'
       }
-      <button onClick={matchesState.handleCheckResults}>Final matches check</button>
+      {/* <button onClick={matchesState.handleCheckResults}>Final matches check</button> */}
     </>
   )
 }
