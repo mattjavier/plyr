@@ -6,6 +6,7 @@ import Switch from '@material-ui/core/Switch'
 import System from '../System'
 import Genre from '../Genre'
 import Game from '../Game'
+import Avatar from '../AvatarArray'
 import Typography from '@material-ui/core/Typography'
 import ProfileContext from '../../utils/ProfileContext'
 import axios from 'axios'
@@ -188,6 +189,7 @@ const BuildProfile = () => {
         <System />
         <Genre />
         <Game />
+        <Avatar />
       </ProfileContext.Provider>
 
       <p>
