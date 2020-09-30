@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { join } from 'path'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -161,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-let avatarSrc
+
 
 const Player = props => {
   const classes = useStyles()
@@ -177,8 +176,6 @@ const Player = props => {
       return (<Avatar src={avatar} />)
     }
   }
-
-  console.log(avatarSrc)
 
   let video = 'https://www.youtube.com/watch?v='
   let start = video.indexOf('=')
