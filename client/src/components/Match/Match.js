@@ -61,13 +61,13 @@ const Match = props => {
                 {props.match.username}
               </Typography>
             </Grid>
-            <Grid item xs={6} sm={3} alignItems="end">
-              <Typography variant="h6" color="textPrimary" component="h6">
-                {props.match.points}%
+            <Grid item xs={6} sm={3} container alignItems="center">
+              <Typography variant="subtitle1" color="textPrimary" component="h6">
+                {props.match.points}% Compatability
               </Typography>
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <PlayerModal playerInfo={props.match.playerInfo} />
+            <Grid item xs={6} sm={3} container justify="flex-end">
+              <PlayerModal playerInfo={props.match.playerInfo} user={props.match.username} />
             </Grid>
           </Grid>
         </Paper>
