@@ -78,6 +78,12 @@ const BuildProfile = () => {
     profileState.games.push(profileState.searchGames)
   }
 
+  profileState.handleAvatar = (event, values) => {
+    // setProfileState({ ...profileState, genres: values.map(value => value.genre) })
+    setProfileState({ ...profileState, [event.target.name]: event.target.value })
+    console.log(profileState.avatar)
+  }
+
   profileState.handleDeleteGames = (gameToDelete) => () => {
     setProfileState({ ...profileState, games: profileState.games.filter(game => gameToDelete !== game) })
   }
@@ -92,7 +98,7 @@ const BuildProfile = () => {
     })
       .then(({ data }) => {
         let player = {
-          avatar: data.username.slice(0, 1),
+          avatar: profileState.avatar || data.username.slice(0, 1),
           bio: profileState.bio,
           xbox: profileState.xbox,
           playstation: profileState.playstation,
@@ -124,7 +130,7 @@ const BuildProfile = () => {
       autoComplete="off"
       onSubmit={event => event.preventDefault()}
     >
-
+      <h1>Build Profile</h1>
       {/* Bio */}
 
       <TextField
@@ -185,7 +191,6 @@ const BuildProfile = () => {
         Competitive
       </p>
       <ProfileContext.Provider value={profileState}>
-        {/* <System /> */}
         <System />
         <Genre />
         <Game />

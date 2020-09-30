@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import ball001 from '../../assets/userIcons/png/001-ball.png'
 import controller002 from '../../assets/userIcons/png/002-controller.png'
@@ -109,18 +109,19 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 import Typography from '@material-ui/core/Typography'
+import ProfileContext from '../../utils/ProfileContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    // justifyContent: 'space-around',
     marginTop: theme.spacing(2),
     overflow: 'hidden',
     backgroundColor: theme.palette.background,
   },
   gridList: {
-    width: 500,
+    justifyContent: 'space-around',
+    width: '75%',
     height: 350,
     padding: '8px',
     marginTop: theme.spacing(2),
@@ -135,18 +136,426 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 let avatars = [
-  computergame037, ball001, controller002, xbox003, nintendoswitch004, supernintendo005, gameboy006, wizard008, dwarf009, wolf010, littleredridinghood011, gnome012, reaper013, kraken014, weapons015, mermaid016, superhero017, superhero1018, monster019, monster1020, mushroom021, minecraft022, pikachu023, supermario024, angrybirds025, pokeball026, box027, worldofwarcraft028, carnivorousplant029, bomberman030, tetris031, brickwall032, pick033, diamond034, worms035, gun036, hearts038, dice039, virtualreality040, gaming041, arcade042, sword043, tictactoe044, mobilegame045, gameboy1046, mobilegame1047, cards048, gamecontroller049, slotmachine050, billiard051, gamecontroller1052, chips053, gamecontroller2054, bomb055, tetris1056, puzzle057, crown058, ghost059, tetris2060, chess061, shield062, winner063, gamecontroller3064, cards1065, mouse066, glove067, console068, darts069, bowling070, gamecontroller4071, gamecontroller5072, pokemongo007, swords073, diamond1074, gun1075, arrows076, hammer077, level078, axe079, treasure080, potion081, gem082, bomb1083, poison084, helmet085, potion1086, monster2087, game088, ufo089, trophy090, spaceship091, casino092, manekineko093, helmet1094, devil095, pinball096, duck097, explosion098, batman099, crown1100
+  {
+    img: ball001,
+    name: 'ball001',
+  },
+  {
+    img: controller002,
+    name: 'controller002',
+  },
+  {
+    img: xbox003,
+    name: 'xbox003',
+  },
+  {
+    img: nintendoswitch004,
+    name: 'nintendoswitch004',
+  },
+  {
+    img: supernintendo005,
+    name: 'supernintendo005',
+  },
+  {
+    img: gameboy006,
+    name: 'gameboy006',
+  },
+  {
+    img: pokemongo007,
+    name: 'pokemongo007',
+  },
+  {
+    img: wizard008,
+    name: 'wizard008',
+  },
+  {
+    img: dwarf009,
+    name: 'dwarf009',
+  },
+  {
+    img: wolf010,
+    name: 'wolf010',
+  },
+  {
+    img: littleredridinghood011,
+    name: 'littleredridinghood011',
+  },
+  {
+    img: gnome012,
+    name: 'gnome012',
+  },
+  {
+    img: reaper013,
+    name: 'reaper013',
+  },
+  {
+    img: kraken014,
+    name: 'kraken014',
+  },
+  {
+    img: weapons015,
+    name: 'weapons015',
+  },
+  {
+    img: mermaid016,
+    name: 'mermaid016',
+  },
+  {
+    img: superhero017,
+    name: 'superhero017',
+  },
+  {
+    img: superhero1018,
+    name: 'superhero1018',
+  },
+  {
+    img: monster019,
+    name: 'monster019',
+  },
+  {
+    img: monster1020,
+    name: 'monster1020',
+  },
+  {
+    img: mushroom021,
+    name: 'mushroom021',
+  },
+  {
+    img: minecraft022,
+    name: 'minecraft022',
+  },
+  {
+    img: pikachu023,
+    name: 'pikachu023',
+  },
+  {
+    img: supermario024,
+    name: 'supermario024',
+  },
+  {
+    img: angrybirds025,
+    name: 'angrybirds025',
+  },
+  {
+    img: pokeball026,
+    name: 'pokeball026',
+  },
+  {
+    img: box027,
+    name: 'box027',
+  },
+  {
+    img: worldofwarcraft028,
+    name: 'worldofwarcraft028',
+  },
+  {
+    img: carnivorousplant029,
+    name: 'carnivorousplant029',
+  },
+  {
+    img: bomberman030,
+    name: 'bomberman030',
+  },
+  {
+    img: tetris031,
+    name: 'tetris031',
+  },
+  {
+    img: brickwall032,
+    name: 'brickwall032',
+  },
+  {
+    img: pick033,
+    name: 'pick033',
+  },
+  {
+    img: diamond034,
+    name: 'diamond034',
+  },
+  {
+    img: worms035,
+    name: 'worms035',
+  },
+  {
+    img: gun036,
+    name: 'gun036',
+  },
+  {
+    img: computergame037,
+    name: 'computergame037',
+  },
+  {
+    img: hearts038,
+    name: 'hearts038',
+  },
+  {
+    img: dice039,
+    name: 'dice039',
+  },
+  {
+    img: virtualreality040,
+    name: 'virtualreality040',
+  },
+  {
+    img: gaming041,
+    name: 'gaming041',
+  },
+  {
+    img: arcade042,
+    name: 'arcade042',
+  },
+  {
+    img: sword043,
+    name: 'sword043',
+  },
+  {
+    img: tictactoe044,
+    name: 'tictactoe044',
+  },
+  {
+    img: mobilegame045,
+    name: 'mobilegame045',
+  },
+  {
+    img: gameboy1046,
+    name: 'gameboy1046',
+  },
+  {
+    img: mobilegame1047,
+    name: 'mobilegame1047',
+  },
+  {
+    img: cards048,
+    name: 'cards048',
+  },
+  {
+    img: gamecontroller049,
+    name: 'gamecontroller049',
+  },
+  {
+    img: slotmachine050,
+    name: 'slotmachine050',
+  },
+  {
+    img: billiard051,
+    name: 'billiard051',
+  },
+  {
+    img: gamecontroller1052,
+    name: 'gamecontroller1052',
+  },
+  {
+    img: chips053,
+    name: 'chips053',
+  },
+  {
+    img: gamecontroller2054,
+    name: 'gamecontroller2054',
+  },
+  {
+    img: bomb055,
+    name: 'bomb055',
+  },
+  {
+    img: tetris1056,
+    name: 'tetris1056',
+  },
+  {
+    img: puzzle057,
+    name: 'puzzle057',
+  },
+  {
+    img: crown058,
+    name: 'crown058',
+  },
+  {
+    img: ghost059,
+    name: 'ghost059',
+  },
+  {
+    img: tetris2060,
+    name: 'tetris2060',
+  },
+  {
+    img: chess061,
+    name: 'chess061',
+  },
+  {
+    img: shield062,
+    name: 'shield062',
+  },
+  {
+    img: winner063,
+    name: 'winner063',
+  },
+  {
+    img: gamecontroller3064,
+    name: 'gamecontroller3064',
+  },
+  {
+    img: cards1065,
+    name: 'cards1065',
+  },
+  {
+    img: mouse066,
+    name: 'mouse066',
+  },
+  {
+    img: glove067,
+    name: 'glove067',
+  },
+  {
+    img: console068,
+    name: 'console068',
+  },
+  {
+    img: darts069,
+    name: 'darts069',
+  },
+  {
+    img: bowling070,
+    name: 'bowling070',
+  },
+  {
+    img: gamecontroller4071,
+    name: 'gamecontroller4071',
+  },
+  {
+    img: gamecontroller5072,
+    name: 'gamecontroller5072',
+  },
+  {
+    img: swords073,
+    name: 'swords073',
+  },
+  {
+    img: diamond1074,
+    name: 'diamond1074',
+  },
+  {
+    img: gun1075,
+    name: 'gun1075',
+  },
+  {
+    img: arrows076,
+    name: 'arrows076',
+  },
+  {
+    img: hammer077,
+    name: 'hammer077',
+  },
+  {
+    img: level078,
+    name: 'level078',
+  },
+  {
+    img: axe079,
+    name: 'axe079',
+  },
+  {
+    img: treasure080,
+    name: 'treasure080',
+  },
+  {
+    img: potion081,
+    name: 'potion081',
+  },
+  {
+    img: gem082,
+    name: 'gem082',
+  },
+  {
+    img: bomb1083,
+    name: 'bomb1083',
+  },
+  {
+    img: poison084,
+    name: 'poison084',
+  },
+  {
+    img: helmet085,
+    name: 'helmet085',
+  },
+  {
+    img: potion1086,
+    name: 'potion1086',
+  },
+  {
+    img: monster2087,
+    name: 'monster2087',
+  },
+  {
+    img: game088,
+    name: 'game088',
+  },
+  {
+    img: ufo089,
+    name: 'ufo089',
+  },
+  {
+    img: trophy090,
+    name: 'trophy090',
+  },
+  {
+    img: spaceship091,
+    name: 'spaceship091',
+  },
+  {
+    img: casino092,
+    name: 'casino092',
+  },
+  {
+    img: manekineko093,
+    name: 'manekineko093',
+  },
+  {
+    img: helmet1094,
+    name: 'helmet1094',
+  },
+  {
+    img: devil095,
+    name: 'devil095',
+  },
+  {
+    img: pinball096,
+    name: 'pinball096',
+  },
+  {
+    img: duck097,
+    name: 'duck097',
+  },
+  {
+    img: explosion098,
+    name: 'explosion098',
+  },
+  {
+    img: batman099,
+    name: 'batman099',
+  },
+  {
+    img: crown1100,
+    name: 'crown1100',
+  },
 ]
 
+let columns
+
+if (window.innerWidth >= 610) {
+  columns = 5
+} else if (window.innerWidth >= 500) {
+  columns = 4
+} else {
+  columns = 3
+}
 
 const AvatarArray = () => {
   const classes = useStyles()
 
-  const [value, setValue] = React.useState(computergame037);
+  const [value, setValue] = React.useState()
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  const {
+    handleAvatar
+  } = useContext(ProfileContext)
 
   return (
     <>
@@ -159,12 +568,12 @@ const AvatarArray = () => {
               Select an avatar:
         </Typography>
           </FormLabel>
-          <RadioGroup aria-label="User Avatar" name="userAvatar" value={value} onChange={handleChange}>
-            <GridList cellHeight={110} className={classes.gridList} cols={5}>
+          <RadioGroup aria-label="User Avatar" name="userAvatar" value={value} onChange={handleAvatar}>
+            <GridList cellHeight={110} className={classes.gridList} cols={columns}>
               {avatars.map((avatar) => (
-                <GridListTile key={avatar} cols={1}>
+                <GridListTile key={avatar.img} cols={1}>
 
-                  <FormControlLabel value={avatar} control={<Radio />} label={<Avatar src={avatar} alt={avatar} className={classes.large} display=" inline" />} labelPlacement="top" />
+                  <FormControlLabel value={avatar.img} name="avatar" control={<Radio value={avatar.img} name="avatar" />} label={<Avatar src={avatar.img} alt={avatar.img} className={classes.large} name="avatar" value={avatar.img} display=" inline" />} labelPlacement="top" />
                 </GridListTile>
               ))}
             </GridList>
