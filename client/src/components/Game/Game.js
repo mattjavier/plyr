@@ -108,7 +108,6 @@ const Game = () => {
             className={classes.input}
             // onChange={handleChange('password')}
             onChange={handleInputChange}
-            onKeyPress="if (event.keyCode == 13) {handleGames}"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton

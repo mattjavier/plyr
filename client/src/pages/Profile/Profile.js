@@ -32,7 +32,7 @@ const Profile = () => {
       }
     })
       .then(({ data }) => {
-        //console.log(data)
+        console.log(data)
 
         setPlayerState({
           ...playerState,
