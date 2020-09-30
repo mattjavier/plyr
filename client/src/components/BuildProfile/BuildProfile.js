@@ -33,15 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const BuildProfile = () => {
 
   const classes = useStyles()
-
-  const [compState, setCompState] = useState({
-    checkedA: false
-  })
-
-  compState.handleSwitchChange = (event) => {
-    setCompState({ ...compState, [event.target.name]: event.target.checked })
-  }
-
+  
   const [profileState, setProfileState] = useState({
     avatar: '',
     bio: '',
@@ -57,6 +49,11 @@ const BuildProfile = () => {
     user: '',
     searchGames: ''
   })
+  
+  profileState.handleSwitchChange = (event) => {
+    setProfileState({ ...profileState, [event.target.name]: event.target.checked })
+    console.log(profileState.competetive)
+  }
 
   profileState.handleInputChange = (event) => {
     setProfileState({ ...profileState, [event.target.name]: event.target.value })
@@ -176,9 +173,9 @@ const BuildProfile = () => {
       <p>
         Casual
         <Switch
-          checked={compState.checkedA}
-          onChange={compState.handleSwitchChange}
-          name="checkedA"
+          checked={profileState.competetive}
+          onChange={profileState.handleSwitchChange}
+          name="competetive"
           inputProps={{ 'aria-label': 'secondary checkbox' }}
         />
         Competitive

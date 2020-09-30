@@ -52,6 +52,11 @@ const Matches = () => {
             axios.get('/api/players')
               .then(({ data }) => {
                 let filteredResults = data.filter(res => res._id !== player_profile)
+                if (userProfileData.competetive) {
+                  filteredResults = filteredResults.filter(res => {
+                    return res.competetive === true
+                  })
+                }
                 setMatchesState({ ...matchesState, matches: filteredResults })
                 console.log(filteredResults)
 
