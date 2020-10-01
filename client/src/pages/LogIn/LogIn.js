@@ -12,9 +12,16 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import Register from '../../components/Register'
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+let snackType
+let snackMessage
+let snackSeverity
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,9 +76,11 @@ const LogIn = () => {
         }
         else {
           //alert('WRONG!')
-          handleClick()
+          snackType = 'invalid log in'
+          handleSnackClick(snackType)
           setLoginState({ ...loginState, username: '', password: '' })
-        }})
+        }
+      })
       .catch(err => {
         console.log(err)
         window.location = '/'
@@ -87,15 +96,19 @@ const LogIn = () => {
     event.preventDefault()
   }
 
-    
-    //SNACKBAR STUFF
-    const [open, setOpen] = useState(false)
 
-  const handleClick = () => {
-    setOpen(true);
+  //SNACKBAR STUFF
+  const [open, setOpen] = useState(false)
+
+  const handleSnackClick = (snackType) => {
+    setOpen(true)
+    if (snackType === 'invalid log in') {
+      snackSeverity = 'error'
+      snackMessage = 'Invalid Login Credentials!'
+    }
   };
 
-  const handleClose = (event, reason) => {
+  const handleSnackClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -146,9 +159,9 @@ const LogIn = () => {
 
       </form>
 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          Invalid Login Credentials!
+      <Snackbar className={classes.snack} open={open} autoHideDuration={6000} onClose={handleSnackClose}>
+        <Alert onClose={handleSnackClose} severity={snackSeverity}>
+          {snackMessage}
         </Alert>
       </Snackbar>
     </>
