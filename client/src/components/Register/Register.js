@@ -64,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '25ch',
   },
+  button: {
+    display: 'inline !Important',
+    marginTop: theme.spacing(1),
+  },
 }))
 
 const Register = () => {
@@ -98,7 +102,7 @@ const Register = () => {
       snackSeverity = 'error'
       snackMessage = 'Form incomplete. All fields required.'
     }
-    
+
     console.log(snackSeverity)
     console.log(snackMessage)
     setOpenSnack(true);
@@ -245,7 +249,7 @@ const Register = () => {
   return (
     <>
       <div>
-        <Button onClick={handleOpen}>
+        <Button className={classes.button} variant="contained" color="primary" onClick={handleOpen}>
           Register
       </Button>
         <Modal
