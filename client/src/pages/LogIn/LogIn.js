@@ -19,6 +19,10 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+let snackType
+let snackMessage
+let snackSeverity
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -72,7 +76,8 @@ const LogIn = () => {
         }
         else {
           //alert('WRONG!')
-          handleClick()
+          snackType = 'invalid log in'
+          handleSnackClick(snackType)
           setLoginState({ ...loginState, username: '', password: '' })
         }
       })
@@ -95,11 +100,15 @@ const LogIn = () => {
   //SNACKBAR STUFF
   const [open, setOpen] = useState(false)
 
-  const handleClick = () => {
-    setOpen(true);
+  const handleSnackClick = (snackType) => {
+    setOpen(true)
+    if (snackType === 'invalid log in') {
+      snackSeverity = 'error'
+      snackMessage = 'Invalid Login Credentials!'
+    }
   };
 
-  const handleClose = (event, reason) => {
+  const handleSnackClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -150,9 +159,9 @@ const LogIn = () => {
 
       </form>
 
-      <Snackbar className={classes.snack} open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          Invalid Login Credentials!
+      <Snackbar className={classes.snack} open={open} autoHideDuration={6000} onClose={handleSnackClose}>
+        <Alert onClose={handleSnackClose} severity={snackSeverity}>
+          {snackMessage}
         </Alert>
       </Snackbar>
     </>
