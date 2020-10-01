@@ -147,7 +147,6 @@ const UserPlayer = props => {
                     {props.player.discord}
                   </Typography>
                 </Grid>
-                <hr />
                 {
                   props.player.xbox.length > 0 ? (
                     <>

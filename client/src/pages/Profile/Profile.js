@@ -49,7 +49,8 @@ const Profile = () => {
           genres: data.genres,
           competetive: data.competetive,
           discord: data.discord,
-          highlight: data.highlight
+          highlight: data.highlight,
+          pendingRequest: data.pendingRequest
         })
       })
       .catch(err => {
@@ -67,6 +68,9 @@ const Profile = () => {
             <BuildProfile />
         ) : window.location = '/'
       }
+      <hr />
+      <button onClick={() => console.log(playerState.pendingRequest)} >Check pending requests</button>
+
     </>
   )
 }
