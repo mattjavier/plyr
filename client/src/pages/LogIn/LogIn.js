@@ -135,7 +135,12 @@ const LogIn = () => {
 
   return (
     <>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+      >
+
         <Typography
           variant="overline"
           className={classes.head}
@@ -175,7 +180,7 @@ const LogIn = () => {
           />
         </FormControl>
         <Button className={classes.button} variant="contained" color="primary" onClick={loginState.handleLogin}>Log In</Button>
-        <Register className={classes.button} />
+        <Register />
 
       </form>
 

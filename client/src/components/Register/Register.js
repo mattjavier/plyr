@@ -66,7 +66,10 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     display: 'inline !Important',
-    marginTop: theme.spacing(1),
+    position: 'relative',
+    top: 3,
+    // marginTop: '50px',
+    marginLeft: theme.spacing(2.5),
   },
 }))
 
@@ -105,6 +108,7 @@ const Register = () => {
 
     console.log(snackSeverity)
     console.log(snackMessage)
+
     setOpenSnack(true);
 
   };
@@ -248,8 +252,8 @@ const Register = () => {
 
   return (
     <>
-      <div>
-        <Button className={classes.button} variant="contained" color="primary" onClick={handleOpen}>
+      <div className={classes.button}>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
           Register
       </Button>
         <Modal
