@@ -6,6 +6,9 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
+import Button from '@material-ui/core/Button'
+import axios from 'axios'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -63,12 +66,35 @@ const useStyles = makeStyles((theme) => ({
 
 let avatarSrc
 
-const Player = props => {
+
+const Player = (props) => {
   const classes = useStyles()
   console.log(props.player)
   console.log(props.player.avatar.length)
-
-
+  
+  
+  const handleAddFriend = (playerId) => {
+    console.log(`Sending friend request to ${playerId}`)
+    axios.get('/api/users/myself', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }})
+      .then(({data}) => {
+        let myself = {
+          name: data.username,
+          playerId: data.player_profile
+        }
+        console.log(myself)
+        axios.put(`/api/players/addfriend/${playerId}`, myself )
+          .then(request => {
+            console.log(request)
+            console.log(`Request Sent from ${data.username} to ${playerId}`)
+          })
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
+  
+  }
 
   console.log(avatarSrc)
 
@@ -143,6 +169,7 @@ const Player = props => {
             <YoutubeEmbedVideo className={classes.video} videoId={props.player.highlight.slice(start + 1)} suggestions={false} />
           ) : null
         }
+        <Button onClick={() => handleAddFriend(props.player._id)}>Add Friend</Button>
       </Paper>
     </Grid>
   )

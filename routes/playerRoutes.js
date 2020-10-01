@@ -59,6 +59,8 @@ router.put('/players/addfriend/:id', (req, res) => {
     .catch(err => console.error(err))
 })
 
+
+
 //accepting a friend request. 
 router.put('/players/friends/:id', (req, res) => {
     Player.findByIdAndUpdate(req.params.id, { $push: { friendsList: req.body } })

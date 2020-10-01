@@ -92,16 +92,16 @@ const LogIn = () => {
     const [open, setOpen] = useState(false)
 
   const handleClick = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
 
   return (

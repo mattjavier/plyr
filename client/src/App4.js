@@ -6,6 +6,7 @@ const App = () => {
 
     const [friendState, setFriendState] = useState({
         friendRequest: '',
+        friendsList: [],
         myPlayerId: '',
         myUsername: '',
         dummyPlayerId: '5f6b87d1536ec51f5490185f',
@@ -22,13 +23,13 @@ const App = () => {
     friendState.addFriend = event => {
         event.preventDefault()
         console.log('Sending friend request')
-        let myself = {
+        const myself = {
             name: friendState.myUsername,
             playerId: friendState.myPlayerId
         }
         let requestId = friendState.dummyPlayerId
         console.log(`axios request to player from ${friendState.myPlayerId}`)
-        axios.put(`/api/players/addfriend/5f71bb3d4b7664428cf8115c`, {pendingRequest: myself} )
+        axios.put(`/api/players/addfriend/${requestId}`, {pendingRequest: myself} )
             .then(data => {
                 console.log(data)
                 console.log('Request Sent')
