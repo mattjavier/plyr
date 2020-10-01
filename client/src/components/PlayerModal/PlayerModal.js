@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
     top: 50,
-    borderRadius: 1
+    borderRadius: 1,
+    overflow: 'scroll'
   }
 }))
 
@@ -56,7 +57,7 @@ const PlayerModal = props => {
         aria-describedby="simple-modal-description"
         className={classes.modal}
       >
-        <Player player={props.playerInfo} />
+        <Player player={props.playerInfo} user={props.user} />
       </Modal>
     </div>
   )

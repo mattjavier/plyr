@@ -5,9 +5,6 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
-import Button from '@material-ui/core/Button'
-import axios from 'axios'
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -17,8 +14,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     borderRadius: 5,
     width: '90%',
-    height: '100%',
-    overflow: 'scroll'
+    height: '100%'
   },
   top: {
     backgroundColor: '#845bb3',
@@ -31,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    paddingBottom: 20
   },
   infoContainer: {
     paddingLeft: 5,
@@ -54,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[6],
     backgroundColor: '#263238'
   },
-  upperText: {
+  discord: {
     color: '#ffffff',
     letterSpacing: 2
   },
@@ -74,34 +69,11 @@ const useStyles = makeStyles((theme) => ({
   },
   gridItems: {
     textAlign: 'right'
-  }
+  },
 }))
 
-const Player = props => {
+const UserPlayer = props => {
   const classes = useStyles()
-  
-  const handleAddFriend = (playerId) => {
-    console.log(`Sending friend request to ${playerId}`)
-    axios.get('/api/users/myself', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('user')}`
-      }})
-      .then(({data}) => {
-        let myself = {
-          name: data.username,
-          playerId: data.player_profile
-        }
-        console.log(myself)
-        axios.put(`/api/players/addfriend/${playerId}`, myself )
-          .then(request => {
-            console.log(request)
-            console.log(`Request Sent from ${data.username} to ${playerId}`)
-            window.location.reload()
-          })
-          .catch(err => console.log(err))
-      })
-      .catch(err => console.log(err))
-  }
 
   const avatarCode = avatar => {
     console.log(avatar)
@@ -119,18 +91,6 @@ const Player = props => {
     <Grid className={classes.paper}>
       <Paper className={classes.top} elevation={5}>
         {avatarCode(props.player.avatar)}
-        <Typography
-          className={classes.upperText}
-          variant="h5"
-        >
-          {props.user}
-        </Typography>
-        <Typography
-          className={classes.upperText}
-          variant="caption"
-        >
-          discord: {props.player.discord}
-        </Typography>
       </Paper>
       <Grid 
         container
@@ -187,10 +147,10 @@ const Player = props => {
                     {props.player.discord}
                   </Typography>
                 </Grid>
+                <hr />
                 {
                   props.player.xbox.length > 0 ? (
                     <>
-                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -253,6 +213,7 @@ const Player = props => {
                 {
                   props.player.pc.length > 0 ? (
                     <>
+                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -363,18 +324,9 @@ const Player = props => {
               />
             </Grid>
         }
-        {
-          (props.player.friendStatus === "not friends" ) ? (
-            <Button variant="contained" color="primary" onClick={() => handleAddFriend(props.player._id)}>Add Friend</Button>
-          ) : (props.player.friendStatus === "pending" ) ? (
-            <p>Request Pending</p>
-          ) : (props.player.friendStatus === "friends" ) ? (
-            <p>Friends</p>
-          ) : null
-        }
       </Grid>
     </Grid>
   )
 }
 
-export default Player
+export default UserPlayer

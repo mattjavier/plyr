@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import Match from '../../components/Match'
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 import axios from 'axios'
-import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,10 +15,15 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-}));
+  head: {
+    letterSpacing: 2,
+    fontSize: '30px',
+    textTransform: 'capitalize'
+  },
+}))
 
 const Matches = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const [matchesState, setMatchesState] = useState({
     finalMatches: []
@@ -165,7 +170,12 @@ const Matches = () => {
       {
         localStorage.getItem('user') ? (
           <div className={classes.root}>
-            <h1>Matches</h1>
+            <Typography
+              variant="overline"
+              className={classes.head}
+            >
+              Matches
+        </Typography>
 
             <Grid container spacing={3}>
 

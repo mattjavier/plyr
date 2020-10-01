@@ -27,7 +27,14 @@ const useStyles = makeStyles((theme) => ({
   input: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    borderRadius: 5,
     backgroundColor: '#161d22',
+  },
+  head: {
+    letterSpacing: 2,
+    fontSize: '30px',
+    textTransform: 'capitalize',
+    display: 'block',
   },
 }))
 
@@ -41,7 +48,7 @@ const BuildProfile = () => {
     setCompetitive(!isCompetitive)
     console.log(isCompetitive)
   }
-  
+
   const [profileState, setProfileState] = useState({
     avatar: '',
     bio: '',
@@ -130,9 +137,14 @@ const BuildProfile = () => {
       autoComplete="off"
       onSubmit={event => event.preventDefault()}
     >
-      <h1>Build Profile</h1>
-      {/* Bio */}
+      <Typography
+        variant="overline"
+        className={classes.head}
+      >
+        Build Profile
+        </Typography>
 
+      {/* Bio */}
       <TextField
         id="outlined-multiline-static"
         label="Bio"

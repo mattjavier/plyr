@@ -1,4 +1,5 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import Developer from '../../components/Developer'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -26,10 +27,25 @@ const developers = [
   }
 ]
 
+const useStyles = makeStyles((theme) => ({
+  head: {
+    letterSpacing: 2,
+    fontSize: '30px',
+    textTransform: 'capitalize'
+  },
+}))
+
 const About = () => {
+  const classes = useStyles()
+
   return (
     <>
-      <h1>About</h1>
+      <Typography
+        variant="overline"
+        className={classes.head}
+      >
+        About
+        </Typography>
       <Typography color="textPrimary" variant="h5" component="h5">
         This app was built by a team of 4 developers as the final project for the U.C. Irvine Coding Boot Camp.
       </Typography>

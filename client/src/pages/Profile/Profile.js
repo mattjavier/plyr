@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import Player from '../../components/Player'
+import UserPlayer from '../../components/UserPlayer'
 import BuildProfile from '../../components/BuildProfile'
 
 
@@ -63,7 +63,7 @@ const Profile = () => {
       {
         localStorage.getItem('user') ? (
           playerState.playerExists ?
-            <Player player={playerState} /> :
+            <UserPlayer player={playerState} /> :
             <BuildProfile />
         ) : window.location = '/'
       }

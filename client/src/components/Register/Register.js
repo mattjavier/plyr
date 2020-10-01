@@ -9,6 +9,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import IconButton from '@material-ui/core/IconButton'
 import FormControl from '@material-ui/core/FormControl'
+import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
@@ -43,26 +44,35 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
+    width: 272,
+    backgroundColor: '#263238',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
+    borderRadius: 5,
     padding: theme.spacing(2, 4, 3),
   },
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  textField: {
+  input: {
+    marginBottom: theme.spacing(2),
     width: '25ch',
+    borderRadius: 5,
+    backgroundColor: '#161d22',
+  },
+  iconButton: {
+    color: '#7F58AD'
+  },
+  button: {
+    display: 'inline',
+    position: 'relative',
+    top: 4,
+    marginLeft: theme.spacing(2.5),
+  },
+  submit: {
+    display: 'block',
+  },
+  head: {
+    letterSpacing: 2,
+    fontSize: '30px',
+    textTransform: 'capitalize'
   },
 }))
 
@@ -97,12 +107,11 @@ const Register = () => {
     } else if (snackType === 'missing') {
       snackSeverity = 'error'
       snackMessage = 'Form incomplete. All fields required.'
-    } else {
-      console.log('wtf')
     }
-    setOpenSnack(true);
     console.log(snackSeverity)
     console.log(snackMessage)
+
+    setOpenSnack(true);
 
   };
 
@@ -178,12 +187,18 @@ const Register = () => {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Register</h2>
+      <Typography
+        variant="overline"
+        className={classes.head}
+      >
+        Register
+        </Typography>
       <p id="simple-modal-description">
         <form className={classes.root} noValidate autoComplete="off" onSubmit={registerState.handleRegister}>
           {/* Name Field */}
           <TextField
             required
+            className={classes.input}
             id="outlined-required"
             label="Name"
             variant="outlined"
@@ -194,6 +209,7 @@ const Register = () => {
           {/* Email Field */}
           <TextField
             required
+            className={classes.input}
             id="outlined-required"
             label="Email"
             type="email"
@@ -205,6 +221,7 @@ const Register = () => {
           {/* Username Field */}
           <TextField
             required
+            className={classes.input}
             id="outlined-required"
             label="Username"
             name="username"
@@ -213,7 +230,7 @@ const Register = () => {
           />
 
           {/* Password field */}
-          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+          <FormControl className={classes.input} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput
               required
@@ -227,6 +244,7 @@ const Register = () => {
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
+                    className={classes.iconButton}
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
@@ -237,7 +255,7 @@ const Register = () => {
               }
             />
           </FormControl>
-          <Button onClick={registerState.handleRegister}>Submit</Button>
+          <Button className={classes.submit} variant="contained" color="primary" onClick={registerState.handleRegister}>Submit</Button>
         </form>
       </p>
     </div>
@@ -245,8 +263,8 @@ const Register = () => {
 
   return (
     <>
-      <div>
-        <Button onClick={handleOpen}>
+      <div className={classes.button}>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
           Register
       </Button>
         <Modal
