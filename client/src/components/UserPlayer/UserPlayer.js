@@ -85,7 +85,13 @@ const UserPlayer = props => {
   }
 
   let video = 'https://www.youtube.com/watch?v='
-  let start = video.indexOf('=')
+  let start = video.indexOf('=') + 1
+
+  let genres = props.player.genres
+  let games = props.player.games
+
+  genres.sort()
+  games.sort()
 
   return (
     <Grid className={classes.paper}>
@@ -165,13 +171,18 @@ const UserPlayer = props => {
                           {props.player.xbox}
                         </Typography>
                       </Grid>
+                      { 
+                        props.player.playstation.length > 0 ? ( <hr /> ) :
+                        ( props.player.nintendoSwitch.length > 0 ? ( <hr /> ) : 
+                          ( props.player.pc.length > 0 ? ( <hr /> ) : null )
+                        ) 
+                      }
                     </>
                   ) : null
                 }
                 {
                   props.player.playstation.length > 0 ? (
                     <>
-                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -186,13 +197,16 @@ const UserPlayer = props => {
                           {props.player.playstation}
                         </Typography>
                       </Grid>
+                      { 
+                        props.player.nintendoSwitch.length > 0 ? ( <hr /> ) : 
+                        ( props.player.pc.length > 0 ? ( <hr/ > ) : null )
+                      }
                     </>
                   ) : null
                 }
                 {
                   props.player.nintendoSwitch.length > 0 ? (
                     <>
-                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -207,13 +221,13 @@ const UserPlayer = props => {
                           {props.player.nintendoSwitch}
                         </Typography>
                       </Grid>
+                      { props.player.pc.length > 0 ? ( <hr /> ) : null }
                     </>
                   ) : null
                 }
                 {
                   props.player.pc.length > 0 ? (
                     <>
-                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -236,7 +250,7 @@ const UserPlayer = props => {
             <Paper className={classes.content} elevation={5}>
               <div className={classes.inner}>
                 {
-                  props.player.genres.length > 0 ? (
+                  genres.length > 0 ? (
                     <Grid 
                       container 
                       justify="space-between"
@@ -254,7 +268,7 @@ const UserPlayer = props => {
                         className={classes.gridItems}
                       >
                         {
-                          props.player.genres.map(genre => (
+                          genres.map(genre => (
                             <Typography className={classes.text}>
                               {genre}
                             </Typography>
@@ -266,7 +280,7 @@ const UserPlayer = props => {
                 }
                 <hr />
                 {
-                  props.player.games.length > 0 ? (
+                  games.length > 0 ? (
                     <Grid 
                       container 
                       justify="space-between"
@@ -284,7 +298,7 @@ const UserPlayer = props => {
                         className={classes.gridItems}
                       >
                         {
-                          props.player.games.map(game => (
+                          games.map(game => (
                             <Typography className={classes.text}>
                               {game}
                             </Typography>
@@ -307,22 +321,11 @@ const UserPlayer = props => {
             >
               <YoutubeEmbedVideo 
                 className={classes.video} 
-                videoId={props.player.highlight.slice(start + 1)} 
+                videoId={props.player.highlight.slice(start, start + 11)} 
                 suggestions={false} 
               />
             </Grid>
-          ) : 
-            <Grid
-              item
-              sm={6}
-              xs={12}
-            >
-              <YoutubeEmbedVideo 
-                className={classes.video} 
-                videoId={props.player.highlight.slice(start + 1)} 
-                suggestions={false} 
-              />
-            </Grid>
+          ) : null
         }
       </Grid>
     </Grid>
