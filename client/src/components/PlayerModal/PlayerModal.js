@@ -56,7 +56,7 @@ const PlayerModal = props => {
         aria-describedby="simple-modal-description"
         className={classes.modal}
       >
-        <Player player={props.playerInfo} />
+        <Player player={props.playerInfo} user={props.user} />
       </Modal>
     </div>
   )

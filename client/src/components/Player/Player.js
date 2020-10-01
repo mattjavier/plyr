@@ -9,12 +9,7 @@ import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    backgroundColor: '#ffffff',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
+    backgroundColor: '#4f5b62',
     marginTop: 20,
     margin: 'auto',
     borderRadius: 5,
@@ -32,8 +27,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    marginBottom: 20,
+    marginBottom: 10,
     paddingBottom: 10
+  },
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   content: {
     width: '95%',
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[6],
     backgroundColor: '#263238'
   },
-  discord: {
+  upperText: {
     color: '#ffffff',
     letterSpacing: 2
   },
@@ -111,78 +112,86 @@ const Player = props => {
 
   return (
     <Grid>
-      <Paper className={classes.paper} elevation={3}>
-        <Paper className={classes.top}>
+      <Paper className={classes.paper}>
+        <Paper className={classes.top} elevation={5}>
           {avatarCode(props.player.avatar)}
           <Typography
-            className={classes.discord}
-            variant="h6"
+            className={classes.upperText}
+            variant="h5"
           >
-            Discord: {props.player.discord}
+            {props.user}
+          </Typography>
+          <Typography
+            className={classes.upperText}
+            variant="caption"
+          >
+            discord: {props.player.discord}
           </Typography>
         </Paper>
-        <Paper className={classes.content} elevation={5}>
-          <div className={classes.inner}>
-            <Typography className={classes.text}>
-              Player Bio: {props.player.bio}
-            </Typography>
-          </div>
-        </Paper>
-        <Paper className={classes.content} elevation={5}>
-          <div className={classes.inner}>
-            {
-              props.player.xbox.length > 0 ? (
-                <Typography className={classes.text}>
-                  Xbox: {props.player.xbox}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.playstation.length > 0 ? (
-                <Typography className={classes.text}>
-                  PlayStation: {props.player.playstation}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.nintendoSwitch.length > 0 ? (
-                <Typography className={classes.text}>
-                  Nintendo Switch: {props.player.nintendoSwitch}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.pc.length > 0 ? (
-                <Typography className={classes.text}>
-                  PC: {props.player.pc}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.genres.length > 0 ? (
-                <Typography className={classes.text}>
-                  Genres: {props.player.genres.join(', ')}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.games.length > 0 ? (
-                <Typography className={classes.text}>
-                  Games: {props.player.games.join(', ')}
-                </Typography>
-                // gamesState.games.map(game => (
-                //   <img width="400" src={game} />
-                // ))
-              ) : null
-            }
+        <div className={classes.infoContainer}>
+          <Paper className={classes.content} elevation={5}>
+            <div className={classes.inner}>
+              <Typography className={classes.text}>
+                Player Bio: {props.player.bio}
+              </Typography>
+            </div>
+          </Paper>
+          <Paper className={classes.content} elevation={5}>
+            <div className={classes.inner}>
+              {
+                props.player.xbox.length > 0 ? (
+                  <Typography className={classes.text}>
+                    Xbox: {props.player.xbox}
+                  </Typography>
+                ) : null
+              }
+              {
+                props.player.playstation.length > 0 ? (
+                  <Typography className={classes.text}>
+                    PlayStation: {props.player.playstation}
+                  </Typography>
+                ) : null
+              }
+              {
+                props.player.nintendoSwitch.length > 0 ? (
+                  <Typography className={classes.text}>
+                    Nintendo Switch: {props.player.nintendoSwitch}
+                  </Typography>
+                ) : null
+              }
+              {
+                props.player.pc.length > 0 ? (
+                  <Typography className={classes.text}>
+                    PC: {props.player.pc}
+                  </Typography>
+                ) : null
+              }
+              {
+                props.player.genres.length > 0 ? (
+                  <Typography className={classes.text}>
+                    Genres: {props.player.genres.join(', ')}
+                  </Typography>
+                ) : null
+              }
+              {
+                props.player.games.length > 0 ? (
+                  <Typography className={classes.text}>
+                    Games: {props.player.games.join(', ')}
+                  </Typography>
+                  // gamesState.games.map(game => (
+                  //   <img width="400" src={game} />
+                  // ))
+                ) : null
+              }
 
-          </div>
-        </Paper>
-        {
-          props.player.highlight ? (
-            <YoutubeEmbedVideo className={classes.video} videoId={props.player.highlight.slice(start + 1)} suggestions={false} />
-          ) : null
-        }
+            </div>
+          </Paper>
+          {
+            props.player.highlight ? (
+              <YoutubeEmbedVideo className={classes.video} videoId={props.player.highlight.slice(start + 1)} suggestions={false} />
+            ) : null
+          }
+        </div>
       </Paper>
     </Grid>
   )

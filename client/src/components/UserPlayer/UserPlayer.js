@@ -10,12 +10,7 @@ import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    backgroundColor: '#ffffff',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
+    backgroundColor: '#4f5b62',
     marginTop: 20,
     margin: 'auto',
     borderRadius: 5,
@@ -36,8 +31,14 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
     paddingBottom: 10
   },
+  infoContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   content: {
-    width: '95%',
     margin: 10,
     borderRadius: 5,
   },
@@ -57,26 +58,36 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: 2
   },
   video: {
-    width: '95%',
+    width: '100%',
     borderRadius: 0,
-    marginBottom: 10,
+    marginBottom: 0,
     boxShadow: theme.shadows[6],
   },
   text: {
     color: '#1a1a1a'
   },
+  bottomGrid: {
+    margin: 0
+  },
+  bottomGrid2: {
+    padding: 0
+  }
 }))
 
-let avatarSrc
 
 const UserPlayer = props => {
   const classes = useStyles()
   console.log(props.player)
   console.log(props.player.avatar.length)
 
-
-
-  console.log(avatarSrc)
+  const avatarCode = avatar => {
+    console.log(avatar)
+    if (avatar.length === 1) {
+      return (<Avatar className={classes.avatar} >{avatar}</Avatar>)
+    } else {
+      return (<Avatar src={avatar} className={classes.avatar} />)
+    }
+  }
 
   let video = 'https://www.youtube.com/watch?v='
   let start = video.indexOf('=')
@@ -105,84 +116,115 @@ const UserPlayer = props => {
   }, [])
 
   return (
-    <Grid>
-      <Paper className={classes.paper} elevation={3}>
-        <Paper className={classes.top}>
-          <Avatar
-            className={classes.avatar}
-            alt="avatar"
-            src={props.player.avatar}
-          />
-          <Typography
-            className={classes.discord}
-            variant="h6"
+    <Grid className={classes.paper}>
+      <Paper className={classes.top} elevation={5}>
+        {avatarCode(props.player.avatar)}
+        <Typography
+          className={classes.discord}
+          variant="h6"
+        >
+          Discord: {props.player.discord}
+        </Typography>
+      </Paper>
+      <Grid 
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+        lg={6}
+        xs={12}
+        spacing={3}
+        className={classes.bottomGrid}
+      >
+        <Grid 
+          item
+          sm={6} 
+          xs={12} 
+        >
+          <Grid 
+            container
+            direction="column"
+            justify="flex-start"
+            className={classes.bottomGrid2}
           >
-            Discord: {props.player.discord}
-          </Typography>
-        </Paper>
-        <Paper className={classes.content} elevation={5}>
-          <div className={classes.inner}>
-            <Typography className={classes.text}>
-              Player Bio: {props.player.bio}
-            </Typography>
-          </div>
-        </Paper>
-        <Paper className={classes.content} elevation={5}>
-          <div className={classes.inner}>
-            {
-              props.player.xbox.length > 0 ? (
+            <Paper className={classes.content} elevation={5}>
+              <div className={classes.inner}>
                 <Typography className={classes.text}>
-                  Xbox: {props.player.xbox}
+                  Player Bio: {props.player.bio}
                 </Typography>
-              ) : null
-            }
-            {
-              props.player.playstation.length > 0 ? (
-                <Typography className={classes.text}>
-                  PlayStation: {props.player.playstation}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.nintendoSwitch.length > 0 ? (
-                <Typography className={classes.text}>
-                  Nintendo Switch: {props.player.nintendoSwitch}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.pc.length > 0 ? (
-                <Typography className={classes.text}>
-                  PC: {props.player.pc}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.genres.length > 0 ? (
-                <Typography className={classes.text}>
-                  Genres: {props.player.genres.join(', ')}
-                </Typography>
-              ) : null
-            }
-            {
-              props.player.games.length > 0 ? (
-                <Typography className={classes.text}>
-                  Games: {props.player.games.join(', ')}
-                </Typography>
-                // gamesState.games.map(game => (
-                //   <img width="400" src={game} />
-                // ))
-              ) : null
-            }
+              </div>
+            </Paper>
+            <Paper className={classes.content} elevation={5}>
+              <div className={classes.inner}>
+                {
+                  props.player.xbox.length > 0 ? (
+                    <Typography className={classes.text}>
+                      Xbox: {props.player.xbox}
+                    </Typography>
+                  ) : null
+                }
+                {
+                  props.player.playstation.length > 0 ? (
+                    <Typography className={classes.text}>
+                      PlayStation: {props.player.playstation}
+                    </Typography>
+                  ) : null
+                }
+                {
+                  props.player.nintendoSwitch.length > 0 ? (
+                    <Typography className={classes.text}>
+                      Nintendo Switch: {props.player.nintendoSwitch}
+                    </Typography>
+                  ) : null
+                }
+                {
+                  props.player.pc.length > 0 ? (
+                    <Typography className={classes.text}>
+                      PC: {props.player.pc}
+                    </Typography>
+                  ) : null
+                }
+                {
+                  props.player.genres.length > 0 ? (
+                    <Typography className={classes.text}>
+                      Genres: {props.player.genres.join(', ')}
+                    </Typography>
+                  ) : null
+                }
+                {
+                  props.player.games.length > 0 ? (
+                    <Typography className={classes.text}>
+                      Games: {props.player.games.join(', ')}
+                    </Typography>
+                    // gamesState.games.map(game => (
+                    //   <img width="400" src={game} />
+                    // ))
+                  ) : null
+                }
 
-          </div>
-        </Paper>
+              </div>
+            </Paper>
+          </Grid>
+        </Grid>
         {
           props.player.highlight ? (
-            <YoutubeEmbedVideo className={classes.video} videoId={props.player.highlight.slice(start + 1)} suggestions={false} />
+            <Grid
+              item
+              sm={6}
+              xs={12}
+              // justifty="center"
+              // alignItems="center"
+              // direction="column"
+            >
+              <YoutubeEmbedVideo 
+                className={classes.video} 
+                videoId={props.player.highlight.slice(start + 1)} 
+                suggestions={false} 
+              />
+            </Grid>
           ) : null
         }
-      </Paper>
+      </Grid>
     </Grid>
   )
 }
