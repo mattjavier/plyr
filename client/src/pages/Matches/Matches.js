@@ -112,12 +112,16 @@ const Matches = () => {
                     matchArr = [...matchArr, 'pc']
                   }
 
+                  let friendStatus
                   if (player.friendsList.some(friends => friends.playerId === player_profile )) {
-                    console.log('friends')
+                    friendStatus = 'friends'
+                    console.log(friendStatus)
                   } else if (player.pendingRequest.some(friends => friends.playerId === player_profile )) {
-                    console.log('pending')
+                    friendStatus = 'pending'
+                    console.log(friendStatus)
                   } else {
-                    console.log('not friends')
+                    friendStatus = 'not friends'
+                    console.log(friendStatus)
                   }
 
 
@@ -137,9 +141,11 @@ const Matches = () => {
                     playerInfo: player,
                     username: player.user.username,
                     matches: finalarray,
-                    points: points
+                    points: points,
+                    friendStatus: friendStatus
                   })
                   newArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
+                  console.log(newArray)
                   setMatchesState({ ...matchesState, finalMatches: newArray })
                 })
 
