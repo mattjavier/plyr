@@ -150,7 +150,6 @@ const Matches = () => {
         localStorage.getItem('user') ? (
           <div className={classes.root}>
             <h1>Matches</h1>
-            {/* <button onClick={matchesState.handleCheckResults}>Check filtered results</button> */}
 
             <Grid container spacing={3}>
 
@@ -167,7 +166,6 @@ const Matches = () => {
           </div >
         ) : window.location = '/'
       }
-      <button onClick={matchesState.handleCheckResults}>Final matches check</button>
     </>
   )
 }

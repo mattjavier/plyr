@@ -12,6 +12,18 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+
+// let snackType
+let snackMessage
+let snackSeverity
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10
@@ -55,6 +67,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Register = () => {
+
+  // MODAL
   const classes = useStyles()
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle)
@@ -67,6 +81,41 @@ const Register = () => {
   const handleClose = () => {
     setOpen(false)
   }
+
+
+  //SNACKBAR
+  const [openSnack, setOpenSnack] = useState(false)
+
+  const handleSnackClick = (snackType) => {
+    console.log(snackType)
+    setOpenSnack(true);
+    if (snackType === 'error') {
+      snackSeverity = 'error'
+      snackMessage = 'Oops, something went wrong. Try again!'
+    } else if (snackType === 'success') {
+      snackSeverity = 'success'
+      snackMessage = 'Account created! Please log in.'
+    } else if (snackType === 'missing') {
+      snackSeverity = 'error'
+      snackMessage = 'Form incomplete. All fields required.'
+    } else {
+      console.log('wtf')
+    }
+    console.log(snackSeverity)
+    console.log(snackMessage)
+
+  };
+
+  const handleSnackClose = (event, reason) => {
+    // snackSeverity = ''
+    // snackMessage = ''
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
 
   // Register
   const [registerState, setRegisterState] = useState({
@@ -83,26 +132,40 @@ const Register = () => {
 
   registerState.handleRegister = event => {
     event.preventDefault()
-    setOpen(false)
-    console.log(registerState)
-    axios.post('/api/users/register', {
-      name: registerState.name,
-      username: registerState.username,
-      email: registerState.email,
-      password: registerState.password,
-    })
-      .then(() => {
-        console.log('Register complete')
-        // Toast or notification function goes here
-        setRegisterState({
-          ...registerState,
-          name: '',
-          email: '',
-          username: '',
-          password: ''
-        })
+
+    console.log(registerState.name)
+
+    if (registerState.name === '' || registerState.username === '' || registerState.email === '' || registerState.password === '') {
+      // snackType = 
+      handleSnackClick('missing')
+
+    } else {
+
+      setOpen(false)
+      console.log(registerState)
+      axios.post('/api/users/register', {
+        name: registerState.name,
+        username: registerState.username,
+        email: registerState.email,
+        password: registerState.password,
       })
-      .catch(err => console.log(err))
+        .then(() => {
+          console.log('Register complete')
+          // Toast or notification function goes here
+          setRegisterState({
+            ...registerState,
+            name: '',
+            email: '',
+            username: '',
+            password: ''
+          })
+          handleSnackClick('success')
+        })
+        .catch(err => {
+          console.log(err)
+          handleSnackClick('error')
+        })
+    }
   }
 
   const handleClickShowPassword = () => {
@@ -181,19 +244,26 @@ const Register = () => {
   )
 
   return (
-    <div>
-      <Button onClick={handleOpen}>
-        Register
+    <>
+      <div>
+        <Button onClick={handleOpen}>
+          Register
       </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
-    </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          {body}
+        </Modal>
+      </div>
+
+
+      <Snackbar className={classes.snack} open={openSnack} autoHideDuration={3000} onClose={handleSnackClose}>
+        <Alert onClose={handleSnackClose} severity={snackSeverity}>{snackMessage}</Alert>
+      </Snackbar>
+    </>
   )
 }
 
