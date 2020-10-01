@@ -36,6 +36,10 @@ const App = () => {
             .catch(err => console.log(err))
     }
 
+    friendState.acceptRequest = event => {
+        event.preventDefault()
+        console.log('Accepting Request')
+    }
 
     useEffect(() => {
         axios.get('/api/users/myself', {
@@ -55,6 +59,7 @@ const App = () => {
            <h1>Friend Page</h1>
            <button onClick={friendState.addFriend}>Button inside modal</button>
            <button onClick={friendState.myself}>Test user info</button>
+           <button onClick={friendState.acceptRequest}>Accept</button>
         </>
     )
 }
