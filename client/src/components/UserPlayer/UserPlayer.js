@@ -165,13 +165,13 @@ const UserPlayer = props => {
                           {props.player.xbox}
                         </Typography>
                       </Grid>
-                      <hr />
                     </>
                   ) : null
                 }
                 {
                   props.player.playstation.length > 0 ? (
                     <>
+                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -186,13 +186,13 @@ const UserPlayer = props => {
                           {props.player.playstation}
                         </Typography>
                       </Grid>
-                      <hr />
                     </>
                   ) : null
                 }
                 {
                   props.player.nintendoSwitch.length > 0 ? (
                     <>
+                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -207,26 +207,28 @@ const UserPlayer = props => {
                           {props.player.nintendoSwitch}
                         </Typography>
                       </Grid>
-                      <hr />
                     </>
                   ) : null
                 }
                 {
                   props.player.pc.length > 0 ? (
-                    <Grid 
-                      container 
-                      justify="space-between"
-                      alignItems="center"
-                      direction="row"
-                      className={classes.infoContainer}
-                    >
-                      <Typography className={classes.text}>
-                        PC:
-                      </Typography>
-                      <Typography className={classes.text}>
-                        {props.player.pc}
-                      </Typography>
-                    </Grid>
+                    <>
+                      <hr />
+                      <Grid 
+                        container 
+                        justify="space-between"
+                        alignItems="center"
+                        direction="row"
+                        className={classes.infoContainer}
+                      >
+                        <Typography className={classes.text}>
+                          PC:
+                        </Typography>
+                        <Typography className={classes.text}>
+                          {props.player.pc}
+                        </Typography>
+                      </Grid>
+                    </>
                   ) : null
                 }
               </div>

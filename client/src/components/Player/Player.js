@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
-import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: '#4f5b62',
     marginTop: 20,
+    marginBottom: 20,
     margin: 'auto',
     borderRadius: 5,
     width: '90%',
@@ -27,22 +27,20 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    marginBottom: 10,
-    paddingBottom: 10
+    paddingBottom: 20
   },
   infoContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
+    paddingLeft: 5,
+    paddingRight: 5
   },
   content: {
-    width: '95%',
-    margin: 10,
+    margin: 0,
+    marginTop: 10,
+    marginBottom: 10,
     borderRadius: 5,
   },
   inner: {
-    padding: 5
+    padding: 5,
   },
   avatar: {
     width: 100,
@@ -57,23 +55,26 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: 2
   },
   video: {
-    width: '95%',
-    borderRadius: 0,
-    marginBottom: 10,
+    width: '100%',
+    borderRadius: 5,
     boxShadow: theme.shadows[6],
   },
   text: {
     color: '#1a1a1a'
   },
+  bottomGrid: {
+    margin: 0
+  },
+  bottomGrid2: {
+    margin: 0
+  },
+  gridItems: {
+    textAlign: 'right'
+  }
 }))
 
-
-
-const Player = props => {
+const UserPlayer = props => {
   const classes = useStyles()
-  console.log(props.player)
-  console.log(props.player.avatar.length)
-
 
   const avatarCode = avatar => {
     console.log(avatar)
@@ -87,114 +88,257 @@ const Player = props => {
   let video = 'https://www.youtube.com/watch?v='
   let start = video.indexOf('=')
 
-  const [gamesState, setGamesState] = useState({
-    games: []
-  })
-
-  useEffect(() => {
-
-    if (props.player.games.length > 0) {
-      props.player.games.map(game => {
-        game = game.toLowerCase()
-
-        game = game.replace(' ', '-')
-
-        axios.get(`https://api.rawg.io/api/games/${game}`)
-          .then(({ data }) => {
-            let updated = gamesState.games
-            updated.push(data.background_image)
-            setGamesState({ ...gamesState, games: updated})
-          })
-          .catch(err => console.log(err))
-      })
-    }
-  }, [])
-
   return (
-    <Grid>
-      <Paper className={classes.paper}>
-        <Paper className={classes.top} elevation={5}>
-          {avatarCode(props.player.avatar)}
-          <Typography
-            className={classes.upperText}
-            variant="h5"
-          >
-            {props.user}
-          </Typography>
-          <Typography
-            className={classes.upperText}
-            variant="caption"
-          >
-            discord: {props.player.discord}
-          </Typography>
-        </Paper>
-        <div className={classes.infoContainer}>
-          <Paper className={classes.content} elevation={5}>
-            <div className={classes.inner}>
-              <Typography className={classes.text}>
-                Player Bio: {props.player.bio}
-              </Typography>
-            </div>
-          </Paper>
-          <Paper className={classes.content} elevation={5}>
-            <div className={classes.inner}>
-              {
-                props.player.xbox.length > 0 ? (
-                  <Typography className={classes.text}>
-                    Xbox: {props.player.xbox}
-                  </Typography>
-                ) : null
-              }
-              {
-                props.player.playstation.length > 0 ? (
-                  <Typography className={classes.text}>
-                    PlayStation: {props.player.playstation}
-                  </Typography>
-                ) : null
-              }
-              {
-                props.player.nintendoSwitch.length > 0 ? (
-                  <Typography className={classes.text}>
-                    Nintendo Switch: {props.player.nintendoSwitch}
-                  </Typography>
-                ) : null
-              }
-              {
-                props.player.pc.length > 0 ? (
-                  <Typography className={classes.text}>
-                    PC: {props.player.pc}
-                  </Typography>
-                ) : null
-              }
-              {
-                props.player.genres.length > 0 ? (
-                  <Typography className={classes.text}>
-                    Genres: {props.player.genres.join(', ')}
-                  </Typography>
-                ) : null
-              }
-              {
-                props.player.games.length > 0 ? (
-                  <Typography className={classes.text}>
-                    Games: {props.player.games.join(', ')}
-                  </Typography>
-                  // gamesState.games.map(game => (
-                  //   <img width="400" src={game} />
-                  // ))
-                ) : null
-              }
-
-            </div>
-          </Paper>
-          {
-            props.player.highlight ? (
-              <YoutubeEmbedVideo className={classes.video} videoId={props.player.highlight.slice(start + 1)} suggestions={false} />
-            ) : null
-          }
-        </div>
+    <Grid className={classes.paper}>
+      <Paper className={classes.top} elevation={5}>
+        {avatarCode(props.player.avatar)}
+        <Typography
+          className={classes.upperText}
+          variant="h5"
+        >
+          {props.user}
+        </Typography>
+        <Typography
+          className={classes.upperText}
+          variant="caption"
+        >
+          discord: {props.player.discord}
+        </Typography>
       </Paper>
+      <Grid 
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+        xs={12}
+        spacing={3}
+        className={classes.bottomGrid}
+      >
+        <Grid 
+          item
+          sm={6} 
+          xs={12} 
+        >
+          <Grid 
+            container
+            direction="column"
+            justify="space-between"
+            className={classes.bottomGrid2}
+          >
+            <Paper className={classes.content} elevation={5}>
+              <div className={classes.inner}>
+                <Grid 
+                  container 
+                  justify="space-between"
+                  alignItems="center"
+                  direction="row"
+                  className={classes.infoContainer}
+                >
+                  <Typography className={classes.text}>
+                    
+                    Bio:
+                  </Typography>
+                  <Typography className={classes.text}>
+                    {props.player.bio}
+                  </Typography>
+                </Grid>
+              </div>
+            </Paper>
+            <Paper className={classes.content} elevation={5}>
+              <div className={classes.inner}>
+                <Grid 
+                  container 
+                  justify="space-between"
+                  alignItems="center"
+                  direction="row"
+                  className={classes.infoContainer}
+                >
+                  <Typography className={classes.text}>
+                    Discord:
+                  </Typography>
+                  <Typography className={classes.text}>
+                    {props.player.discord}
+                  </Typography>
+                </Grid>
+                {
+                  props.player.xbox.length > 0 ? (
+                    <>
+                      <hr />
+                      <Grid 
+                        container 
+                        justify="space-between"
+                        alignItems="center"
+                        direction="row"
+                        className={classes.infoContainer}
+                      >
+                        <Typography className={classes.text}>
+                          XBOX Gamertag:
+                        </Typography>
+                        <Typography className={classes.text}>
+                          {props.player.xbox}
+                        </Typography>
+                      </Grid>
+                    </>
+                  ) : null
+                }
+                {
+                  props.player.playstation.length > 0 ? (
+                    <>
+                      <hr />
+                      <Grid 
+                        container 
+                        justify="space-between"
+                        alignItems="center"
+                        direction="row"
+                        className={classes.infoContainer}
+                      >
+                        <Typography className={classes.text}>
+                          PSN:
+                        </Typography>
+                        <Typography className={classes.text}>
+                          {props.player.playstation}
+                        </Typography>
+                      </Grid>
+                    </>
+                  ) : null
+                }
+                {
+                  props.player.nintendoSwitch.length > 0 ? (
+                    <>
+                      <hr />
+                      <Grid 
+                        container 
+                        justify="space-between"
+                        alignItems="center"
+                        direction="row"
+                        className={classes.infoContainer}
+                      >
+                        <Typography className={classes.text}>
+                          Switch Friend Code:
+                        </Typography>
+                        <Typography className={classes.text}>
+                          {props.player.nintendoSwitch}
+                        </Typography>
+                      </Grid>
+                    </>
+                  ) : null
+                }
+                {
+                  props.player.pc.length > 0 ? (
+                    <>
+                      <Grid 
+                        container 
+                        justify="space-between"
+                        alignItems="center"
+                        direction="row"
+                        className={classes.infoContainer}
+                      >
+                        <Typography className={classes.text}>
+                          PC:
+                        </Typography>
+                        <Typography className={classes.text}>
+                          {props.player.pc}
+                        </Typography>
+                      </Grid>
+                    </>
+                  ) : null
+                }
+              </div>
+            </Paper>
+            <Paper className={classes.content} elevation={5}>
+              <div className={classes.inner}>
+                {
+                  props.player.genres.length > 0 ? (
+                    <Grid 
+                      container 
+                      justify="space-between"
+                      alignItems="flex-start"
+                      direction="row"
+                      className={classes.infoContainer}
+                    >
+                      <Typography className={classes.text}>
+                        Genres:
+                      </Typography>
+                      <Grid 
+                        item
+                        direction="column"
+                        alignItems="flex-end"
+                        className={classes.gridItems}
+                      >
+                        {
+                          props.player.genres.map(genre => (
+                            <Typography className={classes.text}>
+                              {genre}
+                            </Typography>
+                          ))
+                        }
+                      </Grid>
+                    </Grid>
+                  ) : null
+                }
+                <hr />
+                {
+                  props.player.games.length > 0 ? (
+                    <Grid 
+                      container 
+                      justify="space-between"
+                      alignItems="flex-start"
+                      direction="row"
+                      className={classes.infoContainer}
+                    >
+                      <Typography className={classes.text}>
+                        Games:
+                      </Typography>
+                      <Grid 
+                        item
+                        direction="column"
+                        alignItems="flex-end"
+                        className={classes.gridItems}
+                      >
+                        {
+                          props.player.games.map(game => (
+                            <Typography className={classes.text}>
+                              {game}
+                            </Typography>
+                          ))
+                        }
+                      </Grid>
+                    </Grid>
+                  ) : null
+                }
+              </div>
+            </Paper>
+          </Grid>
+        </Grid>
+        {
+          props.player.highlight ? (
+            <Grid
+              item
+              sm={6}
+              xs={12}
+            >
+              <YoutubeEmbedVideo 
+                className={classes.video} 
+                videoId={props.player.highlight.slice(start + 1)} 
+                suggestions={false} 
+              />
+            </Grid>
+          ) : 
+            <Grid
+              item
+              sm={6}
+              xs={12}
+            >
+              <YoutubeEmbedVideo 
+                className={classes.video} 
+                videoId={props.player.highlight.slice(start + 1)} 
+                suggestions={false} 
+              />
+            </Grid>
+        }
+      </Grid>
     </Grid>
   )
 }
 
-export default Player
+export default UserPlayer
