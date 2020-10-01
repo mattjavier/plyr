@@ -112,9 +112,18 @@ const Matches = () => {
                     matchArr = [...matchArr, 'pc']
                   }
 
-                 
-                  
-                  
+                  let friendStatus
+                  if (player.friendsList.some(friends => friends.playerId === player_profile )) {
+                    friendStatus = 'friends'
+                    console.log(friendStatus)
+                  } else if (player.pendingRequest.some(friends => friends.playerId === player_profile )) {
+                    friendStatus = 'pending'
+                    console.log(friendStatus)
+                  } else {
+                    friendStatus = 'not friends'
+                    console.log(friendStatus)
+                  }
+
 
                   const finalarray = []
                   userArr.forEach((i) => matchArr.forEach((j) => {
@@ -137,6 +146,7 @@ const Matches = () => {
                     friendStatus: friendStatus
                   })
                   newArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
+                  console.log(newArray)
                   setMatchesState({ ...matchesState, finalMatches: newArray })
                 })
 
@@ -156,7 +166,6 @@ const Matches = () => {
         localStorage.getItem('user') ? (
           <div className={classes.root}>
             <h1>Matches</h1>
-            {/* <button onClick={matchesState.handleCheckResults}>Check filtered results</button> */}
 
             <Grid container spacing={3}>
 
@@ -173,7 +182,6 @@ const Matches = () => {
           </div >
         ) : window.location = '/'
       }
-      <button onClick={matchesState.handleCheckResults}>Final matches check</button>
     </>
   )
 }
