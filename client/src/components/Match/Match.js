@@ -60,7 +60,7 @@ const Match = props => {
                 {avatarCode(props.match.playerInfo.avatar)}
               </div>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={6} sm={3} container alignItems="center">
               <Typography color="textPrimary" variant="h5" component="h5">
                 {props.match.username}
               </Typography>
