@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   gridItems: {
     textAlign: 'right'
-  }
+  },
 }))
 
 const UserPlayer = props => {

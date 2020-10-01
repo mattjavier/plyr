@@ -551,7 +551,8 @@ if (window.innerWidth >= 610) {
 const AvatarArray = () => {
   const classes = useStyles()
 
-  const [value, setValue] = React.useState()
+  // const [value, setValue] = React.useState()
+  const [value] = React.useState()
 
   const {
     handleAvatar
