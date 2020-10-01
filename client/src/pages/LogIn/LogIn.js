@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: 2,
     fontSize: '30px',
     textTransform: 'capitalize'
-  }
+  },
 }))
 
 const LogIn = () => {
