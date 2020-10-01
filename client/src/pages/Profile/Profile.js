@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import UserPlayer from '../../components/UserPlayer'
 import BuildProfile from '../../components/BuildProfile'
+import Friends from '../../components/Friends'
 
 
 const Profile = () => {
@@ -20,7 +21,7 @@ const Profile = () => {
     genres: [],
     competetive: false,
     discord: '',
-    user: ''
+    user: '',
   })
 
   useEffect(() => {
@@ -49,7 +50,10 @@ const Profile = () => {
           genres: data.genres,
           competetive: data.competetive,
           discord: data.discord,
-          highlight: data.highlight
+          highlight: data.highlight,
+          pendingRequest: data.pendingRequest,
+          friendsList: data.friendsList,
+          username: data.user.username
         })
       })
       .catch(err => {
@@ -67,6 +71,15 @@ const Profile = () => {
             <BuildProfile />
         ) : window.location = '/'
       }
+      <hr />
+      {
+        localStorage.getItem('user') ? (
+          playerState.playerExists ? 
+          <Friends player={playerState} /> :
+          null
+        ) : null
+      }
+
     </>
   )
 }
