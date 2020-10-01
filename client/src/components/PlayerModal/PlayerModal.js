@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
     top: 50,
-    borderRadius: 1
+    borderRadius: 1,
+    overflow: 'scroll'
   }
 }))
 
