@@ -98,9 +98,15 @@ const useStyles = makeStyles((theme) => ({
   },
   gridList: {
     justifyContent: 'space-around',
-    width: '75%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      padding: '6px',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '75%',
+      padding: '8px',
+    },
     height: 350,
-    padding: '8px',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     backgroundColor: '#161d22',
@@ -444,7 +450,7 @@ const AvatarArray = () => {
               variant="overline"
             >
               Select an avatar:
-        </Typography>
+            </Typography>
           </FormLabel>
           <RadioGroup aria-label="User Avatar" name="userAvatar" value={value} onChange={handleAvatar}>
             <GridList cellHeight={110} className={classes.gridList} cols={columns}>

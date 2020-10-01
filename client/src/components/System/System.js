@@ -41,6 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
   systemGrid: {
     borderRadius: 5,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '75%',
+    },
   },
 }));
 
