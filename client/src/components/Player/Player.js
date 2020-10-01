@@ -87,6 +87,7 @@ const Player = props => {
           .then(request => {
             console.log(request)
             console.log(`Request Sent from ${data.username} to ${playerId}`)
+            window.location.reload()
           })
           .catch(err => console.log(err))
       })
@@ -170,7 +171,16 @@ const Player = props => {
             <YoutubeEmbedVideo className={classes.video} videoId={props.player.highlight.slice(start + 1)} suggestions={false} />
           ) : null
         }
-        <Button onClick={() => handleAddFriend(props.player._id)}>Add Friend</Button>
+        {/* <Button onClick={() => handleAddFriend(props.player._id)}>Add Friend</Button> */}
+        {
+          (props.player.friendStatus === "not friends" ) ? (
+            <Button variant="contained" color="primary" onClick={() => handleAddFriend(props.player._id)}>Add Friend</Button>
+          ) : (props.player.friendStatus === "pending" ) ? (
+            <p>Request Pending</p>
+          ) : (props.player.friendStatus === "friends" ) ? (
+            <p>Friends</p>
+          ) : null
+        }
       </Paper>
     </Grid>
   )
