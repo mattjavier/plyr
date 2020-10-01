@@ -88,7 +88,6 @@ const Register = () => {
 
   const handleSnackClick = (snackType) => {
     console.log(snackType)
-    setOpenSnack(true);
     if (snackType === 'error') {
       snackSeverity = 'error'
       snackMessage = 'Oops, something went wrong. Try again!'
@@ -101,6 +100,7 @@ const Register = () => {
     } else {
       console.log('wtf')
     }
+    setOpenSnack(true);
     console.log(snackSeverity)
     console.log(snackMessage)
 

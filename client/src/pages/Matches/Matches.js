@@ -112,6 +112,15 @@ const Matches = () => {
                     matchArr = [...matchArr, 'pc']
                   }
 
+                  if (player.friendsList.some(friends => friends.playerId === player_profile )) {
+                    console.log('friends')
+                  } else if (player.pendingRequest.some(friends => friends.playerId === player_profile )) {
+                    console.log('pending')
+                  } else {
+                    console.log('not friends')
+                  }
+
+
                   const finalarray = []
                   userArr.forEach((i) => matchArr.forEach((j) => {
                     {
