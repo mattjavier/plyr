@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     backgroundColor: '#845bb3'
+  },
+  avatar: {
+    boxShadow: theme.shadows[3],
+    backgroundColor: '#263238'
   }
 }))
 
@@ -44,14 +48,41 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const classes = useStyles()
-
-
-
+  
+  const [openState, setOpen] = useState({
+    open: false
+  })
+  
+  const toggleDrawer = open => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return
+    }
+    setOpen({ ...openState, open })
+  }
+  
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    window.location = '/'
+  }
+  
+  const defaultAvatar = user => {
+    console.log(user)
+  }
+  
   const [playerState, setPlayerState] = useState({
     playerExists: false,
     avatar: '',
     user: ''
   })
+  
+  // playerState.avatarCode = () => {
+  //   //console.log(playerState.avatar)
+  //   if (playerState.avatar.length === 1) {
+  //     return (<Avatar class>{playerState.avatar}</Avatar>)
+  //   } else {
+  //     return (<Avatar src={playerState.avatar} />)
+  //   }
+  // }
 
   useEffect(() => {
 
@@ -75,52 +106,8 @@ const Navbar = () => {
         console.log(err)
       })
 
-
-    axios.get('/api/users/myself', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('user')}`
-      }
-    })
-      .then(({ data }) => {
-        // console.log(data)
-
-        setPlayerState({
-          ...playerState,
-          user: data.user,
-        })
-
-      })
-      .catch(err => console.log(err))
   }, [])
 
-  const [openState, setOpen] = useState({
-    open: false
-  })
-
-  const toggleDrawer = open => event => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return
-    }
-    setOpen({ ...openState, open })
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem('user')
-    window.location = '/'
-  }
-
-  const avatarCode = avatar => {
-    console.log(avatar)
-    if (avatar.length === 1) {
-      return (<Avatar>{avatar}</Avatar>)
-    } else {
-      return (<Avatar src={avatar} />)
-    }
-  }
-
-  const defaultAvatar = user => {
-    console.log(user)
-  }
 
   return (
     <div className={classes.root}>
@@ -188,11 +175,13 @@ const Navbar = () => {
               )
             }
           </Hidden>
+          <div>
           {
             (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
-              avatarCode(playerState.avatar)
+              <Avatar className={classes.avatar} src={playerState.avatar} />
             )
-          }
+          } 
+          </div>
         </Toolbar>
       </AppBar>
     </div>

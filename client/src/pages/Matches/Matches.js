@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import Match from '../../components/Match'
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
 import axios from 'axios'
-import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-}));
+}))
 
 const Matches = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const [matchesState, setMatchesState] = useState({
     userPlayer: '',
@@ -52,6 +51,15 @@ const Matches = () => {
             axios.get('/api/players')
               .then(({ data }) => {
                 let filteredResults = data.filter(res => res._id !== player_profile)
+                if (userProfileData.competetive) {
+                  filteredResults = filteredResults.filter(res => {
+                    return res.competetive === true
+                  })
+                } else {
+                  filteredResults = filteredResults.filter(res => {
+                    return res.competetive === false
+                  })
+                }
                 setMatchesState({ ...matchesState, matches: filteredResults })
                 console.log(filteredResults)
 

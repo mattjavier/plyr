@@ -1,9 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar'
 import PlayerModal from '../PlayerModal'
 
 const useStyles = makeStyles((theme) => ({
@@ -21,17 +21,30 @@ const useStyles = makeStyles((theme) => ({
     },
     justifyContent: 'center'
   },
-}));
+  avatarImage: {
+    backgroundColor: '#263238',
+    boxShadow: theme.shadows[6]
+  },
+  avatarLetter: {
+    boxShadow: theme.shadows[6]
+  }
+}))
 
 const Match = props => {
-  const classes = useStyles();
+  const classes = useStyles()
 
+  // const avatarCode = playerInfo => {
+  //   console.log(playerInfo)
+  //   if (playerInfo.avatar === "") {
+  //     return (<Avatar className={classes.avatarLetter}>{playerInfo.username.slice(0, 1).toUpperCase()}</Avatar>)
+  //   } else {
+  //     return (<Avatar src={playerInfo.avatar} className={classes.avatarImage} />)
   const avatarCode = avatar => {
     console.log(avatar)
     if (avatar.length === 1) {
-      return (<Avatar>{avatar}</Avatar>)
+      return (<Avatar className={classes.avatarLetter}>{avatar}</Avatar>)
     } else {
-      return (<Avatar src={avatar} />)
+      return (<Avatar className={classes.avatarImage} src={avatar} />)
     }
   }
 
@@ -47,24 +60,24 @@ const Match = props => {
                 {avatarCode(props.match.playerInfo.avatar)}
               </div>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={6} sm={3} container alignItems="center">
               <Typography color="textPrimary" variant="h5" component="h5">
                 {props.match.username}
               </Typography>
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <Typography variant="h6" color="textPrimary" component="h6">
-                {props.match.points}%
+            <Grid item xs={6} sm={3} container alignItems="center">
+              <Typography variant="subtitle1" color="textPrimary" component="h6">
+                {props.match.points}% Compatability
               </Typography>
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <PlayerModal playerInfo={props.match.playerInfo} />
+            <Grid item xs={6} sm={3} container justify="flex-end">
+              <PlayerModal playerInfo={props.match.playerInfo} user={props.match.username} />
             </Grid>
           </Grid>
         </Paper>
       </Grid>
     </>
-  );
+  )
 }
 
 export default Match
