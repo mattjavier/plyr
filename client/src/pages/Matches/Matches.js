@@ -20,13 +20,22 @@ const Matches = () => {
   const classes = useStyles()
 
   const [matchesState, setMatchesState] = useState({
-    userPlayer: '',
     finalMatches: []
   })
 
   matchesState.handleCheckResults = event => {
     event.preventDefault()
     console.log(matchesState.finalMatches)
+    console.log(matchesState.userPlayer)
+    // axios.get('/api/users/myself', {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('user')}`
+    //   }
+    // })
+    // .then(({data}) => {
+    //   setMatchesState({ ...matchesState, userPlayer: data})
+    // })
+    // .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -102,6 +111,19 @@ const Matches = () => {
                     matchArr = [...matchArr, 'pc']
                   }
 
+                  let friendStatus
+                  if (player.friendsList.some(friends => friends.playerId === player_profile )) {
+                    friendStatus = 'friends'
+                    console.log(friendStatus)
+                  } else if (player.pendingRequest.some(friends => friends.playerId === player_profile )) {
+                    friendStatus = 'pending'
+                    console.log(friendStatus)
+                  } else {
+                    friendStatus = 'not friends'
+                    console.log(friendStatus)
+                  }
+
+
                   const finalarray = []
                   userArr.forEach((i) => matchArr.forEach((j) => {
                     {
@@ -115,12 +137,14 @@ const Matches = () => {
                   console.log(points)
                   let newArray = matchesState.finalMatches
                   newArray.push({
-                    playerInfo: player,
+                    playerInfo: { ...player, friendStatus: friendStatus },
                     username: player.user.username,
                     matches: finalarray,
-                    points: points
+                    points: points,
+                    friendStatus: friendStatus
                   })
                   newArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
+                  console.log(newArray)
                   setMatchesState({ ...matchesState, finalMatches: newArray })
                 })
 
@@ -152,7 +176,7 @@ const Matches = () => {
                   key={match.username}
                 />
               ))
-            ) : console.log('nothing in finalmatches')}
+            ) : null }
           </div >
         ) : window.location = '/'
       }

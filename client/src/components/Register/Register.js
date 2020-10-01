@@ -98,7 +98,7 @@ const Register = () => {
       snackSeverity = 'error'
       snackMessage = 'Form incomplete. All fields required.'
     }
-    
+    setOpenSnack(true);
     console.log(snackSeverity)
     console.log(snackMessage)
     setOpenSnack(true);

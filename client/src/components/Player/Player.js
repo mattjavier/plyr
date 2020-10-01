@@ -5,6 +5,9 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
+import Button from '@material-ui/core/Button'
+import axios from 'axios'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -73,8 +76,31 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const UserPlayer = props => {
+const Player = props => {
   const classes = useStyles()
+  
+  const handleAddFriend = (playerId) => {
+    console.log(`Sending friend request to ${playerId}`)
+    axios.get('/api/users/myself', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }})
+      .then(({data}) => {
+        let myself = {
+          name: data.username,
+          playerId: data.player_profile
+        }
+        console.log(myself)
+        axios.put(`/api/players/addfriend/${playerId}`, myself )
+          .then(request => {
+            console.log(request)
+            console.log(`Request Sent from ${data.username} to ${playerId}`)
+            window.location.reload()
+          })
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
+  }
 
   const avatarCode = avatar => {
     console.log(avatar)
@@ -336,9 +362,18 @@ const UserPlayer = props => {
               />
             </Grid>
         }
+        {
+          (props.player.friendStatus === "not friends" ) ? (
+            <Button variant="contained" color="primary" onClick={() => handleAddFriend(props.player._id)}>Add Friend</Button>
+          ) : (props.player.friendStatus === "pending" ) ? (
+            <p>Request Pending</p>
+          ) : (props.player.friendStatus === "friends" ) ? (
+            <p>Friends</p>
+          ) : null
+        }
       </Grid>
     </Grid>
   )
 }
 
-export default UserPlayer
+export default Player

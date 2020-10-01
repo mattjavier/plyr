@@ -113,8 +113,8 @@ const LogIn = () => {
       return;
     }
 
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
 
   return (

@@ -33,12 +33,6 @@ const useStyles = makeStyles((theme) => ({
 const Match = props => {
   const classes = useStyles()
 
-  // const avatarCode = playerInfo => {
-  //   console.log(playerInfo)
-  //   if (playerInfo.avatar === "") {
-  //     return (<Avatar className={classes.avatarLetter}>{playerInfo.username.slice(0, 1).toUpperCase()}</Avatar>)
-  //   } else {
-  //     return (<Avatar src={playerInfo.avatar} className={classes.avatarImage} />)
   const avatarCode = avatar => {
     console.log(avatar)
     if (avatar.length === 1) {
