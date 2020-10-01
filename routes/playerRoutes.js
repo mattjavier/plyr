@@ -73,10 +73,10 @@ router.put('/players/accept/:id', (req, res) => {
 })
 
 //deleting the pending request
-router.delete('players/friends/:id', (req, res) => {
-    Player.findByIdAndDelete(req.params.id)
-    .then(()=> res.sendStatus(200))
-    .catch(err => console.error(err))
-})
+// router.delete('players/friends/:id', (req, res) => {
+//     Player.findByIdAndDelete(req.params.id)
+//     .then(()=> res.sendStatus(200))
+//     .catch(err => console.error(err))
+// })
 
 module.exports= router
