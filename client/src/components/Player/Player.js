@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
 import Button from '@material-ui/core/Button'
 import axios from 'axios'
+import CheckIcon from '@material-ui/icons/Check'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,6 +75,21 @@ const useStyles = makeStyles((theme) => ({
   },
   gridItems: {
     textAlign: 'right'
+  },
+  friendStatus: {
+    textTransform: 'uppercase',
+    fontSize: 20,
+    letterSpacing: 1,
+    color: '#ffffff'
+  },
+  friendBlock: {
+    padding: 12,
+  },
+  checkIcon: {
+    height: 30,
+    width: 30,
+    color: '#ffffff',
+    paddingLeft: 5
   }
 }))
 
@@ -351,18 +367,49 @@ const Player = props => {
               />
             </Grid>
           ) : 
-            null
-        }
-        {
-          (props.player.friendStatus === "not friends" ) ? (
-            <Button variant="contained" color="primary" onClick={() => handleAddFriend(props.player._id)}>Add Friend</Button>
-          ) : (props.player.friendStatus === "pending" ) ? (
-            <p>Request Pending</p>
-          ) : (props.player.friendStatus === "friends" ) ? (
-            <p>Friends</p>
-          ) : null
+          null
         }
       </Grid>
+        {
+          (props.player.friendStatus === "not friends" ) ? (
+            <div className={classes.friendBlock}>
+              <Button
+                variant="contained" 
+                color="primary" 
+                onClick={() => handleAddFriend(props.player._id)}
+              >
+                Add Friend
+              </Button>
+            </div>
+          ) : (props.player.friendStatus === "pending" ) ? (
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="flex-start"
+              className={classes.friendBlock}
+            >
+              <Grid item className={classes.friendStatus}>
+                Request Pending
+              </Grid>
+            </Grid>
+          ) : (props.player.friendStatus === "friends" ) ? (
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="flex-start"
+              className={classes.friendBlock}
+            >
+              <Grid item className={classes.friendStatus}>
+                Friends
+              </Grid>
+              <Grid item>
+                <CheckIcon className={classes.checkIcon} />
+              </Grid>
+            </Grid>
+          ) : null
+        }
     </Grid>
   )
 }
