@@ -42,9 +42,9 @@ const Match = props => {
   const avatarCode = avatar => {
     console.log(avatar)
     if (avatar.length === 1) {
-      return (<Avatar>{avatar}</Avatar>)
+      return (<Avatar className={classes.avatarLetter}>{avatar}</Avatar>)
     } else {
-      return (<Avatar src={avatar} />)
+      return (<Avatar className={classes.avatarImage} src={avatar} />)
     }
   }
 

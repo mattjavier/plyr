@@ -77,9 +77,9 @@ const Player = props => {
   const avatarCode = avatar => {
     console.log(avatar)
     if (avatar.length === 1) {
-      return (<Avatar>{avatar}</Avatar>)
+      return (<Avatar className={classes.avatar} >{avatar}</Avatar>)
     } else {
-      return (<Avatar src={avatar} />)
+      return (<Avatar src={avatar} className={classes.avatar} />)
     }
   }
 
