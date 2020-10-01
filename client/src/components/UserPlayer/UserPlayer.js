@@ -49,9 +49,10 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[6],
     backgroundColor: '#263238'
   },
-  discord: {
+  username: {
     color: '#ffffff',
-    letterSpacing: 2
+    letterSpacing: 2,
+    paddingBottom: 20
   },
   video: {
     width: '100%',
@@ -97,6 +98,12 @@ const UserPlayer = props => {
     <Grid className={classes.paper}>
       <Paper className={classes.top} elevation={5}>
         {avatarCode(props.player.avatar)}
+        <Typography
+          className={classes.username}
+          variant="h5"
+        >
+          {props.player.username}
+        </Typography>
       </Paper>
       <Grid 
         container
