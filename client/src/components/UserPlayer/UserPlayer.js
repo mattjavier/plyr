@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { join } from 'path'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
-import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -74,11 +72,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-
 const UserPlayer = props => {
   const classes = useStyles()
-  console.log(props.player)
-  console.log(props.player.avatar.length)
 
   const avatarCode = avatar => {
     console.log(avatar)
@@ -91,29 +86,6 @@ const UserPlayer = props => {
 
   let video = 'https://www.youtube.com/watch?v='
   let start = video.indexOf('=')
-
-  const [gamesState, setGamesState] = useState({
-    games: []
-  })
-
-  useEffect(() => {
-
-    if (props.player.games.length > 0) {
-      props.player.games.map(game => {
-        game = game.toLowerCase()
-
-        game = game.replace(' ', '-')
-
-        axios.get(`https://api.rawg.io/api/games/${game}`)
-          .then(({ data }) => {
-            let updated = gamesState.games
-            updated.push(data.background_image)
-            setGamesState({ ...gamesState, games: updated})
-          })
-          .catch(err => console.log(err))
-      })
-    }
-  }, [])
 
   return (
     <Grid className={classes.paper}>
@@ -318,9 +290,6 @@ const UserPlayer = props => {
                         }
                       </Grid>
                     </Grid>
-                    // gamesState.games.map(game => (
-                    //   <img width="400" src={game} />
-                    // ))
                   ) : null
                 }
               </div>
@@ -333,9 +302,6 @@ const UserPlayer = props => {
               item
               sm={6}
               xs={12}
-              // justifty="center"
-              // alignItems="center"
-              // direction="column"
             >
               <YoutubeEmbedVideo 
                 className={classes.video} 
@@ -348,9 +314,6 @@ const UserPlayer = props => {
               item
               sm={6}
               xs={12}
-              // justifty="center"
-              // alignItems="center"
-              // direction="column"
             >
               <YoutubeEmbedVideo 
                 className={classes.video} 
