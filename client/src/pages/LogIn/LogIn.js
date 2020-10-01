@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     width: '25ch',
+    borderRadius: 5,
     display: 'block',
     backgroundColor: '#161d22',
   },

@@ -31,13 +31,16 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     backgroundColor: '#161d22',
+    borderRadius: 5,
     position: 'relative',
     bottom: -112,
     verticalAlign: 'bottom',
   },
   form: {
     justifyContent: 'center',
-    // display: 'block',
+  },
+  systemGrid: {
+    borderRadius: 5,
   },
 }));
 
@@ -78,34 +81,37 @@ export default function FullWidthGrid() {
           Provide your player handle for any system you wish to connect with other plyr users on.
         </Typography>
       </p>
-      <Grid container spacing={0}>
-        {systems.map((system) => (
+      <div className={classes.systemGrid}>
 
-          <Grid key={system.title} item xs={12} sm={6} md={3} className={classes.gridItem} style={{
-            backgroundImage: `url(${system.img})`,
-          }}>
-            <Typography
-              variant="overline"
-              className={classes.systemName}
-            >
-              {system.title}
-            </Typography>
-            <form className={classes.form} noValidate autoComplete="off" onSubmit={event => event.preventDefault()}>
-              <TextField
-                variant="outlined"
-                id={system.title}
-                label="Player Handle"
-                placeholder="player handle"
-                name={system.title === 'Nintendo Switch' ? 'nintendoSwitch' : system.title.toLowerCase()}
-                onChange={handlePlayerHandle}
-                size="small"
-                className={classes.input}
-              />
-            </form>
-          </Grid>
+        <Grid container spacing={0}>
+          {systems.map((system) => (
 
-        ))}
-      </Grid>
+            <Grid key={system.title} item xs={12} sm={6} md={3} className={classes.gridItem} style={{
+              backgroundImage: `url(${system.img})`,
+            }}>
+              <Typography
+                variant="overline"
+                className={classes.systemName}
+              >
+                {system.title}
+              </Typography>
+              <form className={classes.form} noValidate autoComplete="off" onSubmit={event => event.preventDefault()}>
+                <TextField
+                  variant="outlined"
+                  id={system.title}
+                  label="Player Handle"
+                  placeholder="player handle"
+                  name={system.title === 'Nintendo Switch' ? 'nintendoSwitch' : system.title.toLowerCase()}
+                  onChange={handlePlayerHandle}
+                  size="small"
+                  className={classes.input}
+                />
+              </form>
+            </Grid>
+
+          ))}
+        </Grid>
+      </div>
     </div>
   );
 }

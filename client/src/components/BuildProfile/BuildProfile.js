@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    borderRadius: 5,
     backgroundColor: '#161d22',
   },
   head: {

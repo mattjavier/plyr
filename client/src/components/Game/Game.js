@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     marginTop: theme.spacing(2),
-    backgroundColor: '#161d22'
+    backgroundColor: '#161d22',
+    borderRadius: 5,
   },
   iconButton: {
     padding: 10,

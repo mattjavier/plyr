@@ -48,11 +48,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#263238',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
+    borderRadius: 5,
     padding: theme.spacing(2, 4, 3),
   },
   input: {
     marginBottom: theme.spacing(2),
     width: '25ch',
+    borderRadius: 5,
     backgroundColor: '#161d22',
   },
   iconButton: {
