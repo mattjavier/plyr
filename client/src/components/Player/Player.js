@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     width: '90%',
     height: '100%',
-    overflow: 'scroll'
+    overflowY: 'scroll'
   },
   top: {
     backgroundColor: '#845bb3',
