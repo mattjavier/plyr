@@ -1,15 +1,12 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid';
 import xbox from '../../assets/xbox.jpg'
 import playstation from '../../assets/playstation.jpg'
 import nintendo from '../../assets/nintendo-switch.jpeg'
 import pc from '../../assets/pc.jpg'
-import Handle from '../Handle'
 import ProfileContext from '../../utils/ProfileContext'
 
 const useStyles = makeStyles((theme) => ({

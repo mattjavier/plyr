@@ -1,8 +1,6 @@
 /* eslint-disable no-use-before-define */
-import React, { useState, useContext } from 'react'
-import Button from '@material-ui/core/Button'
+import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
 import Chip from '@material-ui/core/Chip'
 import ProfileContext from '../../utils/ProfileContext'
 import InputAdornment from '@material-ui/core/InputAdornment'
