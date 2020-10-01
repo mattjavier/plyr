@@ -88,7 +88,6 @@ const Register = () => {
 
   const handleSnackClick = (snackType) => {
     console.log(snackType)
-    setOpenSnack(true);
     if (snackType === 'error') {
       snackSeverity = 'error'
       snackMessage = 'Oops, something went wrong. Try again!'
@@ -98,11 +97,11 @@ const Register = () => {
     } else if (snackType === 'missing') {
       snackSeverity = 'error'
       snackMessage = 'Form incomplete. All fields required.'
-    } else {
-      console.log('wtf')
     }
+    
     console.log(snackSeverity)
     console.log(snackMessage)
+    setOpenSnack(true);
 
   };
 
