@@ -178,61 +178,67 @@ const UserPlayer = props => {
                 <hr />
                 {
                   props.player.xbox.length > 0 ? (
-                    <Grid 
-                      container 
-                      justify="space-between"
-                      alignItems="center"
-                      direction="row"
-                      className={classes.infoContainer}
-                    >
-                      <Typography className={classes.text}>
-                        XBOX Gamertag:
-                      </Typography>
-                      <Typography className={classes.text}>
-                        {props.player.xbox}
-                      </Typography>
-                    </Grid>
+                    <>
+                      <Grid 
+                        container 
+                        justify="space-between"
+                        alignItems="center"
+                        direction="row"
+                        className={classes.infoContainer}
+                      >
+                        <Typography className={classes.text}>
+                          XBOX Gamertag:
+                        </Typography>
+                        <Typography className={classes.text}>
+                          {props.player.xbox}
+                        </Typography>
+                      </Grid>
+                      <hr />
+                    </>
                   ) : null
                 }
-                <hr />
                 {
                   props.player.playstation.length > 0 ? (
-                    <Grid 
-                      container 
-                      justify="space-between"
-                      alignItems="center"
-                      direction="row"
-                      className={classes.infoContainer}
-                    >
-                      <Typography className={classes.text}>
-                        PSN:
-                      </Typography>
-                      <Typography className={classes.text}>
-                        {props.player.playstation}
-                      </Typography>
-                    </Grid>
+                    <>
+                      <Grid 
+                        container 
+                        justify="space-between"
+                        alignItems="center"
+                        direction="row"
+                        className={classes.infoContainer}
+                      >
+                        <Typography className={classes.text}>
+                          PSN:
+                        </Typography>
+                        <Typography className={classes.text}>
+                          {props.player.playstation}
+                        </Typography>
+                      </Grid>
+                      <hr />
+                    </>
                   ) : null
                 }
-                <hr />
                 {
                   props.player.nintendoSwitch.length > 0 ? (
-                    <Grid 
-                      container 
-                      justify="space-between"
-                      alignItems="center"
-                      direction="row"
-                      className={classes.infoContainer}
-                    >
-                      <Typography className={classes.text}>
-                        Switch Friend Code:
-                      </Typography>
-                      <Typography className={classes.text}>
-                        {props.player.nintendoSwitch}
-                      </Typography>
-                    </Grid>
+                    <>
+                      <Grid 
+                        container 
+                        justify="space-between"
+                        alignItems="center"
+                        direction="row"
+                        className={classes.infoContainer}
+                      >
+                        <Typography className={classes.text}>
+                          Switch Friend Code:
+                        </Typography>
+                        <Typography className={classes.text}>
+                          {props.player.nintendoSwitch}
+                        </Typography>
+                      </Grid>
+                      <hr />
+                    </>
                   ) : null
                 }
-                <hr />
                 {
                   props.player.pc.length > 0 ? (
                     <Grid 
@@ -337,7 +343,21 @@ const UserPlayer = props => {
                 suggestions={false} 
               />
             </Grid>
-          ) : null
+          ) : 
+            <Grid
+              item
+              sm={6}
+              xs={12}
+              // justifty="center"
+              // alignItems="center"
+              // direction="column"
+            >
+              <YoutubeEmbedVideo 
+                className={classes.video} 
+                videoId={props.player.highlight.slice(start + 1)} 
+                suggestions={false} 
+              />
+            </Grid>
         }
       </Grid>
     </Grid>
