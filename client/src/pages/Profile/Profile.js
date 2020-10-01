@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import UserPlayer from '../../components/UserPlayer'
 import BuildProfile from '../../components/BuildProfile'
+import Friends from '../../components/Friends'
 
 
 const Profile = () => {
@@ -50,7 +51,8 @@ const Profile = () => {
           competetive: data.competetive,
           discord: data.discord,
           highlight: data.highlight,
-          pendingRequest: data.pendingRequest
+          pendingRequest: data.pendingRequest,
+          friendsList: data.friendsList,
         })
       })
       .catch(err => {
@@ -69,7 +71,13 @@ const Profile = () => {
         ) : window.location = '/'
       }
       <hr />
-      <button onClick={() => console.log(playerState.pendingRequest)} >Check pending requests</button>
+      {
+        localStorage.getItem('user') ? (
+          playerState.playerExists ? 
+          <Friends player={playerState} /> :
+          null
+        ) : null
+      }
 
     </>
   )
