@@ -21,7 +21,7 @@ const Profile = () => {
     genres: [],
     competetive: false,
     discord: '',
-    user: ''
+    user: '',
   })
 
   useEffect(() => {
@@ -53,6 +53,7 @@ const Profile = () => {
           highlight: data.highlight,
           pendingRequest: data.pendingRequest,
           friendsList: data.friendsList,
+          username: data.user.username
         })
       })
       .catch(err => {

@@ -1,12 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
-import YoutubeEmbedVideo from 'youtube-embed-video'
 import axios from 'axios'
-import { request } from 'express'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -74,23 +69,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-// const acceptRequest = (player_profile, requestData) => {
-//     console.log(requestData)
-//     console.log(player_profile)
-//     console.log(`Accepting request from ${requestData.name}`)
-//     axios.put(`/api/players/accept/${player_profile}`, requestData)
-//         .then(({data}) => {
-//             console.log(data)
-//             console.log(`Sending Request to ${requestData.name}`)
-//             axios.put(`/api/players/accept/${requestData.playerId}`, { name: username, playerId: player_profile })
-//                 .then(({data}) => {
-//                     // console.log(data)
-//                     console.log(`${requestData.name} has accepted ${username}'s request`)
-//                 })
-//                 .catch(err => console.log(err))
-//         })
-//         .catch(err => console.log(err))
-// }
+const acceptRequest = (username, player_profile, requestData) => {
+    console.log(requestData)
+    console.log(player_profile)
+    console.log(`Accepting request from ${requestData.name}`)
+    axios.put(`/api/players/accept/${player_profile}`, requestData)
+        .then(({data}) => {
+            console.log(data)
+            console.log(`Sending Request to ${requestData.name}`)
+            axios.put(`/api/players/accept/${requestData.playerId}`, { name: username, playerId: player_profile })
+                .then(({data}) => {
+                    // console.log(data)
+                    console.log(`${requestData.name} has accepted ${username}'s request`)
+                    // reload page goes here
+                })
+                .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
+}
 
 const Friends = props => {
   
@@ -98,18 +94,20 @@ const Friends = props => {
     <>
         <h1>Friends tab</h1>
         <button onClick={() => console.log(props.player.pendingRequest)}>Check pending requests</button>
-        {/* {
+        <h1>Pending Requests</h1>
+        {
             props.player.pendingRequest.length > 0 ? (
                 props.player.pendingRequest.map(request => (
                     <>
                         <p>{request.name}</p>
                         <p>{request.playerId}</p>
-                        <button onClick={() => acceptRequest(props.player.player_profile, request)}>holds request data</button>
+                        <button onClick={() => acceptRequest(props.player.username, props.player.player_profile, request)}>Accept Friend Request</button>
                     </>
                 ))
             ) : <p>no pending requests</p>
         }
         <hr />
+        <h1>Friends List</h1>
         {
             props.player.friendsList.length > 0 ? (
                 props.player.friendsList.map(friend => (
@@ -119,7 +117,7 @@ const Friends = props => {
                     </>
                 ))
             ) : <p>friends list does not exist</p>
-        } */}
+        }
 
     </>
   )
