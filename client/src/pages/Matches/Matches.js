@@ -139,7 +139,7 @@ const Matches = () => {
                   let newArray = matchesState.finalMatches
                   let friendStatus = ['Friends', 'Pending', 'Not Friends Yet!']
                   newArray.push({
-                    playerInfo: player,
+                    playerInfo: { ...player, friendStatus: friendStatus },
                     username: player.user.username,
                     matches: finalarray,
                     points: points,
