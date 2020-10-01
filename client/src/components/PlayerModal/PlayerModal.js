@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 50,
     borderRadius: 1,
-    overflow: 'scroll'
+    overflowY: 'scroll'
   }
 }))
 

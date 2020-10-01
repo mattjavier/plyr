@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     width: '90%',
     height: '100%',
-    overflow: 'scroll'
+    overflowY: 'scroll'
   },
   top: {
     backgroundColor: '#845bb3',
@@ -113,7 +113,13 @@ const Player = props => {
   }
 
   let video = 'https://www.youtube.com/watch?v='
-  let start = video.indexOf('=')
+  let start = video.indexOf('=') + 1
+
+  let genres = props.player.genres
+  let games = props.player.games
+
+  genres.sort()
+  games.sort()
 
   return (
     <Grid className={classes.paper}>
@@ -173,24 +179,9 @@ const Player = props => {
             </Paper>
             <Paper className={classes.content} elevation={5}>
               <div className={classes.inner}>
-                <Grid 
-                  container 
-                  justify="space-between"
-                  alignItems="center"
-                  direction="row"
-                  className={classes.infoContainer}
-                >
-                  <Typography className={classes.text}>
-                    Discord:
-                  </Typography>
-                  <Typography className={classes.text}>
-                    {props.player.discord}
-                  </Typography>
-                </Grid>
                 {
                   props.player.xbox.length > 0 ? (
                     <>
-                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -205,13 +196,18 @@ const Player = props => {
                           {props.player.xbox}
                         </Typography>
                       </Grid>
+                      { 
+                        props.player.playstation.length > 0 ? ( <hr /> ) :
+                        ( props.player.nintendoSwitch.length > 0 ? ( <hr /> ) : 
+                          ( props.player.pc.length > 0 ? ( <hr /> ) : null )
+                        ) 
+                      }
                     </>
                   ) : null
                 }
                 {
                   props.player.playstation.length > 0 ? (
                     <>
-                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -226,13 +222,16 @@ const Player = props => {
                           {props.player.playstation}
                         </Typography>
                       </Grid>
+                      { 
+                        props.player.nintendoSwitch.length > 0 ? ( <hr /> ) : 
+                        ( props.player.pc.length > 0 ? ( <hr/ > ) : null )
+                      }
                     </>
                   ) : null
                 }
                 {
                   props.player.nintendoSwitch.length > 0 ? (
                     <>
-                      <hr />
                       <Grid 
                         container 
                         justify="space-between"
@@ -247,6 +246,7 @@ const Player = props => {
                           {props.player.nintendoSwitch}
                         </Typography>
                       </Grid>
+                      { props.player.pc.length > 0 ? ( <hr /> ) : null }
                     </>
                   ) : null
                 }
@@ -275,7 +275,7 @@ const Player = props => {
             <Paper className={classes.content} elevation={5}>
               <div className={classes.inner}>
                 {
-                  props.player.genres.length > 0 ? (
+                  genres.length > 0 ? (
                     <Grid 
                       container 
                       justify="space-between"
@@ -293,7 +293,7 @@ const Player = props => {
                         className={classes.gridItems}
                       >
                         {
-                          props.player.genres.map(genre => (
+                          genres.map(genre => (
                             <Typography className={classes.text}>
                               {genre}
                             </Typography>
@@ -305,7 +305,7 @@ const Player = props => {
                 }
                 <hr />
                 {
-                  props.player.games.length > 0 ? (
+                  games.length > 0 ? (
                     <Grid 
                       container 
                       justify="space-between"
@@ -323,7 +323,7 @@ const Player = props => {
                         className={classes.gridItems}
                       >
                         {
-                          props.player.games.map(game => (
+                          games.map(game => (
                             <Typography className={classes.text}>
                               {game}
                             </Typography>
@@ -346,22 +346,12 @@ const Player = props => {
             >
               <YoutubeEmbedVideo 
                 className={classes.video} 
-                videoId={props.player.highlight.slice(start + 1)} 
+                videoId={props.player.highlight.slice(start, start + 11)} 
                 suggestions={false} 
               />
             </Grid>
           ) : 
-            <Grid
-              item
-              sm={6}
-              xs={12}
-            >
-              <YoutubeEmbedVideo 
-                className={classes.video} 
-                videoId={props.player.highlight.slice(start + 1)} 
-                suggestions={false} 
-              />
-            </Grid>
+            null
         }
         {
           (props.player.friendStatus === "not friends" ) ? (
