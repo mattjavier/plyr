@@ -112,6 +112,10 @@ const Matches = () => {
                     matchArr = [...matchArr, 'pc']
                   }
 
+                 
+                  
+                  
+
                   const finalarray = []
                   userArr.forEach((i) => matchArr.forEach((j) => {
                     {
@@ -124,11 +128,13 @@ const Matches = () => {
                   let points = Math.round((finalarray.length / userArr.length) * 100)
                   console.log(points)
                   let newArray = matchesState.finalMatches
+                  let friendStatus = ['Friends', 'Pending', 'Not Friends Yet!']
                   newArray.push({
                     playerInfo: player,
                     username: player.user.username,
                     matches: finalarray,
-                    points: points
+                    points: points,
+                    friendStatus: friendStatus
                   })
                   newArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
                   setMatchesState({ ...matchesState, finalMatches: newArray })
