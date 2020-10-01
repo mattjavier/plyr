@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { default: Axios } = require('axios')
 const { Player, User } = require('../models')
 
 router.get('/players', (req, res) => {
@@ -56,6 +57,18 @@ router.delete('/players/:id', (req, res) => {
 router.put('/players/addfriend/:id', (req, res) => {
     Player.findByIdAndUpdate(req.params.id, { $push: { pendingRequest: req.body } })
     .then(players => res.json(players))
+    .catch(err => console.error(err))
+})
+
+// Accept pending friend request
+router.put('/players/accept/:id', (req, res) => {
+    Player.findByIdAndUpdate(req.params.id, {
+        $push: { friendsList: req.body },
+        $pull: { pendingRequest: req.body }
+    })
+    .then(players => {
+        res.json(players)
+    })
     .catch(err => console.error(err))
 })
 
