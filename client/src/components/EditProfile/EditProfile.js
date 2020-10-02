@@ -166,119 +166,142 @@ const EditProfile = props => {
   console.log(profileState.discord)
   console.log(profileState.player_profile)
 
-  profileState.handleSave = (profileState.player_profile, profileState) => {
-  editProfile(profileState.player_profile, profileState)
-    .then(
-      handleClose
-    )
-    .catch(err => console.log(err))
+  profileState.handleSave = () => {
 
-}
+    axios.get('/api/users/myself', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
+      .then(({ data }) => {
+        let player = {
+          avatar: profileState.avatar || data.username.slice(0, 1),
+          bio: profileState.bio,
+          xbox: profileState.xbox,
+          playstation: profileState.playstation,
+          nintendoSwitch: profileState.nintendoSwitch,
+          pc: profileState.pc,
+          games: profileState.games,
+          genres: profileState.genres,
+          competetive: isCompetitive,
+          discord: profileState.discord,
+          highlight: profileState.highlight,
+          user: data._id
+        }
+        console.log(player)
+        axios.put(`/api/players/${profileState.player_profile}`, player)
+          .then(
+            handleClose
+          )
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
+  }
 
-const body = (
-  <div className={classes.modalPaper}>
+  const body = (
+    <div className={classes.modalPaper}>
 
-    <form
-      className={classes.root}
-      noValidate
-      autoComplete="off"
-      onSubmit={event => event.preventDefault()}
-    >
-      <Typography
-        variant="overline"
-        className={classes.head}
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+        onSubmit={event => event.preventDefault()}
       >
-        Build Profile
-        </Typography>
-
-      {/* Bio */}
-      <TextField
-        id="outlined-multiline-static"
-        label="Bio"
-        placeholder="Describe your gaming style."
-        multiline
-        rows={4}
-        variant="outlined"
-        name="bio"
-        value={profileState.bio}
-        className={classes.input}
-        onChange={profileState.handleInputChange}
-      />
-
-
-      {/* Discord username */}
-      <TextField
-        id="outlined-required"
-        label="Discord Username"
-        variant="outlined"
-        name="discord"
-        placeholder="enter your Discord username"
-        value={profileState.discord}
-        className={classes.input}
-        onChange={profileState.handleInputChange}
-      />
-
-      {/* Highlight Video */}
-      <TextField
-        id="outlined-required"
-        label="Video Highlight Link"
-        variant="outlined"
-        name="highlight"
-        placeholder="enter video's YouTube link"
-        value={profileState.highlight}
-        className={classes.input}
-        onChange={profileState.handleInputChange}
-      />
-
-      {/* Competitive Switch */}
-      <p>
         <Typography
           variant="overline"
-          className={classes.instructions}
+          className={classes.head}
         >
-          Which best describes your playing style?
+          Build Profile
         </Typography>
-      </p>
-      <p>
-        Casual
-        <Switch
-          checked={isCompetitive}
-          onClick={handleSwitchChange}
-          name="competetive"
-          value={profileState.competetive}
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
+
+        {/* Bio */}
+        <TextField
+          id="outlined-multiline-static"
+          label="Bio"
+          placeholder="Describe your gaming style."
+          multiline
+          rows={4}
+          variant="outlined"
+          name="bio"
+          value={profileState.bio}
+          className={classes.input}
+          onChange={profileState.handleInputChange}
         />
+
+
+        {/* Discord username */}
+        <TextField
+          id="outlined-required"
+          label="Discord Username"
+          variant="outlined"
+          name="discord"
+          placeholder="enter your Discord username"
+          value={profileState.discord}
+          className={classes.input}
+          onChange={profileState.handleInputChange}
+        />
+
+        {/* Highlight Video */}
+        <TextField
+          id="outlined-required"
+          label="Video Highlight Link"
+          variant="outlined"
+          name="highlight"
+          placeholder="enter video's YouTube link"
+          value={profileState.highlight}
+          className={classes.input}
+          onChange={profileState.handleInputChange}
+        />
+
+        {/* Competitive Switch */}
+        <p>
+          <Typography
+            variant="overline"
+            className={classes.instructions}
+          >
+            Which best describes your playing style?
+        </Typography>
+        </p>
+        <p>
+          Casual
+        <Switch
+            checked={isCompetitive}
+            onClick={handleSwitchChange}
+            name="competetive"
+            value={profileState.competetive}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
         Competitive
       </p>
-      <ProfileContext.Provider value={profileState}>
-        <System />
-        <Genre />
-        <Game />
-        <Avatar />
-      </ProfileContext.Provider>
+        <ProfileContext.Provider value={profileState}>
+          <System />
+          <Genre />
+          <Game />
+          <Avatar />
+        </ProfileContext.Provider>
 
-      <p>
-        <Button variant="contained" color="primary" onClick={profileState.handleSave}>Save</Button>
-      </p>
-    </form>
-  </div>
-)
+        <p>
+          <Button variant="contained" color="primary" onClick={profileState.handleSave}>Save</Button>
+        </p>
+      </form>
+    </div>
+  )
 
-return (
-  <div className={classes.button}>
-    <IconButton className={classes.editButton} variant="contained" aria-label="edit" onClick={handleOpen}>
-      <EditIcon /> edit profile
+  return (
+    <div className={classes.button}>
+      <IconButton className={classes.editButton} variant="contained" aria-label="edit" onClick={handleOpen}>
+        <EditIcon /> edit profile
           </IconButton>
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-    >
-      {body}
-    </Modal>
-  </div>
-)
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal>
+    </div>
+  )
 }
 
 export default EditProfile
