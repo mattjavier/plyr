@@ -21,9 +21,7 @@ const Profile = () => {
     genres: [],
     competetive: false,
     discord: '',
-    pendingRequest: [],
-    // friendsList: [],
-    user: ''
+    user: '',
   })
 
   useEffect(() => {
@@ -54,7 +52,8 @@ const Profile = () => {
           discord: data.discord,
           highlight: data.highlight,
           pendingRequest: data.pendingRequest,
-          // friendsList: data.friendsList
+          friendsList: data.friendsList,
+          username: data.user.username
         })
       })
       .catch(err => {
@@ -72,7 +71,15 @@ const Profile = () => {
             <BuildProfile />
         ) : window.location = '/'
       }
-   
+      <hr />
+      {
+        localStorage.getItem('user') ? (
+          playerState.playerExists ? 
+          <Friends player={playerState} /> :
+          null
+        ) : null
+      }
+
     </>
   )
 }

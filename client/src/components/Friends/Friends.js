@@ -1,11 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
-import YoutubeEmbedVideo from 'youtube-embed-video'
-import { request } from 'express'
+import axios from 'axios'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -73,29 +69,55 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const acceptRequest = (username, player_profile, requestData) => {
+    console.log(requestData)
+    console.log(player_profile)
+    console.log(`Accepting request from ${requestData.name}`)
+    axios.put(`/api/players/accept/${player_profile}`, requestData)
+        .then(({data}) => {
+            console.log(data)
+            console.log(`Sending Request to ${requestData.name}`)
+            axios.put(`/api/players/accept/${requestData.playerId}`, { name: username, playerId: player_profile })
+                .then(({data}) => {
+                    // console.log(data)
+                    console.log(`${requestData.name} has accepted ${username}'s request`)
+                    window.location.reload()
+                })
+                .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
+}
+
 const Friends = props => {
-  const classes = useStyles()
-
-//   const avatarCode = avatar => {
-//     console.log(avatar)
-//     if (avatar.length === 1) {
-//       return (<Avatar className={classes.avatar} >{avatar}</Avatar>)
-//     } else {
-//       return (<Avatar src={avatar} className={classes.avatar} />)
-//     }
-//   }
-
-//   let video = 'https://www.youtube.com/watch?v='
-//   let start = video.indexOf('=')
-
+  
   return (
-    <> 
-    <h1>Makoto</h1>
-    {props.player.pendingRequest.map(request => (
-        <p>{request.username}</p>
-    )
-
-    )}
+    <>
+        <h1>Friends tab</h1>
+        <button onClick={() => console.log(props.player.pendingRequest)}>Check pending requests</button>
+        <h1>Pending Requests</h1>
+        {
+            props.player.pendingRequest.length > 0 ? (
+                props.player.pendingRequest.map(request => (
+                    <>
+                        <p>{request.name}</p>
+                        <p>{request.playerId}</p>
+                        <button onClick={() => acceptRequest(props.player.username, props.player.player_profile, request)}>Accept Friend Request</button>
+                    </>
+                ))
+            ) : <p>no pending requests</p>
+        }
+        <hr />
+        <h1>Friends List</h1>
+        {
+            props.player.friendsList.length > 0 ? (
+                props.player.friendsList.map(friend => (
+                    <>
+                        <p>{friend.name}</p>
+                        <p>{friend.playerId}</p>
+                    </>
+                ))
+            ) : <p>friends list does not exist</p>
+        }
 
     </>
   )

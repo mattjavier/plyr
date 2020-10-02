@@ -1,74 +1,90 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import io from 'socket.io-client'
+import { TextField } from '@material-ui/core'
 
+// Connects to server 3002 where socket is run
+const socket = io.connect('http://localhost:3002')
 
 const App = () => {
 
-
-    const [friendsState, setFriendsState] = useState({
-        myself: '',
-        pendingRequest: [],
-        friendsList: [],
-        batman: {
-            name: "batman",
-            playerId: "5f761c988c0b9d03ac29c266"
-        }
+    const [messageState, setMessageState] = useState({
+        message: '',
+        name: ''
     })
+    const [chatState, setChatState] = useState([])
 
-    friendsState.myselfData = event => {
+
+    // const renderChat = () => {
+    //     return chatState.map(({ name, message }, index) => (
+    //         <div key={index}>
+    //             <h3>{name}: <span>{message}</span></h3>
+    //         </div>
+    //     ))
+    // }
+
+    const handleInputChange = event => {
+        setMessageState({ ...messageState, [event.target.name]: event.target.value })
+    }
+
+    const onMessageSubmit = event => {
         event.preventDefault()
-        console.log(friendsState.myself)
-    }
-
-    friendsState.checkRequests = event => {
-        console.log(friendsState.pendingRequest)
-    }
-
-    
-    friendsState.addFriend = requestData => {
-        
-        axios.put(`api/players/addfriend/${friendsState.myself._id}`, requestData)
-        .then(({data}) => {
-            console.log(data)
-        })
-        .catch(err => console.log(err))
-    }
-
-     
-    friendsState.acceptRequest = requestData => {
-        console.log('accept request')
-        console.log(requestData)
-        console.log(friendsState.myself._id)
-        axios.put(`/api/players/accept/${friendsState.myself._id}`, requestData)
-            .then(({data}) => {
-                console.log(data)
-            })
-            .catch(err => console.log(err))
+        const { name, message } = messageState
+        socket.emit('message', { name, message })
+        setMessageState({...messageState, message: '', name })
     }
 
     useEffect(() => {
-        console.log('use Effect')
-        axios.get('/api/users/players', {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('user')}`
-        }})
-            .then(({data}) => {
-                let friends = data.friendsList.map(friends =>({
-                    name: friends.friendsList
-                }))
-                console.log(data)
-                setFriendsState({ ...friendsState, myself: data, pendingRequest: data.pendingRequest, friendsList: data.friendsList })
-            
-            })
-            .catch(err => console.log(err))
+        socket.on('message', ({ name, message }) => {
+            setChatState([...chatState, { name, message }])
+        })
     }, [])
+
+    // listens to server 3002 
+    socket.on('message', ({ name, message }) => {
+        setChatState([...chatState, { name, message }])
+    })
+
+    const buttonClicked = event => {
+        event.preventDefault()
+        console.log('button clicked on front end')
+        socket.emit('button clicked')
+    }
 
 
     return (
         <>
-            <h1>Friends</h1>
-            <button onClick={friendsState.checkRequests}>Check pendingRequest</button>
-            <button onClick={() => friendsState.acceptRequest(friendsState.batman)}>Accept Batman's Request</button>
+            <h1>Chat room</h1>
+            <form onSubmit={onMessageSubmit}>
+                <h1>User</h1>
+                <input
+                    onChange={handleInputChange}
+                    name="name"
+                    value={messageState.name}
+                    label="Name"
+                />
+                <h1>Message</h1>
+                <input
+                    onChange={handleInputChange}
+                    name="message"
+                    value={messageState.message}
+                    label="Message"
+                />
+
+                <button>Send Message</button>
+            </form>
+
+            <h1>Chat Log</h1>
+            {/* {renderChat()} */}
+            {
+                chatState.length > 0 ? (
+                    chatState.map(message => <p>{message.name}: {message.message}</p>)
+                ) : <p>No messages</p>
+            }
+
+            <hr/>
+            <button onClick={buttonClicked}>"button clicked" to back end</button>
+            <button onClick={() => console.log(chatState)}>Check Chat</button>
         </>
     )
 }

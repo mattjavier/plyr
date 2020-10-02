@@ -48,6 +48,7 @@ router.get('/users/all', passport.authenticate('jwt'), (req, res) => {
 router.get('/users/players', passport.authenticate('jwt'), (req, res) => {
   // res.json(req.user.player_profile)
   Player.findById(req.user.player_profile)
+    .populate('user')
     .then(player => res.json(player))
     .catch(err => console.log(err))
 })
