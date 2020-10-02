@@ -149,7 +149,7 @@ const EditProfile = props => {
     setProfileState({ ...profileState, [event.target.name]: event.target.value })
   }
 
-  profileState.handleGenre = (event, values) => {
+  profileState.handleGenre2 = (event, values) => {
     console.log(values)
     const genres = values.map(value => {
       if (typeof value === 'string') {
@@ -290,7 +290,7 @@ const EditProfile = props => {
       </p>
         <ProfileContext.Provider value={profileState}>
           <System />
-          <Genre />
+          <Genre edit={true} />
           <Game />
           <Avatar />
         </ProfileContext.Provider>
