@@ -106,7 +106,7 @@ const UserPlayer = props => {
           {props.player.username}
         </Typography>
       </Paper>
-      <Grid 
+      <Grid
         container
         direction="row"
         justify="space-between"
@@ -115,12 +115,12 @@ const UserPlayer = props => {
         spacing={3}
         className={classes.bottomGrid}
       >
-        <Grid 
+        <Grid
           item
-          sm={6} 
-          xs={12} 
+          sm={6}
+          xs={12}
         >
-          <Grid 
+          <Grid
             container
             direction="column"
             justify="space-between"
@@ -128,15 +128,15 @@ const UserPlayer = props => {
           >
             <Paper className={classes.content} elevation={5}>
               <div className={classes.inner}>
-                <Grid 
-                  container 
+                <Grid
+                  container
                   justify="space-between"
                   alignItems="center"
                   direction="row"
                   className={classes.infoContainer}
                 >
                   <Typography className={classes.text}>
-                    
+
                     Bio:
                   </Typography>
                   <Typography className={classes.text}>
@@ -147,8 +147,8 @@ const UserPlayer = props => {
             </Paper>
             <Paper className={classes.content} elevation={5}>
               <div className={classes.inner}>
-                <Grid 
-                  container 
+                <Grid
+                  container
                   justify="space-between"
                   alignItems="center"
                   direction="row"
@@ -165,8 +165,8 @@ const UserPlayer = props => {
                 {
                   props.player.xbox.length > 0 ? (
                     <>
-                      <Grid 
-                        container 
+                      <Grid
+                        container
                         justify="space-between"
                         alignItems="center"
                         direction="row"
@@ -269,7 +269,7 @@ const UserPlayer = props => {
                       <Typography className={classes.text}>
                         Genres:
                       </Typography>
-                      <Grid 
+                      <Grid
                         item
                         direction="column"
                         alignItems="flex-end"
@@ -299,7 +299,7 @@ const UserPlayer = props => {
                       <Typography className={classes.text}>
                         Games:
                       </Typography>
-                      <Grid 
+                      <Grid
                         item
                         direction="column"
                         alignItems="flex-end"

@@ -19,14 +19,17 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: 0
     },
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: "#845bb3"
   },
   avatarImage: {
     backgroundColor: '#263238',
     boxShadow: theme.shadows[6]
   },
   avatarLetter: {
-    boxShadow: theme.shadows[6]
+    boxShadow: theme.shadows[6],
+    color: "#845bb3",
+    backgroundColor: '#263238',
   }
 }))
 

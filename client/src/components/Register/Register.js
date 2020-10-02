@@ -264,7 +264,7 @@ const Register = () => {
   return (
     <>
       <div className={classes.button}>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
+        <Button variant="contained" color="secondary" onClick={handleOpen}>
           Register
       </Button>
         <Modal
