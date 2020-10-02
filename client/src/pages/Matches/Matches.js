@@ -68,7 +68,7 @@ const Matches = () => {
                 setMatchesState({ ...matchesState, matches: filteredResults })
 
                 // Part 3
-                let userArr = userProfileData.games.map(game => game.toLowerCase())
+                let userArr = userProfileData.games.map(game => game.toLowerCase().trim())
                 userArr = userArr.concat(userProfileData.genres)
 
                 if (userProfileData.xbox.length > 0) {
