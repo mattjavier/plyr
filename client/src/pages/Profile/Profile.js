@@ -33,8 +33,7 @@ const Profile = () => {
       }
     })
       .then(({ data }) => {
-        console.log(data)
-
+ 
         setPlayerState({
           ...playerState,
           playerExists: true,
