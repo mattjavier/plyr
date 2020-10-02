@@ -21,6 +21,7 @@ const io = socketio(server)
 // Socket connection functions
 io.on('connection', socket => {
   console.log(`Socket.io is running on port 3002`)
+  // Recieve message from front end then send same message to everyone
   socket.on('message', ({name, message}) => {
     io.emit('message', {name, message})
   })
@@ -29,10 +30,10 @@ io.on('connection', socket => {
     console.log('front end button clicked')
   })
 
-  socket.on('chatMessage', ({from, fromId, to, toId, message}) => {
-    console.log(`Sending to ${toId}`)
-    io.emit(toId, {from, fromId, to, toId, message})
-  })
+  // socket.on('chatMessage', ({from, fromId, to, toId, message}) => {
+  //   console.log(`Sending to ${toId}`)
+  //   io.emit(toId, {from, fromId, to, toId, message})
+  // })
 
 })
 

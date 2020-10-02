@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 // Connects to server 3002 where socket is run
 const socket = io.connect('http://localhost:3002')
 
-const App = () => {
+const Chat = () => {
 
     const [myselfState, setMyselfState] = useState({
         myUsername: '',
@@ -15,7 +15,6 @@ const App = () => {
         message: '',
         name: ''
     })
-    
     const [chatState, setChatState] = useState([])
 
 
@@ -25,10 +24,11 @@ const App = () => {
 
     messageState.onMessageSubmit = event => {
         event.preventDefault()
-        let name = myselfState.myUsername
         let message = messageState.message
+        let name = myselfState.myUsername
         socket.emit('message', { name, message })
         setMessageState({ ...messageState, message: '' })
+        console.log(event.target)
     }
 
     // listens to server 3002 to recieve 'message'
@@ -79,4 +79,4 @@ const App = () => {
         </>
     )
 }
-export default App
+export default Chat
