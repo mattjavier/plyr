@@ -142,7 +142,6 @@ const Matches = () => {
                   let points = Math.round((finalarray.length / userArr.length) * 100)
                   console.log(points)
                   let newArray = matchesState.finalMatches
-                  let friendStatus = ['Friends', 'Pending', 'Not Friends Yet!']
                   newArray.push({
                     playerInfo: { ...player, friendStatus: friendStatus },
                     username: player.user.username,
