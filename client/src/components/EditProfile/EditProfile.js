@@ -98,6 +98,7 @@ const EditProfile = props => {
 
   const handleClose = () => {
     setOpen(false)
+    window.location = "/profile"
   }
 
   const editProfile = () => {
@@ -108,7 +109,7 @@ const EditProfile = props => {
   }
 
   // modal body
-  const [isCompetitive, setCompetitive] = useState(false)
+  const [isCompetitive, setCompetitive] = useState(props.player.competetive)
 
   const handleSwitchChange = () => {
     setCompetitive(!isCompetitive)
@@ -126,7 +127,7 @@ const EditProfile = props => {
     nintendoSwitch: props.player.nintendoSwitch,
     pc: props.player.pc,
     games: props.player.games,
-    genres: props.player.games,
+    genres: props.player.genres,
     user: props.player.user,
     player_profile: props.player.player_profile,
     searchGames: props.player.searchGames
@@ -143,7 +144,15 @@ const EditProfile = props => {
   }
 
   profileState.handleGenre = (event, values) => {
-    setProfileState({ ...profileState, genres: values.map(value => value.genre) })
+    console.log(values)
+    const genres = values.map(value => {
+      if (typeof value === 'string') {
+        return value
+      } else {
+        return value.genre
+      }
+    })
+    setProfileState({ ...profileState, genres })
   }
 
   profileState.handleGames = event => {
@@ -177,22 +186,23 @@ const EditProfile = props => {
         let player = {
           avatar: profileState.avatar || data.username.slice(0, 1),
           bio: profileState.bio,
+          competetive: isCompetitive,
+          discord: profileState.discord,
+          highlight: profileState.highlight,
           xbox: profileState.xbox,
           playstation: profileState.playstation,
           nintendoSwitch: profileState.nintendoSwitch,
           pc: profileState.pc,
           games: profileState.games,
           genres: profileState.genres,
-          competetive: isCompetitive,
-          discord: profileState.discord,
-          highlight: profileState.highlight,
           user: data._id
         }
         console.log(player)
         axios.put(`/api/players/${profileState.player_profile}`, player)
-          .then(
-            handleClose
-          )
+          .then(() => {
+
+            handleClose()
+          })
           .catch(err => console.log(err))
       })
       .catch(err => console.log(err))

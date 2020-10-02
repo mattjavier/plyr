@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import Chip from '@material-ui/core/Chip'
 import ProfileContext from '../../utils/ProfileContext'
 import axios from 'axios'
 
@@ -21,14 +22,18 @@ const useStyles = makeStyles((theme) => ({
 const Genre = () => {
   const classes = useStyles()
 
-  const {
-    handleGenre
-  } = useContext(ProfileContext)
-
   const [genreState, setGenreState] = useState({
     genres: []
   })
 
+  const {
+    genres,
+    handleGenre
+  } = useContext(ProfileContext)
+// setGenreState({ ...genreState, genres: genres})
+  // handleGenre(event, genres)
+  let playerGenres = genres
+  // console.log(playerGenres)
   useEffect(() => {
     axios.get('https://api.rawg.io/api/genres')
       .then(({ data }) => {
@@ -48,8 +53,19 @@ const Genre = () => {
         multiple
         id="tags-outlined"
         options={genreState.genres}
+        value={playerGenres}
         getOptionLabel={(option) => option.genre}
-        // defaultValue={[genres[13]]}
+        defaultValue={playerGenres.map(genre => genre)}
+        renderTags={(tagValue, getTagProps) =>
+          tagValue.map((option, index) => {
+            console.log(option)
+            return (
+            <Chip
+              label={option}
+              {...getTagProps({ index })}
+            />
+          )})
+        }
         filterSelectedOptions
         name="genres"
         onChange={handleGenre}

@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@material-ui/core/IconButton'
 import EditProfile from '../../components/EditProfile'
 import DeleteUser from '../../components/DeleteUser'
 
