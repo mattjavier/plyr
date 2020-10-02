@@ -81,7 +81,7 @@ const acceptRequest = (username, player_profile, requestData) => {
                 .then(({data}) => {
                     // console.log(data)
                     console.log(`${requestData.name} has accepted ${username}'s request`)
-                    // reload page goes here
+                    window.location.reload()
                 })
                 .catch(err => console.log(err))
         })
