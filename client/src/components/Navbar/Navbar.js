@@ -13,7 +13,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import { Link } from 'react-router-dom'
 import Hidden from '@material-ui/core/Hidden'
-
+import plyr2 from '../../assets/logo.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +41,11 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[3],
     backgroundColor: '#263238',
     color: "#845bb3"
+  },
+  logo: {
+    width: '66px',
+    position: 'relative',
+    top: 4
   }
 }))
 
@@ -157,7 +162,7 @@ const Navbar = () => {
           </Hidden>
           {/* App name */}
           <Typography variant="h5" className={classes.title}>
-            plyr
+            <img className={classes.logo} src={plyr2} alt="player 2" />
           </Typography>
 
           {/* Links on navbar that are visible from screens small and larger */}
