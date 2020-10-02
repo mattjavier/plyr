@@ -8,15 +8,40 @@ const { Strategy } = require('passport-local')
 const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
 const { User } = require('./models')
 var bodyParser = require('body-parser')
-// var mongoose = require('mongoose')
-// var fs = require('fs')
-// var imgModel = require('./models')
-
 
 const app = express()
 
+
+// Socket.io server stuff
+const socketio = require('socket.io')
+const http = require('http')
+const server = http.createServer(app)
+const io = socketio(server)
+
+// Socket connection functions
+io.on('connection', socket => {
+  console.log(`Socket.io is running on port 3002`)
+  // Recieve message from front end then send same message to everyone
+  socket.on('message', ({name, message}) => {
+    io.emit('message', {name, message})
+  })
+
+  socket.on('button clicked', () => {
+    console.log('front end button clicked')
+  })
+
+  // socket.on('chatMessage', ({from, fromId, to, toId, message}) => {
+  //   console.log(`Sending to ${toId}`)
+  //   io.emit(toId, {from, fromId, to, toId, message})
+  // })
+
+})
+
+// Host socket server on 3002
+server.listen(3002)
+
+
 // Image npms
-// var Image = require('./models')
 app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(bodyParser.json())
 
@@ -25,11 +50,12 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(join(__dirname, 'client', 'build')))
 }
 
+// Middleware
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-
+// Passport stuff
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -43,6 +69,7 @@ passport.use(new JWTStrategy({
 }, ({ id }, cb) => User.findById(id)
   .then(user => cb(null, user))
   .catch(err => cb(err))))
+
 
 app.use(require('./routes'))
 
