@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 50,
     margin: 20,
     boxShadow: theme.shadows[6],
-    backgroundColor: '#263238'
+    backgroundColor: '#263238',
+    color: '#845bb3'
   },
   username: {
     color: '#ffffff',

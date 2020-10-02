@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     boxShadow: theme.shadows[3],
-    backgroundColor: '#263238'
+    backgroundColor: '#263238',
+    color: '#845bb3'
   }
 }))
 

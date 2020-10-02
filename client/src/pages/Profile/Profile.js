@@ -67,18 +67,22 @@ const Profile = () => {
       {
         localStorage.getItem('user') ? (
           playerState.playerExists ?
-            <UserPlayer player={playerState} /> :
+            (
+              <>
+                <UserPlayer player={playerState} />
+                <Friends player={playerState} />
+              </>
+            ) :
             <BuildProfile />
         ) : window.location = '/'
       }
-      <hr />
-      {
+      {/* {
         localStorage.getItem('user') ? (
           playerState.playerExists ? 
           <Friends player={playerState} /> :
           null
         ) : null
-      }
+      } */}
 
     </>
   )
