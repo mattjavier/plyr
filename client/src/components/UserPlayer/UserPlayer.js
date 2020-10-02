@@ -5,6 +5,9 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
+import IconButton from '@material-ui/core/IconButton';
+import EditProfile from '../../components/EditProfile'
+import DeleteUser from '../../components/DeleteUser'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -74,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const UserPlayer = props => {
+  console.log(props)
   const classes = useStyles()
 
   const avatarCode = avatar => {
@@ -89,6 +93,7 @@ const UserPlayer = props => {
   let start = video.indexOf('=')
 
   return (
+
     <Grid className={classes.paper}>
       <Paper className={classes.top} elevation={5}>
         {avatarCode(props.player.avatar)}
@@ -123,9 +128,8 @@ const UserPlayer = props => {
                   className={classes.infoContainer}
                 >
                   <Typography className={classes.text}>
-
                     Bio:
-                  </Typography>
+                    </Typography>
                   <Typography className={classes.text}>
                     {props.player.bio}
                   </Typography>
@@ -143,7 +147,7 @@ const UserPlayer = props => {
                 >
                   <Typography className={classes.text}>
                     Discord:
-                  </Typography>
+                    </Typography>
                   <Typography className={classes.text}>
                     {props.player.discord}
                   </Typography>
@@ -161,7 +165,7 @@ const UserPlayer = props => {
                       >
                         <Typography className={classes.text}>
                           XBOX Gamertag:
-                        </Typography>
+                          </Typography>
                         <Typography className={classes.text}>
                           {props.player.xbox}
                         </Typography>
@@ -182,7 +186,7 @@ const UserPlayer = props => {
                       >
                         <Typography className={classes.text}>
                           PSN:
-                        </Typography>
+                          </Typography>
                         <Typography className={classes.text}>
                           {props.player.playstation}
                         </Typography>
@@ -203,7 +207,7 @@ const UserPlayer = props => {
                       >
                         <Typography className={classes.text}>
                           Switch Friend Code:
-                        </Typography>
+                          </Typography>
                         <Typography className={classes.text}>
                           {props.player.nintendoSwitch}
                         </Typography>
@@ -224,7 +228,7 @@ const UserPlayer = props => {
                       >
                         <Typography className={classes.text}>
                           PC:
-                        </Typography>
+                          </Typography>
                         <Typography className={classes.text}>
                           {props.player.pc}
                         </Typography>
@@ -247,7 +251,7 @@ const UserPlayer = props => {
                     >
                       <Typography className={classes.text}>
                         Genres:
-                      </Typography>
+                       </Typography>
                       <Grid
                         item
                         direction="column"
@@ -277,7 +281,7 @@ const UserPlayer = props => {
                     >
                       <Typography className={classes.text}>
                         Games:
-                      </Typography>
+                        </Typography>
                       <Grid
                         item
                         direction="column"
@@ -297,6 +301,8 @@ const UserPlayer = props => {
                 }
               </div>
             </Paper>
+            <DeleteUser player={props.player.user} />
+            <EditProfile player={props.player} />
           </Grid>
         </Grid>
         {
@@ -327,6 +333,7 @@ const UserPlayer = props => {
         }
       </Grid>
     </Grid>
+
   )
 }
 
