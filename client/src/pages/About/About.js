@@ -16,6 +16,7 @@ const developers = [
     title: "gitmaster, front end, and back end",
     details: 'Fill in the main things you worked on for this project.',
     link: "https://github.com/mattjavier",
+    github: "mattjavier",
     avatar: helmet019,
   },
   {
@@ -23,6 +24,7 @@ const developers = [
     title: "front end",
     details: 'Fill in the main things you worked on for this project.',
     link: "https://github.com/PatDowner",
+    github: "PatDowner",
     avatar: pokeball015,
   },
   {
@@ -30,6 +32,7 @@ const developers = [
     title: "back end",
     details: 'Fill in the main things you worked on for this project.',
     link: "https://github.com/mrasahi",
+    github: "mrasahi",
     avatar: batman024,
   },
   {
@@ -37,40 +40,50 @@ const developers = [
     title: "back end",
     details: 'Fill in the main things you worked on for this project.',
     link: "https://github.com/E-Park8",
+    github: "E-Park8",
     avatar: spiderman022,
   }
 ]
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing(2),
+  },
   head: {
     letterSpacing: 2,
     fontSize: '30px',
     textTransform: 'capitalize'
   },
+  text: {
+    color: '#ffffff',
+  },
+  credits: {
+    color: '#4f5b62',
+  }
 }))
 
 const About = () => {
   const classes = useStyles()
 
   return (
-    <>
+    <div className={classes.root}>
       <Typography
         variant="overline"
         className={classes.head}
       >
         About
         </Typography>
-      <Typography color="textPrimary" variant="h5" component="h5">
-        This app was built by a team of 4 developers as the final project for the U.C. Irvine Coding Boot Camp.
+      <Typography className={classes.text} color="textPrimary">
+        This app was built by a team of 4 developers as the final project for the UC Irvine Coding Boot Camp.
       </Typography>
       <Grid container spacing={1}>
         {developers.map(developer => (
           <Developer developer={developer} />))}
       </Grid>
 
-      <div>Icons made by <a href="https://www.flaticon.local/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.local/" title="Flaticon">www.flaticon.local</a></div>
+      <div className={classes.credits}>Icons made by <a href="https://www.flaticon.local/authors/freepik" className={classes.credits} title="Freepik">Freepik</a> from <a href="https://www.flaticon.local/" className={classes.credits}title="Flaticon">www.flaticon.local</a></div>
 
-    </>
+    </div>
   )
 }
 

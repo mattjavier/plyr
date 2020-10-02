@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -11,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
     marginLeft: 0,
     marginRight: 0,
-    // margin: 'auto',
     borderRadius: 5,
     width: '100%',
     height: '100%',
@@ -59,7 +59,10 @@ const useStyles = makeStyles((theme) => ({
   bottomGrid: {
     margin: 0,
     backgroundColor: '#4f5b62',
-    width: '100%'
+    width: '100%',
+    borderRadius: 5,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
   },
   bottomGrid2: {
     margin: 0
@@ -71,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Developer = props => {
   const classes = useStyles();
+  const preventDefault = (event) => event.preventDefault();
 
   return (
 
@@ -90,11 +94,11 @@ const Developer = props => {
 
         {/* role title */}
         <Typography
-            className={classes.upperText}
-            variant="caption"
-          >
-            {props.developer.title}
-          </Typography>
+          className={classes.upperText}
+          variant="caption"
+        >
+          {props.developer.title}
+        </Typography>
       </Paper>
 
       <Grid
@@ -108,7 +112,6 @@ const Developer = props => {
       >
         <Grid
           item
-          sm={6}
           xs={12}
         >
           <Grid
@@ -127,28 +130,10 @@ const Developer = props => {
                   className={classes.infoContainer}
                 >
                   <Typography className={classes.text}>
-                    Main contributions: {props.developer.details}
-                  </Typography>
-                  <Typography className={classes.text}>
-                    {props.developer.role}
-                  </Typography>
-                </Grid>
-              </div>
-            </Paper>
-            <Paper className={classes.content} elevation={5}>
-              <div className={classes.inner}>
-                <Grid
-                  container
-                  justify="space-between"
-                  alignItems="center"
-                  direction="row"
-                  className={classes.infoContainer}
-                >
-                  <Typography className={classes.text}>
                     GitHub:
                   </Typography>
                   <Typography className={classes.text}>
-                    {props.developer.link}
+                    <Link href={props.developer.link} onClick={preventDefault} target="_blank">{props.developer.github}</Link>
                   </Typography>
                 </Grid>
               </div>
