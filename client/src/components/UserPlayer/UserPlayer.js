@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
 import IconButton from '@material-ui/core/IconButton'
 import EditProfile from '../../components/EditProfile'
-import DeleteUser from '../../components/DeleteUser'
+// import DeleteUser from '../../components/DeleteUser'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -301,8 +301,7 @@ const UserPlayer = props => {
                 }
               </div>
             </Paper>
-            <DeleteUser player={props.player.user} />
-            <EditProfile player={props.player} />
+
           </Grid>
         </Grid>
         {
@@ -332,6 +331,8 @@ const UserPlayer = props => {
             </Grid>
         }
       </Grid>
+      <EditProfile player={props.player} />
+      {/* <DeleteUser player={props.player.user} /> */}
     </Grid>
 
   )

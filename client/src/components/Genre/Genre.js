@@ -30,10 +30,9 @@ const Genre = () => {
     genres,
     handleGenre
   } = useContext(ProfileContext)
-// setGenreState({ ...genreState, genres: genres})
-  // handleGenre(event, genres)
+
   let playerGenres = genres
-  // console.log(playerGenres)
+
   useEffect(() => {
     axios.get('https://api.rawg.io/api/genres')
       .then(({ data }) => {
