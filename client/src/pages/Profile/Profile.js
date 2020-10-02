@@ -76,14 +76,6 @@ const Profile = () => {
             <BuildProfile />
         ) : window.location = '/'
       }
-      {/* {
-        localStorage.getItem('user') ? (
-          playerState.playerExists ? 
-          <Friends player={playerState} /> :
-          null
-        ) : null
-      } */}
-
     </>
   )
 }
