@@ -66,8 +66,14 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto'
   },
   editButton: {
-    color: '#ff9800',
+    color: '#263238',
     display: 'inline',
+    margin: 0,
+    padding: 0,
+    marginBottom: 20,
+  },
+  buttonText: {
+    fontSize: '18px'
   },
   button: {
     display: 'inline',
@@ -163,7 +169,6 @@ const EditProfile = props => {
   }
 
   profileState.handleAvatar = (event, values) => {
-    // setProfileState({ ...profileState, genres: values.map(value => value.genre) })
     setProfileState({ ...profileState, [event.target.name]: event.target.value })
     console.log(profileState.avatar)
   }
@@ -300,8 +305,8 @@ const EditProfile = props => {
   return (
     <div className={classes.button}>
       <IconButton className={classes.editButton} variant="contained" aria-label="edit" onClick={handleOpen}>
-        <EditIcon /> edit profile
-          </IconButton>
+        <EditIcon /> &nbsp;<span className={classes.buttonText}>edit profile</span>
+      </IconButton>
       <Modal
         open={open}
         onClose={handleClose}

@@ -438,8 +438,11 @@ const AvatarArray = () => {
   const [value] = React.useState()
 
   const {
+    avatar,
     handleAvatar
   } = useContext(ProfileContext)
+  
+  let playerAvatar = avatar
 
   return (
     <>
@@ -452,7 +455,7 @@ const AvatarArray = () => {
               Select an avatar:
             </Typography>
           </FormLabel>
-          <RadioGroup aria-label="User Avatar" name="userAvatar" value={value} onChange={handleAvatar}>
+          <RadioGroup aria-label="User Avatar" name="userAvatar" value={playerAvatar} onChange={handleAvatar}>
             <GridList cellHeight={110} className={classes.gridList} cols={columns}>
               {avatars.map((avatar) => (
                 <GridListTile key={avatar.img} cols={1}>
