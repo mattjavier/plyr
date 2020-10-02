@@ -79,7 +79,9 @@ const Matches = () => {
                 console.log(filteredResults)
 
                 // Part 3
-                let userArr = userProfileData.games.concat(userProfileData.genres)
+                let userArr = userProfileData.games.map(game => game.toLowerCase())
+                userArr = userArr.concat(userProfileData.genres)
+                console.log(userArr)
 
                 if (userProfileData.xbox.length > 0) {
                   userArr = [...userArr, 'xbox']
