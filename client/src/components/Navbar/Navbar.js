@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     boxShadow: theme.shadows[3],
-    backgroundColor: '#263238'
+    backgroundColor: '#263238',
+    color: "#845bb3"
   }
 }))
 
@@ -48,33 +49,33 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const classes = useStyles()
-  
+
   const [openState, setOpen] = useState({
     open: false
   })
-  
+
   const toggleDrawer = open => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }
     setOpen({ ...openState, open })
   }
-  
+
   const handleLogout = () => {
     localStorage.removeItem('user')
     window.location = '/'
   }
-  
+
   const defaultAvatar = user => {
     console.log(user)
   }
-  
+
   const [playerState, setPlayerState] = useState({
     playerExists: false,
     avatar: '',
     user: ''
   })
-  
+
   // playerState.avatarCode = () => {
   //   //console.log(playerState.avatar)
   //   if (playerState.avatar.length === 1) {
@@ -176,11 +177,11 @@ const Navbar = () => {
             }
           </Hidden>
           <div>
-          {
-            (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
-              <Avatar className={classes.avatar} src={playerState.avatar} />
-            )
-          } 
+            {
+              (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
+                <Avatar className={classes.avatar} src={playerState.avatar} />
+              )
+            }
           </div>
         </Toolbar>
       </AppBar>
