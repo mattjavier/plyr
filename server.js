@@ -21,9 +21,18 @@ const io = socketio(server)
 // Socket connection functions
 io.on('connection', socket => {
   console.log(`Socket.io is running on port 3002`)
+
+  // messages when a new user connects
+  // socket.broadcast.emit('message', { 'plyr 2 chat bot', 'User has joined the chat.'})
+
+  // when a user leaves chat
+  socket.on('disconnect', () => {
+    io.emit('message', 'User has left the chat')
+  })
+
   // Recieve message from front end then send same message to everyone
-  socket.on('message', ({name, message, avatar}) => {
-    io.emit('message', {name, message, avatar})
+  socket.on('message', ({ name, message, avatar }) => {
+    io.emit('message', { name, message, avatar })
   })
 
   socket.on('button clicked', () => {
@@ -42,7 +51,7 @@ server.listen(3002)
 
 
 // Image npms
-app.use(bodyParser.urlencoded({ extended: false })) 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 

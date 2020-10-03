@@ -16,7 +16,11 @@ import Avatar from '@material-ui/core/Avatar'
 
 
 // Connects to server 3002 where socket is run
-const socket = io.connect('http://localhost:3002')
+const socket = io.connect(`http://localhost:3002`)
+
+let height = window.innerHeight - 360
+
+console.log(height)
 
 const useStyles = makeStyles((theme) => ({
   // Another generic note: This style list style list originally came from the UserPlayer component and I'm editing as I go. So there's definitely unused styles here that'll eventually need pruned out.
@@ -33,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     padding: 10,
     width: '100%',
-    height: 500,
+    height: height,
     overflowY: 'scroll',
     borderRadius: 0
   },
@@ -71,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
   content: {
     height: 40,
     color: '#ffffff'
-    // IDK where to put this note, so I Figure here's as good as anywhere. I want to try to use clsx to assign classes conditionally to the messages' background colors...one for messages from you, another from messages from other users. Maybe primary for everyone else and secondary for from yourself?? IDK.
   },
   inner: {
     padding: 5,
@@ -172,12 +175,26 @@ const Chat = () => {
 
     socket.emit('message', messageObj)
     setMessageState({ ...messageState, message: '' })
-    console.log(event.target)
+    // console.log(event.target)
   }
 
-  // listens to server 3002 to recieve 'message'
-  socket.on('message', ({name, message, avatar}) => {
+
+  // listens to server 3002 to recieve ' message'
+  // useEffect(() => {
+  //   socket.on('message', ({ name, message, avatar }) => {
+  //     console.log(message)
+  //     setChatState([{ name, message, avatar }])
+  //     // chatState.renderChat({name, message, avatar})
+  //   })
+  // }, [chatState])
+  socket.on('message', ({ name, message, avatar }) => {
     setChatState([...chatState, { name, message, avatar }])
+
+    // to make the chat message window auto scroll
+    // chat messages is the name of his div
+    // chatMessages.scrollTop = chatMessages.scrollHeight
+    
+    console.log(message)
   })
 
   useEffect(() => {
@@ -196,7 +213,7 @@ const Chat = () => {
 
   return (
     <div className={classes.root}>
-    
+
       <Paper className={classes.top} elevation={5}>
         <Typography
           className={classes.room}>
@@ -213,7 +230,7 @@ const Chat = () => {
           }
             (< Paper className={mine} elevation={5} >
               {/* Each individual message */}
-              {/* { message.name}: {message.message}
+      {/* { message.name}: {message.message}
             </Paper>
 
             ))
@@ -222,16 +239,16 @@ const Chat = () => {
       <Grid
         className={classes.paper}
       >
-        <Grid 
+        <Grid
           item
-          flexWrap="wrap" 
+          flexWrap="wrap"
           className={classes.content}
         >
-          Welcome to the Global Chat room!
+          Hi <span className={classes.username}>{myselfState.myUsername}!</span> Welcome to the Global Chat room!
         </Grid>
         {
-          chatState.map(message => 
-            <Grid 
+          chatState.map(message =>
+            <Grid
               container
               flexWrap="wrap"
               justify="flex-start"

@@ -7,7 +7,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 
-import Chat from '../../components/Chat'
+import Chat from '../Chat'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const GlobalChat = () => {
+const XboxChat = () => {
   const classes = useStyles()
 
   const [age, setAge] = React.useState('');
@@ -70,4 +70,4 @@ const GlobalChat = () => {
   )
 }
 
-export default GlobalChat
+export default XboxChat
