@@ -137,6 +137,11 @@ const Navbar = () => {
               {/* links in the drop down menu */}
               <List>
                 <ListItem>
+                  <Link className={classes.link} to="/globalchat">
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>Global Chat</Button>
+                  </Link>
+                </ListItem>
+                <ListItem>
                   <Link className={classes.link} to="/matches">
                     <Button className={classes.link} onClick={toggleDrawer(false)}>Matches</Button>
                   </Link>
@@ -167,6 +172,9 @@ const Navbar = () => {
 
           {/* Links on navbar that are visible from screens small and larger */}
           <Hidden xsDown>
+            <Link className={classes.link} to="/globalchat">
+              <Button className={classes.link}>Chat</Button>
+            </Link>
             <Link className={classes.link} to="/matches">
               <Button className={classes.link}>Matches</Button>
             </Link>
