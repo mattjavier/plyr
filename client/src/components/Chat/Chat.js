@@ -7,10 +7,12 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import IconButton from '@material-ui/core/IconButton';
-import SendIcon from '@material-ui/icons/Send';
+import IconButton from '@material-ui/core/IconButton'
+import SendIcon from '@material-ui/icons/Send'
 import FormControl from '@material-ui/core/FormControl'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
+import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar'
 
 
 // Connects to server 3002 where socket is run
@@ -18,18 +20,22 @@ const socket = io.connect('http://localhost:3002')
 
 const useStyles = makeStyles((theme) => ({
   // Another generic note: This style list style list originally came from the UserPlayer component and I'm editing as I go. So there's definitely unused styles here that'll eventually need pruned out.
+  root: {
+    marginTop: 20
+  },
   paper: {
     backgroundColor: '#4f5b62',
     margin: 'auto',
     padding: 10,
-    width: '93%',
-    height: 400,
-    overflow: 'auto',
+    width: '95%',
+    height: 500,
+    overflowY: 'scroll',
+    borderRadius: 0
   },
   top: {
     backgroundColor: '#845bb3',
     margin: 'auto',
-    width: '93%',
+    width: '95%',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -43,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#845bb3',
     padding: 10,
     margin: 'auto',
-    width: '93%',
+    width: '95%',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -58,19 +64,18 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 5
   },
   content: {
-    margin: 10,
-    borderRadius: 5,
-    width: '75%',
+    height: 40,
+    color: '#ffffff'
     // IDK where to put this note, so I Figure here's as good as anywhere. I want to try to use clsx to assign classes conditionally to the messages' background colors...one for messages from you, another from messages from other users. Maybe primary for everyone else and secondary for from yourself?? IDK.
   },
   inner: {
     padding: 5,
   },
   avatar: {
-    width: 100,
-    height: 100,
-    fontSize: 50,
-    margin: 20,
+    width: 25,
+    height: 25,
+    fontSize: 12,
+    marginRight: 10,
     boxShadow: theme.shadows[6],
     backgroundColor: '#263238',
     color: '#845bb3'
@@ -78,7 +83,9 @@ const useStyles = makeStyles((theme) => ({
   room: {
     color: '#ffffff',
     letterSpacing: 2,
-    paddingBottom: 20
+    paddingBottom: 10,
+    paddingTop: 10,
+    fontSize: 20
   },
   video: {
     width: '100%',
@@ -105,6 +112,10 @@ const useStyles = makeStyles((theme) => ({
   message: {
     width: '100%',
     margin: '0px !Important',
+  },
+  username: {
+    color: '#263238',
+    fontWeight: 'bolder'
   }
 }))
 
@@ -113,6 +124,7 @@ const Chat = () => {
 
   const [myselfState, setMyselfState] = useState({
     myUsername: '',
+    avatar: '',
   })
 
   const [messageState, setMessageState] = useState({
@@ -129,48 +141,86 @@ const Chat = () => {
 
   messageState.onMessageSubmit = event => {
     event.preventDefault()
-    let message = messageState.message
-    let name = myselfState.myUsername
-    socket.emit('message', { name, message })
+    let messageObj = {
+      message: messageState.message,
+      name: myselfState.myUsername,
+      avatar: myselfState.avatar,
+    }
+
+    console.log(messageObj)
+
+    socket.emit('message', messageObj)
     setMessageState({ ...messageState, message: '' })
     console.log(event.target)
   }
 
   // listens to server 3002 to recieve 'message'
-  socket.on('message', ({ name, message }) => {
-    // console.log('general chat message returned')
-    setChatState([...chatState, { name, message }])
+  socket.on('message', ({name, message, avatar}) => {
+    setChatState([...chatState, { name, message, avatar }])
   })
 
   useEffect(() => {
-    axios.get('/api/users/myself', {
+    axios.get('/api/users/players', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
     })
       .then(({ data }) => {
-        // console.log(data)
-        setMyselfState({ ...myselfState, myUsername: data.username })
+        //console.log(data)
+        setMyselfState({ ...myselfState, myUsername: data.user.username, avatar: data.avatar })
       })
       .catch(err => console.log(err))
   }, [])
 
 
   return (
-    <>
+    <div className={classes.root}>
+    
       <Paper className={classes.top} elevation={5}>
         <Typography
           className={classes.room}>
           Global Chat
         </Typography>
       </Paper>
-
-      <Paper className={classes.paper}>
-        <Paper className={classes.content}>Welcome to Global Chat</Paper>
+      {/* <Paper className={classes.paper}>
+        <div className={classes.content}>Welcome to Global Chat</div>
         {
-          chatState.map(message => <Paper className={classes.content} elevation={5}>{message.name}: {message.message}</Paper>)
+          chatState.map(message => 
+            <div 
+              className={classes.content} 
+            >
+              {message.name}: {message.message}
+            </div>)
         }
-      </Paper>
+      </Paper> */}
+      <Grid
+        className={classes.paper}
+      >
+        <Grid 
+          item
+          flexWrap="wrap" 
+          className={classes.content}
+        >
+          Welcome to Global Chat...
+        </Grid>
+        {
+          chatState.map(message => 
+            <Grid 
+              container
+              flexWrap="wrap"
+              justify="flex-start"
+              alignItems="center"
+              className={classes.content}
+            >
+              <Avatar className={classes.avatar} src={message.avatar} />
+              <span>
+                <span className={classes.username}>{message.name}:
+                </span> {message.message}
+              </span>
+            </Grid>
+          )
+        }
+      </Grid>
 
       <Paper className={classes.bottom} elevation={5}>
         <form className={classes.message} noValidate autoComplete="off" onSubmit={messageState.onMessageSubmit}>
@@ -198,7 +248,7 @@ const Chat = () => {
           </FormControl>
         </form>
       </Paper>
-    </>
+    </div>
   )
 }
 export default Chat

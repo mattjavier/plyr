@@ -22,8 +22,8 @@ const io = socketio(server)
 io.on('connection', socket => {
   console.log(`Socket.io is running on port 3002`)
   // Recieve message from front end then send same message to everyone
-  socket.on('message', ({name, message}) => {
-    io.emit('message', {name, message})
+  socket.on('message', ({name, message, avatar}) => {
+    io.emit('message', {name, message, avatar})
   })
 
   socket.on('button clicked', () => {

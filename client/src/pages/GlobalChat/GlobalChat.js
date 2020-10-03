@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 
 import Chat from '../../components/Chat'
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    margin: '8px',
+  },
+}))
 
 const GlobalChat = () => {
+  const classes = useStyles()
 
   return (
     <>
-      <h1>Global Chat</h1>
-      <Chat />
+      {
+        localStorage.getItem('user') ? (
+          <div className={classes.root}>
+            <Chat />
+          </div >
+        ) : window.location.href = '/'
+      }
     </>
   )
 }

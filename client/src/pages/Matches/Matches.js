@@ -160,7 +160,7 @@ const Matches = () => {
               className={classes.head}
             >
               Matches
-        </Typography>
+            </Typography>
 
             <Grid container spacing={3}>
 
