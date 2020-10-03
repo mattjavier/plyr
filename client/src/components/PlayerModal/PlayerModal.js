@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: 'scroll'
   },
   button: {
-    fontSize: 12
+    fontSize: 13
   }
 }))
 
