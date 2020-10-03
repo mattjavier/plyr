@@ -12,6 +12,7 @@ import LogIn from './pages/LogIn'
 import Matches from './pages/Matches'
 import Profile from './pages/Profile'
 
+
 const theme = createMuiTheme({
   palette: {
     background: {

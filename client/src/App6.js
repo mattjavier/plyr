@@ -64,12 +64,12 @@ const App = () => {
                     label="Name"
                 />
                 <h1>Message</h1>
-                <input
+                <textarea
                     onChange={handleInputChange}
                     name="message"
                     value={messageState.message}
-                    label="Message"
-                />
+                    label="Message"> 
+                </textarea>
 
                 <button>Send Message</button>
             </form>
