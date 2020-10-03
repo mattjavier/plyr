@@ -22,22 +22,18 @@ const io = socketio(server)
 io.on('connection', socket => {
   console.log(`Socket.io is running on port 3002`)
 
-  // messages when a new user connects
-  // socket.broadcast.emit('message', { 'plyr 2 chat bot', 'User has joined the chat.'})
-
-  // when a user leaves chat
-  socket.on('disconnect', () => {
-    io.emit('message', 'User has left the chat')
-  })
-
   // Recieve message from front end then send same message to everyone
-  socket.on('message', ({ name, message, avatar }) => {
-    io.emit('message', { name, message, avatar })
+  socket.on('send message', ({name, message, avatar}) => {
+    io.emit('recieve message', {name, message, avatar})
   })
 
-  socket.on('button clicked', () => {
-    console.log('front end button clicked')
+  socket.on('join', (user) => {
+    console.log(`${user} connected`)
   })
+
+  // socket.on('button clicked', () => {
+  //   console.log('front end button clicked')
+  // })
 
   // socket.on('chatMessage', ({from, fromId, to, toId, message}) => {
   //   console.log(`Sending to ${toId}`)
@@ -46,8 +42,8 @@ io.on('connection', socket => {
 
 })
 
-// Host socket server on 3002
-server.listen(3002)
+// Host socket server on process.env.PORT or 3002
+server.listen(process.env.NODE_ENV || 3002)
 
 
 // Image npms

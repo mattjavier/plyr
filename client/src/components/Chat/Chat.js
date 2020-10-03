@@ -16,7 +16,7 @@ import Avatar from '@material-ui/core/Avatar'
 
 
 // Connects to server 3002 where socket is run
-const socket = io.connect(`http://localhost:3002`)
+const socket = io.connect(process.env.PORT || `http://localhost:3002`)
 
 let height = window.innerHeight - 360
 
@@ -171,31 +171,33 @@ const Chat = () => {
       avatar: myselfState.avatar,
     }
 
+    // If message is empty, end function here
+    if (messageObj.message.trim() === '') {
+        return
+    }
+
     console.log(messageObj)
 
-    socket.emit('message', messageObj)
+    socket.emit('send message', messageObj)
     setMessageState({ ...messageState, message: '' })
-    // console.log(event.target)
+    socket.off('send message')
   }
 
+  useEffect(() => {
+    socket.on('recieve message', message => {
+      setChatState([...chatState, message])
+      console.log(message.message)
+    socket.off()
+    })
+  }, [chatState])
 
-  // listens to server 3002 to recieve ' message'
-  // useEffect(() => {
-  //   socket.on('message', ({ name, message, avatar }) => {
-  //     console.log(message)
-  //     setChatState([{ name, message, avatar }])
-  //     // chatState.renderChat({name, message, avatar})
-  //   })
-  // }, [chatState])
-  socket.on('message', ({ name, message, avatar }) => {
-    setChatState([...chatState, { name, message, avatar }])
 
-    // to make the chat message window auto scroll
-    // chat messages is the name of his div
-    // chatMessages.scrollTop = chatMessages.scrollHeight
-    
-    console.log(message)
-  })
+// socket.on('message', ({name, message, avatar}) => {
+//     setChatState([...chatState, { name, message, avatar }])
+//     console.log(message)
+// })
+
+
 
   useEffect(() => {
     axios.get('/api/users/players', {
@@ -206,6 +208,8 @@ const Chat = () => {
       .then(({ data }) => {
         //console.log(data)
         setMyselfState({ ...myselfState, myUsername: data.user.username, avatar: data.avatar })
+        socket.emit('join', data.user.username)
+        socket.off('join')
       })
       .catch(err => console.log(err))
   }, [])
@@ -224,16 +228,17 @@ const Chat = () => {
         <div className={classes.content}>Welcome to Global Chat</div>
         {
           chatState.map(message => {
-            // IDK why this is giving error messages here. Basically, I'm trying to check if the message is from myself or not and assign one class to messages from myself and another class to messages from others. 
-            message.name === myselfState.myUsername ? mine = classes.myContent : classes.notMyContent
-            console.log(mine)
-          }
-            (< Paper className={mine} elevation={5} >
-              {/* Each individual message */}
-      {/* { message.name}: {message.message}
-            </Paper>
-
-            ))
+            (message.name === myselfState.myUsername ?
+              (<Paper className={classes.myContent} elevation={5}>
+      
+                {message.name}: {message.message}
+              </Paper>)
+              :
+              (<Paper className={classes.notMyContent} elevation={5}>
+           
+                {message.name}: {message.message}
+              </Paper>))
+          })
         }
       </Paper> */}
       <Grid
@@ -292,6 +297,7 @@ const Chat = () => {
           </FormControl>
         </form>
       </Paper>
+      <button onClick={() => (console.log(chatState))}>Check chat state</button>
     </div >
   )
 }
