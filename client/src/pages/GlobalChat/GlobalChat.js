@@ -6,10 +6,17 @@ import Chat from '../../components/Chat'
 
 const GlobalChat = () => {
 
+
   return (
     <>
-      <h1>Global Chat</h1>
-      <Chat />
+      {
+        localStorage.getItem('user') ? (
+          <>
+            <h1>Global Chat</h1>
+            <Chat />
+          </>
+        ) : window.location = '/'
+      }
     </>
   )
 }
