@@ -16,7 +16,7 @@ import Avatar from '@material-ui/core/Avatar'
 
 
 // Connects to server 3002 where socket is run
-const socket = io.connect('http://localhost:3002')
+const socket = io.connect(process.env.PORT || 'http://localhost:3002')
 
 const useStyles = makeStyles((theme) => ({
   // Another generic note: This style list style list originally came from the UserPlayer component and I'm editing as I go. So there's definitely unused styles here that'll eventually need pruned out.
@@ -168,17 +168,33 @@ const Chat = () => {
       avatar: myselfState.avatar,
     }
 
+    // If message is empty, end function here
+    if (messageObj.message.trim() === '') {
+        return
+    }
+
     console.log(messageObj)
 
-    socket.emit('message', messageObj)
+    socket.emit('send message', messageObj)
     setMessageState({ ...messageState, message: '' })
-    console.log(event.target)
+    socket.off('send message')
   }
 
-  // listens to server 3002 to recieve 'message'
-  socket.on('message', ({name, message, avatar}) => {
-    setChatState([...chatState, { name, message, avatar }])
-  })
+  useEffect(() => {
+    socket.on('recieve message', message => {
+      setChatState([...chatState, message])
+      console.log(message.message)
+    socket.off()
+    })
+  }, [chatState])
+
+
+// socket.on('message', ({name, message, avatar}) => {
+//     setChatState([...chatState, { name, message, avatar }])
+//     console.log(message)
+// })
+
+
 
   useEffect(() => {
     axios.get('/api/users/players', {
@@ -189,6 +205,8 @@ const Chat = () => {
       .then(({ data }) => {
         //console.log(data)
         setMyselfState({ ...myselfState, myUsername: data.user.username, avatar: data.avatar })
+        socket.emit('join', data.user.username)
+        socket.off('join')
       })
       .catch(err => console.log(err))
   }, [])
@@ -276,6 +294,7 @@ const Chat = () => {
           </FormControl>
         </form>
       </Paper>
+      <button onClick={() => (console.log(chatState))}>Check chat state</button>
     </div >
   )
 }

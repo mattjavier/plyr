@@ -21,14 +21,19 @@ const io = socketio(server)
 // Socket connection functions
 io.on('connection', socket => {
   console.log(`Socket.io is running on port 3002`)
+
   // Recieve message from front end then send same message to everyone
-  socket.on('message', ({name, message, avatar}) => {
-    io.emit('message', {name, message, avatar})
+  socket.on('send message', ({name, message, avatar}) => {
+    io.emit('recieve message', {name, message, avatar})
   })
 
-  socket.on('button clicked', () => {
-    console.log('front end button clicked')
+  socket.on('join', (user) => {
+    console.log(`${user} connected`)
   })
+
+  // socket.on('button clicked', () => {
+  //   console.log('front end button clicked')
+  // })
 
   // socket.on('chatMessage', ({from, fromId, to, toId, message}) => {
   //   console.log(`Sending to ${toId}`)
@@ -38,7 +43,7 @@ io.on('connection', socket => {
 })
 
 // Host socket server on process.env.PORT or 3002
-server.listen(process.env.PORT || 3002)
+server.listen(process.env.NODE_ENV || 3002)
 
 
 // Image npms
