@@ -198,8 +198,6 @@ const Chat = () => {
           </FormControl>
         </form>
       </Paper>
-
-
     </>
   )
 }
