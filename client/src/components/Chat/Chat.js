@@ -124,6 +124,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+let mine
+
 const Chat = () => {
   const classes = useStyles()
 
@@ -187,17 +189,15 @@ const Chat = () => {
         {
           chatState.map(message => {
             // IDK why this is giving error messages here. Basically, I'm trying to check if the message is from myself or not and assign one class to messages from myself and another class to messages from others. 
-            message.name === myselfState.myUsername ?
-              (<Paper className={classes.myContent} elevation={5}>
-                {/* Each individual message */}
-                {message.name}: {message.message}
-              </Paper>)
-              :
-              (<Paper className={classes.notMyContent} elevation={5}>
-                {/* Each individual message */}
-                {message.name}: {message.message}
-              </Paper>)
-          })
+            message.name === myselfState.myUsername ? mine = classes.myContent : classes.notMyContent
+            console.log(mine)
+          }
+            (< Paper className={mine} elevation={5} >
+              {/* Each individual message */}
+              { message.name}: {message.message}
+            </Paper>
+
+            ))
         }
       </Paper>
 
@@ -228,7 +228,7 @@ const Chat = () => {
           </FormControl>
         </form>
       </Paper>
-    </div>
+    </div >
   )
 }
 export default Chat
