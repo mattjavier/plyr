@@ -8,7 +8,8 @@ import axios from 'axios'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    margin: theme.spacing(2),
+    margin: 'auto',
+    width: '90%'
   },
   frame: {
     backgroundColor: '#4f5b62',

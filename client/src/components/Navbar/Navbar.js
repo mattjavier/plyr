@@ -146,7 +146,7 @@ const Navbar = () => {
               <List>
                 <ListItem>
                   <Link className={classes.link} to="/globalchat">
-                    <Button className={classes.link} onClick={toggleDrawer(false)}>Chat</Button>
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>Global Chat</Button>
                   </Link>
                 </ListItem>
                 <ListItem>

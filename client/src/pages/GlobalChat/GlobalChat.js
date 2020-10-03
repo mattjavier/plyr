@@ -7,7 +7,8 @@ import Chat from '../../components/Chat'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    margin: '8px',
+    margin: 'auto',
+    width: '90%'
   },
 }))
 
