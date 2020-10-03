@@ -16,7 +16,9 @@ import Avatar from '@material-ui/core/Avatar'
 
 
 // Connects to server 3002 where socket is run
-const socket = io.connect('http://localhost:3002')
+const socket = io.connect(process.env.PORT || 'http://localhost:3002')
+
+let height = window.innerHeight - 294
 
 const useStyles = makeStyles((theme) => ({
   // Another generic note: This style list style list originally came from the UserPlayer component and I'm editing as I go. So there's definitely unused styles here that'll eventually need pruned out.
@@ -31,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: '#4f5b62',
     margin: 'auto',
+    height: height,
     padding: 10,
     width: '100%',
-    height: 500,
     overflowY: 'scroll',
     borderRadius: 0
   },
@@ -70,7 +72,8 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     height: 40,
-    color: '#ffffff'
+    color: '#ffffff',
+    marginBottom: 20
     // IDK where to put this note, so I Figure here's as good as anywhere. I want to try to use clsx to assign classes conditionally to the messages' background colors...one for messages from you, another from messages from other users. Maybe primary for everyone else and secondary for from yourself?? IDK.
   },
   inner: {
@@ -85,17 +88,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#263238',
     color: '#845bb3'
   },
+  myselfAvatar: {
+    width: 25,
+    height: 25,
+    fontSize: 12,
+    marginLeft: 10,
+    boxShadow: theme.shadows[6],
+    backgroundColor: '#263238',
+    color: '#845bb3'
+  },
   room: {
     color: '#ffffff',
     letterSpacing: 2,
     paddingBottom: 10,
     paddingTop: 10,
     fontSize: 20
-  },
-  video: {
-    width: '100%',
-    borderRadius: 5,
-    boxShadow: theme.shadows[6],
   },
   text: {
     color: '#1a1a1a'
@@ -114,6 +121,12 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     width: '100%',
   },
+  bubble: {
+    color: '#ffffff'
+  },
+  myBubble: {
+    borderColor: '#845bb3'
+  },
   myMessage: {
     width: '100%',
     margin: '0px !Important',
@@ -125,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
   myContent: {
     backgroundColor: '#414679',
     color: '#ffffff',
-    margin: 10,
+    margin: 20,
     borderRadius: 5,
     width: '75%',
   },
@@ -153,6 +166,44 @@ const Chat = () => {
   })
   const [chatState, setChatState] = useState([])
 
+  chatState.render = ({name, message, avatar}) => {
+      // if (name === myselfState.myUsername) {
+      //   (<Grid 
+      //     container
+      //     flexWrap="wrap"
+      //     justify="flex-end"
+      //     alignItems="center"
+      //     className={classes.content}
+      //   >
+      //     <TextField
+      //       disabled
+      //       id="outlined-disabled"
+      //       label={name}
+      //       defaultValue={message}
+      //       variant="outlined"
+      //     />
+      //     <Avatar className={classes.myselfAvatar} src={avatar} />
+      //   </Grid>)
+      // } else {
+        
+      //   (<Grid 
+      //     container
+      //     flexWrap="wrap"
+      //     justify="flex-start"
+      //     alignItems="center"
+      //     className={classes.content}
+      //   >
+      //     <Avatar className={classes.avatar} src={avatar} />
+      //     <TextField
+      //       disabled
+      //       id="outlined-disabled"
+      //       label={name}
+      //       defaultValue={message}
+      //       variant="outlined"
+      //     />
+      //   </Grid>)
+      // }
+  }
 
   messageState.handleInputChange = event => {
     setMessageState({ ...messageState, [event.target.name]: event.target.value })
@@ -176,6 +227,7 @@ const Chat = () => {
   // listens to server 3002 to recieve 'message'
   socket.on('message', ({name, message, avatar}) => {
     setChatState([...chatState, { name, message, avatar }])
+    //chatState.render({name, message, avatar})
   })
 
   useEffect(() => {
@@ -187,6 +239,7 @@ const Chat = () => {
       .then(({ data }) => {
         //console.log(data)
         setMyselfState({ ...myselfState, myUsername: data.user.username, avatar: data.avatar })
+        
       })
       .catch(err => console.log(err))
   }, [])
@@ -201,23 +254,6 @@ const Chat = () => {
           Global Chat
         </Typography>
       </Paper>
-      {/* <Paper className={classes.paper}>
-        <div className={classes.content}>Welcome to Global Chat</div>
-        {
-          chatState.map(message => {
-            (message.name === myselfState.myUsername ?
-              (<Paper className={classes.myContent} elevation={5}>
-      
-                {message.name}: {message.message}
-              </Paper>)
-              :
-              (<Paper className={classes.notMyContent} elevation={5}>
-           
-                {message.name}: {message.message}
-              </Paper>))
-          })
-        }
-      </Paper>  */}
       <Grid
         className={classes.paper}
       >
@@ -228,22 +264,45 @@ const Chat = () => {
         >
           Welcome to the Global Chat room!
         </Grid>
+
         {
-          chatState.map(message => 
-            <Grid 
-              container
-              flexWrap="wrap"
-              justify="flex-start"
-              alignItems="center"
-              className={classes.content}
-            >
-              <Avatar className={classes.avatar} src={message.avatar} />
-              <span>
-                <span className={classes.username}>{message.name}:
-                </span> {message.message}
-              </span>
-            </Grid>
-          )
+          chatState.map(message => (
+            message.name === myselfState.myUsername ? 
+              (<Grid 
+                container
+                flexWrap="wrap"
+                justify="flex-end"
+                alignItems="center"
+                className={classes.content}
+              >
+                <TextField
+                  disabled
+                  label={message.name}
+                  defaultValue={message.message}
+                  variant="outlined"
+                  margin="dense"
+                  className={classes.myBubble}
+                />
+                <Avatar className={classes.myselfAvatar} src={message.avatar} />
+              </Grid>) : 
+              (<Grid 
+                container
+                flexWrap="wrap"
+                justify="flex-start"
+                alignItems="center"
+                className={classes.content}
+              >
+                <Avatar className={classes.avatar} src={message.avatar} />
+                <TextField
+                  disabled
+                  label={message.name}
+                  defaultValue={message.message}
+                  variant="outlined"
+                  margin="dense"
+                  className={classes.myBubble}
+                />
+              </Grid>)
+          ))
         }
       </Grid>
 
