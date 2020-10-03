@@ -28,7 +28,6 @@ const Chat = () => {
         let name = myselfState.myUsername
         socket.emit('message', { name, message })
         setMessageState({ ...messageState, message: '' })
-        console.log(event.target)
     }
 
     // listens to server 3002 to recieve 'message'
