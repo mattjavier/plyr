@@ -48,9 +48,11 @@ const FriendModal = props => {
     highlight: '',
     username: ''
   })
+  console.log(props)
+  let id = props.friend.playerId || props.friend
 
   useEffect(() => {
-    axios.get(`/api/players/${props.friend.playerId}`)
+    axios.get(`/api/players/${id}`)
       .then(({ data }) => {
 
         setPlayerState({

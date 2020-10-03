@@ -61,9 +61,10 @@ const acceptRequest = (username, player_profile, requestData) => {
 
 const Friends = props => {
   const classes = useStyles()
+  console.log(props)
   return (
     <Grid className={classes.paper}>
-      <Typography 
+      <Typography
         variant="h5"
         className={classes.friendTitles}
       >
@@ -74,32 +75,36 @@ const Friends = props => {
           props.player.pendingRequest.map(request => (
             <>
               {/* <p>{request.name}</p>
-              <p>{request.playerId}</p> */}
+              <p>{request.playerId}</p> */
+              console.log(request)
+              }
               <Grid
                 container
                 alignItems="center"
                 justify="space-between"
                 className={classes.item}
               >
-                <Typography 
+                <Typography
                   variant="subtitle1"
                   className={classes.text}
                 >
                   {request.name}
-                </Typography>
                 <IconButton
+                  variant="contained"
                   color="primary"
                   onClick={() => acceptRequest(props.player.username, props.player.player_profile, request)}
                 >
-                  <PersonAddIcon color="secondary" />
+                  <PersonAddIcon />
                 </IconButton>
+                </Typography>
+                <FriendModal friend={request.playerId} />
               </Grid>
             </>
           ))
         ) : <Typography variant="body2" className={classes.text}>No pending requests</Typography>
       }
       <hr />
-      <Typography 
+      <Typography
         variant="h5"
         className={classes.friendTitles}
       >
@@ -119,13 +124,13 @@ const Friends = props => {
                 justify="space-between"
                 className={classes.item}
               >
-                <Typography 
+                <Typography
                   variant="subtitle1"
                   className={classes.text}
                 >
                   {friend.name}
                 </Typography>
-              <FriendModal friend={friend}/> 
+                <FriendModal friend={friend} />
               </Grid>
             </>
           ))

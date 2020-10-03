@@ -21,7 +21,12 @@ const socket = io.connect('http://localhost:3002')
 const useStyles = makeStyles((theme) => ({
   // Another generic note: This style list style list originally came from the UserPlayer component and I'm editing as I go. So there's definitely unused styles here that'll eventually need pruned out.
   root: {
-    marginTop: 20
+    marginTop: 20,
+  },
+  head: {
+    letterSpacing: 2,
+    fontSize: '30px',
+    textTransform: 'capitalize'
   },
   paper: {
     backgroundColor: '#4f5b62',
@@ -109,14 +114,28 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     width: '100%',
   },
-  message: {
+  myMessage: {
     width: '100%',
     margin: '0px !Important',
   },
   username: {
     color: '#263238',
     fontWeight: 'bolder'
-  }
+  },
+  myContent: {
+    backgroundColor: '#414679',
+    color: '#ffffff',
+    margin: 10,
+    borderRadius: 5,
+    width: '75%',
+  },
+  notMyContent: {
+    backgroundColor: '#845bb3',
+    color: '#ffffff',
+    margin: 10,
+    borderRadius: 5,
+    width: '75%',
+  },
 }))
 
 const Chat = () => {
@@ -185,14 +204,20 @@ const Chat = () => {
       {/* <Paper className={classes.paper}>
         <div className={classes.content}>Welcome to Global Chat</div>
         {
-          chatState.map(message => 
-            <div 
-              className={classes.content} 
-            >
-              {message.name}: {message.message}
-            </div>)
+          chatState.map(message => {
+            (message.name === myselfState.myUsername ?
+              (<Paper className={classes.myContent} elevation={5}>
+      
+                {message.name}: {message.message}
+              </Paper>)
+              :
+              (<Paper className={classes.notMyContent} elevation={5}>
+           
+                {message.name}: {message.message}
+              </Paper>))
+          })
         }
-      </Paper> */}
+      </Paper>  */}
       <Grid
         className={classes.paper}
       >
@@ -201,7 +226,7 @@ const Chat = () => {
           flexWrap="wrap" 
           className={classes.content}
         >
-          Welcome to Global Chat...
+          Welcome to the Global Chat room!
         </Grid>
         {
           chatState.map(message => 
@@ -222,6 +247,7 @@ const Chat = () => {
         }
       </Grid>
 
+      {/* Bottom of chat field */}
       <Paper className={classes.bottom} elevation={5}>
         <form className={classes.message} noValidate autoComplete="off" onSubmit={messageState.onMessageSubmit}>
           <FormControl className={clsx(classes.textField)} variant="outlined">
