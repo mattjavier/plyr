@@ -18,6 +18,14 @@ const socket = io.connect('http://localhost:3002')
 
 const useStyles = makeStyles((theme) => ({
   // Another generic note: This style list style list originally came from the UserPlayer component and I'm editing as I go. So there's definitely unused styles here that'll eventually need pruned out.
+  root: {
+    margin: '8px',
+  },
+  head: {
+    letterSpacing: 2,
+    fontSize: '30px',
+    textTransform: 'capitalize'
+  },
   paper: {
     backgroundColor: '#4f5b62',
     margin: 'auto',
@@ -157,7 +165,7 @@ const Chat = () => {
 
 
   return (
-    <>
+    <div className={classes.root}>
       <Paper className={classes.top} elevation={5}>
         <Typography
           className={classes.room}>
@@ -198,9 +206,7 @@ const Chat = () => {
           </FormControl>
         </form>
       </Paper>
-
-
-    </>
+    </div>
   )
 }
 export default Chat

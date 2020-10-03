@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[6],
     color: "#845bb3",
     backgroundColor: '#263238',
-  }
+  },
 }))
 
 const Match = props => {
@@ -49,7 +49,7 @@ const Match = props => {
 
     <>
       <br />
-      <Grid key="Username" item xs={12}>
+      <Grid key="Username" item xs={12} elevation={5}>
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
             <Grid item xs="40px">

@@ -8,7 +8,15 @@ import axios from 'axios'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    margin: '8px',
+    margin: theme.spacing(2),
+  },
+  frame: {
+    backgroundColor: '#4f5b62',
+    borderRadius: 5,
+    margin: 'auto',
+    padding: theme.spacing(1),
+    width: '100%',
+    height: '100%'
   },
   paper: {
     padding: theme.spacing(2),
@@ -43,12 +51,12 @@ const Matches = () => {
       }
     })
       .then(({ data }) => {
-        
+
         let player_profile = data.player_profile
         setMatchesState({ ...matchesState, userPlayer: data })
         axios.get(`/api/players/${player_profile}`)
           .then(({ data }) => {
-            
+
             let userProfileData = data
             setMatchesState({ ...matchesState, userProfile: data })
 
@@ -107,9 +115,9 @@ const Matches = () => {
                   }
 
                   let friendStatus
-                  if (player.friendsList.some(friends => friends.playerId === player_profile )) {
+                  if (player.friendsList.some(friends => friends.playerId === player_profile)) {
                     friendStatus = 'friends'
-                  } else if (player.pendingRequest.some(friends => friends.playerId === player_profile )) {
+                  } else if (player.pendingRequest.some(friends => friends.playerId === player_profile)) {
                     friendStatus = 'pending'
                   } else {
                     friendStatus = 'not friends'
@@ -124,9 +132,9 @@ const Matches = () => {
                       }
                     }
                   }))
-                
+
                   let points = Math.round((finalarray.length / userArr.length) * 100)
-              
+
                   let newArray = matchesState.finalMatches
                   newArray.push({
                     playerInfo: { ...player, friendStatus: friendStatus },
@@ -162,18 +170,20 @@ const Matches = () => {
               Matches
         </Typography>
 
-            <Grid container spacing={3}>
+            <Grid className={classes.frame} container spacing={3}>
 
+              {
+                matchesState.finalMatches.length > 0 ? (
+                  matchesState.finalMatches.map(match => (
+                    // console.log(match)
+                    <Match
+                      match={match}
+                      key={match.username}
+                    />
+                  ))
+                ) : null
+              }
             </Grid>
-            { matchesState.finalMatches.length > 0 ? (
-              matchesState.finalMatches.map(match => (
-                // console.log(match)
-                <Match
-                  match={match}
-                  key={match.username}
-                />
-              ))
-            ) : null }
           </div >
         ) : window.location = '/'
       }
