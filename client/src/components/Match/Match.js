@@ -19,15 +19,18 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: 0
     },
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: "#845bb3"
   },
   avatarImage: {
     backgroundColor: '#263238',
     boxShadow: theme.shadows[6]
   },
   avatarLetter: {
-    boxShadow: theme.shadows[6]
-  }
+    boxShadow: theme.shadows[6],
+    color: "#845bb3",
+    backgroundColor: '#263238',
+  },
 }))
 
 const Match = props => {
@@ -46,9 +49,9 @@ const Match = props => {
 
     <>
       <br />
-      <Grid key="Username" item xs={12}>
+      <Grid key="Username" item xs={12} elevation={5}>
         <Paper className={classes.paper}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} alignItems="center">
             <Grid item xs="40px">
               <div className={classes.avatar}>
                 {avatarCode(props.match.playerInfo.avatar)}

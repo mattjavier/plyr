@@ -1,7 +1,11 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import axios from 'axios'
-
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import PersonAddIcon from '@material-ui/icons/PersonAdd'
+import IconButton from '@material-ui/core/IconButton'
+import FriendModal from '../FriendModal'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -11,115 +15,129 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     borderRadius: 5,
     width: '90%',
-    height: '100%'
+    height: '100%',
+    padding: 12
   },
-  top: {
-    backgroundColor: '#845bb3',
-    width: '100%',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderRadius: 5,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-  },
-  infoContainer: {
-    paddingLeft: 5,
-    paddingRight: 5
-  },
-  content: {
-    margin: 0,
-    marginTop: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
-  inner: {
-    padding: 5,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    fontSize: 50,
-    margin: 20,
-    boxShadow: theme.shadows[6],
-    backgroundColor: '#263238'
-  },
-  discord: {
-    color: '#ffffff',
-    letterSpacing: 2
-  },
-  video: {
-    width: '100%',
-    borderRadius: 5,
-    boxShadow: theme.shadows[6],
+  friendTitles: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    color: '#ffffff'
   },
   text: {
-    color: '#1a1a1a'
+    color: '#263238',
+    letterSpacing: 1,
+    fontSize: 20
   },
-  bottomGrid: {
-    margin: 0
+  item: {
+    backgroundColor: '#ffffff',
+    borderRadius: 5,
+    padding: 10,
+    boxShadow: theme.shadows[3],
+    marginBottom: 15
   },
-  bottomGrid2: {
-    margin: 0
-  },
-  gridItems: {
-    textAlign: 'right'
-  },
+  checkPending: {
+    marginBottom: 20
+  }
 }))
 
 const acceptRequest = (username, player_profile, requestData) => {
-    console.log(requestData)
-    console.log(player_profile)
-    console.log(`Accepting request from ${requestData.name}`)
-    axios.put(`/api/players/accept/${player_profile}`, requestData)
-        .then(({data}) => {
-            console.log(data)
-            console.log(`Sending Request to ${requestData.name}`)
-            axios.put(`/api/players/accept/${requestData.playerId}`, { name: username, playerId: player_profile })
-                .then(({data}) => {
-                    // console.log(data)
-                    console.log(`${requestData.name} has accepted ${username}'s request`)
-                    window.location.reload()
-                })
-                .catch(err => console.log(err))
+  console.log(requestData)
+  console.log(player_profile)
+  console.log(`Accepting request from ${requestData.name}`)
+  axios.put(`/api/players/accept/${player_profile}`, requestData)
+    .then(({ data }) => {
+      console.log(data)
+      console.log(`Sending Request to ${requestData.name}`)
+      axios.put(`/api/players/accept/${requestData.playerId}`, { name: username, playerId: player_profile })
+        .then(({ data }) => {
+          // console.log(data)
+          console.log(`${requestData.name} has accepted ${username}'s request`)
+          window.location = '/profile'
         })
         .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
 }
 
 const Friends = props => {
-  
+  const classes = useStyles()
+  console.log(props)
   return (
-    <>
-        <h1>Friends tab</h1>
-        <button onClick={() => console.log(props.player.pendingRequest)}>Check pending requests</button>
-        <h1>Pending Requests</h1>
-        {
-            props.player.pendingRequest.length > 0 ? (
-                props.player.pendingRequest.map(request => (
-                    <>
-                        <p>{request.name}</p>
-                        <p>{request.playerId}</p>
-                        <button onClick={() => acceptRequest(props.player.username, props.player.player_profile, request)}>Accept Friend Request</button>
-                    </>
-                ))
-            ) : <p>no pending requests</p>
-        }
-        <hr />
-        <h1>Friends List</h1>
-        {
-            props.player.friendsList.length > 0 ? (
-                props.player.friendsList.map(friend => (
-                    <>
-                        <p>{friend.name}</p>
-                        <p>{friend.playerId}</p>
-                    </>
-                ))
-            ) : <p>friends list does not exist</p>
-        }
+    <Grid className={classes.paper}>
+      <Typography
+        variant="h5"
+        className={classes.friendTitles}
+      >
+        Pending Requests
+      </Typography>
+      {
+        props.player.pendingRequest.length > 0 ? (
+          props.player.pendingRequest.map(request => (
+            <>
+              {/* <p>{request.name}</p>
+              <p>{request.playerId}</p> */
+              console.log(request)
+              }
+              <Grid
+                container
+                alignItems="center"
+                justify="space-between"
+                className={classes.item}
+              >
+                <Typography
+                  variant="subtitle1"
+                  className={classes.text}
+                >
+                  {request.name}
+                <IconButton
+                  variant="contained"
+                  color="primary"
+                  onClick={() => acceptRequest(props.player.username, props.player.player_profile, request)}
+                >
+                  <PersonAddIcon />
+                </IconButton>
+                </Typography>
+                <FriendModal friend={request.playerId} />
+              </Grid>
+            </>
+          ))
+        ) : <Typography variant="body2" className={classes.text}>No pending requests</Typography>
+      }
+      <hr />
+      <Typography
+        variant="h5"
+        className={classes.friendTitles}
+      >
+        Friends
+      </Typography>
+      {
+        props.player.friendsList.length > 0 ? (
+          props.player.friendsList.map(friend => (
+            <>
+              {/* <p>{friend.name}</p>
+              <p>{friend.playerId}</p> */
+                console.log(friend)
+              }
+              <Grid
+                container
+                alignItems="center"
+                justify="space-between"
+                className={classes.item}
+              >
+                <Typography
+                  variant="subtitle1"
+                  className={classes.text}
+                >
+                  {friend.name}
+                </Typography>
+                <FriendModal friend={friend} />
+              </Grid>
+            </>
+          ))
+        ) : <Typography variant="body2" className={classes.text}>No friends available</Typography>
+      }
 
-    </>
+    </Grid>
   )
 }
 

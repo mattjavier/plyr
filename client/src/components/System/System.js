@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid';
-import xbox from '../../assets/xbox.jpg'
-import playstation from '../../assets/playstation.jpg'
-import nintendo from '../../assets/nintendo-switch.jpeg'
-import pc from '../../assets/pc.jpg'
+import xboxImg from '../../assets/xbox.jpg'
+import playstationImg from '../../assets/playstation.jpg'
+import nintendoImg from '../../assets/nintendo-switch.jpeg'
+import pcImg from '../../assets/pc.jpg'
 import ProfileContext from '../../utils/ProfileContext'
 
 const useStyles = makeStyles((theme) => ({
@@ -41,35 +41,49 @@ const useStyles = makeStyles((theme) => ({
   },
   systemGrid: {
     borderRadius: 5,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '75%',
+    },
   },
 }));
 
-const systems = [
-  {
-    img: xbox,
-    title: 'XBOX',
-  },
-  {
-    img: playstation,
-    title: 'PlayStation',
-  },
-  {
-    img: nintendo,
-    title: 'Nintendo Switch',
-  },
-  {
-    img: pc,
-    title: 'PC',
-  },
-];
 
 export default function FullWidthGrid() {
   const classes = useStyles();
 
-
   const {
+    xbox,
+    playstation,
+    nintendoSwitch,
+    pc,
     handlePlayerHandle
   } = useContext(ProfileContext)
+
+  const systems = [
+    {
+      img: xboxImg,
+      title: 'XBOX',
+      handle: xbox
+    },
+    {
+      img: playstationImg,
+      title: 'PlayStation',
+      handle: playstation
+    },
+    {
+      img: nintendoImg,
+      title: 'Nintendo Switch',
+      handle: nintendoSwitch
+    },
+    {
+      img: pcImg,
+      title: 'PC',
+      handle: pc
+    },
+  ];
 
   return (
     <div className={classes.root}>
@@ -84,32 +98,35 @@ export default function FullWidthGrid() {
       <div className={classes.systemGrid}>
 
         <Grid container spacing={0}>
-          {systems.map((system) => (
+          {systems.map((system) => {
+            return (
 
-            <Grid key={system.title} item xs={12} sm={6} md={3} className={classes.gridItem} style={{
-              backgroundImage: `url(${system.img})`,
-            }}>
-              <Typography
-                variant="overline"
-                className={classes.systemName}
-              >
-                {system.title}
-              </Typography>
-              <form className={classes.form} noValidate autoComplete="off" onSubmit={event => event.preventDefault()}>
-                <TextField
-                  variant="outlined"
-                  id={system.title}
-                  label="Player Handle"
-                  placeholder="player handle"
-                  name={system.title === 'Nintendo Switch' ? 'nintendoSwitch' : system.title.toLowerCase()}
-                  onChange={handlePlayerHandle}
-                  size="small"
-                  className={classes.input}
-                />
-              </form>
-            </Grid>
+              <Grid key={system.title} item xs={12} sm={6} md={3} className={classes.gridItem} style={{
+                backgroundImage: `url(${system.img})`,
+              }}>
+                <Typography
+                  variant="overline"
+                  className={classes.systemName}
+                >
+                  {system.title}
+                </Typography>
+                <form className={classes.form} noValidate autoComplete="off" onSubmit={event => event.preventDefault()}>
+                  <TextField
+                    variant="outlined"
+                    id={system.title}
+                    label="Player Handle"
+                    value={system.handle}
+                    placeholder="player handle"
+                    name={system.title === 'Nintendo Switch' ? 'nintendoSwitch' : system.title.toLowerCase()}
+                    onChange={handlePlayerHandle}
+                    size="small"
+                    className={classes.input}
+                  />
+                </form>
+              </Grid>
 
-          ))}
+            )
+          })}
         </Grid>
       </div>
     </div>

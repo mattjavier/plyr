@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import YoutubeEmbedVideo from 'youtube-embed-video'
+import EditProfile from '../../components/EditProfile'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,11 +48,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 50,
     margin: 20,
     boxShadow: theme.shadows[6],
-    backgroundColor: '#263238'
+    backgroundColor: '#263238',
+    color: '#845bb3'
   },
-  discord: {
+  username: {
     color: '#ffffff',
-    letterSpacing: 2
+    letterSpacing: 2,
+    paddingBottom: 20
   },
   video: {
     width: '100%',
@@ -73,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const UserPlayer = props => {
+  console.log(props)
   const classes = useStyles()
 
   const avatarCode = avatar => {
@@ -94,11 +98,18 @@ const UserPlayer = props => {
   games.sort()
 
   return (
+
     <Grid className={classes.paper}>
       <Paper className={classes.top} elevation={5}>
         {avatarCode(props.player.avatar)}
+        <Typography
+          className={classes.username}
+          variant="h5"
+        >
+          {props.player.username}
+        </Typography>
       </Paper>
-      <Grid 
+      <Grid
         container
         direction="row"
         justify="space-between"
@@ -107,12 +118,12 @@ const UserPlayer = props => {
         spacing={3}
         className={classes.bottomGrid}
       >
-        <Grid 
+        <Grid
           item
-          sm={6} 
-          xs={12} 
+          sm={6}
+          xs={12}
         >
-          <Grid 
+          <Grid
             container
             direction="column"
             justify="space-between"
@@ -120,17 +131,16 @@ const UserPlayer = props => {
           >
             <Paper className={classes.content} elevation={5}>
               <div className={classes.inner}>
-                <Grid 
-                  container 
+                <Grid
+                  container
                   justify="space-between"
                   alignItems="center"
                   direction="row"
                   className={classes.infoContainer}
                 >
                   <Typography className={classes.text}>
-                    
                     Bio:
-                  </Typography>
+                    </Typography>
                   <Typography className={classes.text}>
                     {props.player.bio}
                   </Typography>
@@ -139,8 +149,8 @@ const UserPlayer = props => {
             </Paper>
             <Paper className={classes.content} elevation={5}>
               <div className={classes.inner}>
-                <Grid 
-                  container 
+                <Grid
+                  container
                   justify="space-between"
                   alignItems="center"
                   direction="row"
@@ -148,16 +158,17 @@ const UserPlayer = props => {
                 >
                   <Typography className={classes.text}>
                     Discord:
-                  </Typography>
+                    </Typography>
                   <Typography className={classes.text}>
                     {props.player.discord}
                   </Typography>
                 </Grid>
+                <hr />
                 {
                   props.player.xbox.length > 0 ? (
                     <>
-                      <Grid 
-                        container 
+                      <Grid
+                        container
                         justify="space-between"
                         alignItems="center"
                         direction="row"
@@ -165,7 +176,7 @@ const UserPlayer = props => {
                       >
                         <Typography className={classes.text}>
                           XBOX Gamertag:
-                        </Typography>
+                          </Typography>
                         <Typography className={classes.text}>
                           {props.player.xbox}
                         </Typography>
@@ -191,7 +202,7 @@ const UserPlayer = props => {
                       >
                         <Typography className={classes.text}>
                           PSN:
-                        </Typography>
+                          </Typography>
                         <Typography className={classes.text}>
                           {props.player.playstation}
                         </Typography>
@@ -215,7 +226,7 @@ const UserPlayer = props => {
                       >
                         <Typography className={classes.text}>
                           Switch Friend Code:
-                        </Typography>
+                          </Typography>
                         <Typography className={classes.text}>
                           {props.player.nintendoSwitch}
                         </Typography>
@@ -236,7 +247,7 @@ const UserPlayer = props => {
                       >
                         <Typography className={classes.text}>
                           PC:
-                        </Typography>
+                          </Typography>
                         <Typography className={classes.text}>
                           {props.player.pc}
                         </Typography>
@@ -259,8 +270,8 @@ const UserPlayer = props => {
                     >
                       <Typography className={classes.text}>
                         Genres:
-                      </Typography>
-                      <Grid 
+                       </Typography>
+                      <Grid
                         item
                         direction="column"
                         alignItems="flex-end"
@@ -289,8 +300,8 @@ const UserPlayer = props => {
                     >
                       <Typography className={classes.text}>
                         Games:
-                      </Typography>
-                      <Grid 
+                        </Typography>
+                      <Grid
                         item
                         direction="column"
                         alignItems="flex-end"
@@ -309,6 +320,7 @@ const UserPlayer = props => {
                 }
               </div>
             </Paper>
+
           </Grid>
         </Grid>
         {
@@ -327,7 +339,10 @@ const UserPlayer = props => {
           ) : null
         }
       </Grid>
+      <EditProfile player={props.player} />
+      {/* <DeleteUser player={props.player.user} /> */}
     </Grid>
+
   )
 }
 

@@ -17,17 +17,26 @@ const socketio = require('socket.io')
 const http = require('http')
 const server = http.createServer(app)
 const io = socketio(server)
+
+// Socket connection functions
 io.on('connection', socket => {
   console.log(`Socket.io is running on port 3002`)
-  socket.on('message', ({name, message}) => {
-    io.emit('message', {name, message})
+  // Recieve message from front end then send same message to everyone
+  socket.on('message', ({name, message, avatar}) => {
+    io.emit('message', {name, message, avatar})
   })
 
   socket.on('button clicked', () => {
     console.log('front end button clicked')
   })
 
+  // socket.on('chatMessage', ({from, fromId, to, toId, message}) => {
+  //   console.log(`Sending to ${toId}`)
+  //   io.emit(toId, {from, fromId, to, toId, message})
+  // })
+
 })
+
 // Host socket server on 3002
 server.listen(3002)
 

@@ -13,7 +13,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import { Link } from 'react-router-dom'
 import Hidden from '@material-ui/core/Hidden'
-
+import plyr2 from '../../assets/logo.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +39,13 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     boxShadow: theme.shadows[3],
-    backgroundColor: '#263238'
+    backgroundColor: '#263238',
+    color: "#845bb3"
+  },
+  logo: {
+    width: '66px',
+    position: 'relative',
+    top: 4
   }
 }))
 
@@ -48,33 +54,33 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const classes = useStyles()
-  
+
   const [openState, setOpen] = useState({
     open: false
   })
-  
+
   const toggleDrawer = open => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }
     setOpen({ ...openState, open })
   }
-  
+
   const handleLogout = () => {
     localStorage.removeItem('user')
     window.location = '/'
   }
-  
+
   const defaultAvatar = user => {
     console.log(user)
   }
-  
+
   const [playerState, setPlayerState] = useState({
     playerExists: false,
     avatar: '',
     user: ''
   })
-  
+
   // playerState.avatarCode = () => {
   //   //console.log(playerState.avatar)
   //   if (playerState.avatar.length === 1) {
@@ -108,6 +114,14 @@ const Navbar = () => {
 
   }, [])
 
+  // to control path of link for the logo
+  let path
+
+  if (localStorage.getItem('user')) {
+    path = '/matches'
+  } else {
+    path = '/'
+  }
 
   return (
     <div className={classes.root}>
@@ -130,6 +144,11 @@ const Navbar = () => {
             >
               {/* links in the drop down menu */}
               <List>
+                <ListItem>
+                  <Link className={classes.link} to="/globalchat">
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>Global Chat</Button>
+                  </Link>
+                </ListItem>
                 <ListItem>
                   <Link className={classes.link} to="/matches">
                     <Button className={classes.link} onClick={toggleDrawer(false)}>Matches</Button>
@@ -154,13 +173,20 @@ const Navbar = () => {
               </List>
             </Drawer>
           </Hidden>
-          {/* App name */}
+
+          {/* App logo */}
+
           <Typography variant="h5" className={classes.title}>
-            plyr
+            <Link className={classes.link} to={path}>
+              <img className={classes.logo} src={plyr2} alt="player 2" />
+            </Link>
           </Typography>
 
           {/* Links on navbar that are visible from screens small and larger */}
           <Hidden xsDown>
+            <Link className={classes.link} to="/globalchat">
+              <Button className={classes.link}>Global Chat</Button>
+            </Link>
             <Link className={classes.link} to="/matches">
               <Button className={classes.link}>Matches</Button>
             </Link>
@@ -176,11 +202,15 @@ const Navbar = () => {
             }
           </Hidden>
           <div>
-          {
-            (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
-              <Avatar className={classes.avatar} src={playerState.avatar} />
-            )
-          } 
+            {
+              (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
+                <Link className={classes.link} to="/profile">
+                  <Button className={classes.link}>
+                    <Avatar className={classes.avatar} src={playerState.avatar} />
+                  </Button>
+                </Link>
+              )
+            }
           </div>
         </Toolbar>
       </AppBar>

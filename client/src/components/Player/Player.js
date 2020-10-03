@@ -53,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 50,
     margin: 20,
     boxShadow: theme.shadows[6],
-    backgroundColor: '#263238'
+    backgroundColor: '#263238',
+    color: '#845bb3'
   },
   upperText: {
     color: '#ffffff',
@@ -95,20 +96,21 @@ const useStyles = makeStyles((theme) => ({
 
 const Player = props => {
   const classes = useStyles()
-  
+
   const handleAddFriend = (playerId) => {
     console.log(`Sending friend request to ${playerId}`)
     axios.get('/api/users/myself', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
-      }})
-      .then(({data}) => {
+      }
+    })
+      .then(({ data }) => {
         let myself = {
           name: data.username,
           playerId: data.player_profile
         }
         console.log(myself)
-        axios.put(`/api/players/addfriend/${playerId}`, myself )
+        axios.put(`/api/players/addfriend/${playerId}`, myself)
           .then(request => {
             console.log(request)
             console.log(`Request Sent from ${data.username} to ${playerId}`)
@@ -154,7 +156,7 @@ const Player = props => {
           discord: {props.player.discord}
         </Typography>
       </Paper>
-      <Grid 
+      <Grid
         container
         direction="row"
         justify="space-between"
@@ -163,12 +165,12 @@ const Player = props => {
         spacing={3}
         className={classes.bottomGrid}
       >
-        <Grid 
+        <Grid
           item
-          sm={6} 
-          xs={12} 
+          sm={6}
+          xs={12}
         >
-          <Grid 
+          <Grid
             container
             direction="column"
             justify="space-between"
@@ -176,15 +178,15 @@ const Player = props => {
           >
             <Paper className={classes.content} elevation={5}>
               <div className={classes.inner}>
-                <Grid 
-                  container 
+                <Grid
+                  container
                   justify="space-between"
                   alignItems="center"
                   direction="row"
                   className={classes.infoContainer}
                 >
                   <Typography className={classes.text}>
-                    
+
                     Bio:
                   </Typography>
                   <Typography className={classes.text}>
@@ -269,8 +271,8 @@ const Player = props => {
                 {
                   props.player.pc.length > 0 ? (
                     <>
-                      <Grid 
-                        container 
+                      <Grid
+                        container
                         justify="space-between"
                         alignItems="center"
                         direction="row"
@@ -302,7 +304,7 @@ const Player = props => {
                       <Typography className={classes.text}>
                         Genres:
                       </Typography>
-                      <Grid 
+                      <Grid
                         item
                         direction="column"
                         alignItems="flex-end"
@@ -332,7 +334,7 @@ const Player = props => {
                       <Typography className={classes.text}>
                         Games:
                       </Typography>
-                      <Grid 
+                      <Grid
                         item
                         direction="column"
                         alignItems="flex-end"
