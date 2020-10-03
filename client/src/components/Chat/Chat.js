@@ -217,6 +217,10 @@ const Chat = () => {
       avatar: myselfState.avatar,
     }
 
+    if (messageObj.message.trim() === '') {
+      return
+    }
+
     console.log(messageObj)
 
     socket.emit('message', messageObj)
