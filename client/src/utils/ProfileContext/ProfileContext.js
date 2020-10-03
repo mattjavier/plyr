@@ -17,6 +17,7 @@ const ProfileContext = createContext({
   handleInputChange: () => { },
   handlePlayerHandle: () => { },
   handleGenre: () => { },
+  handleGenre2: () => { },
   handleGames: () => { },
   handleDeleteGames: () => { }
 })

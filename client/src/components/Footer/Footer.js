@@ -56,7 +56,7 @@ const Footer = () => {
     <AppBar className={classes.footer}>
       <Toolbar>
         <Typography variant="body2">
-          &copy; plyr 2020
+          &copy; plyr 2 | 2020
         </Typography>
         <div className={classes.grow}></div>
         <Typography variant="overline">
@@ -64,7 +64,7 @@ const Footer = () => {
         </Typography>
         <IconButton aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick} edge="end" color="inherit">
           <MoreIcon />
-        </IconButton> 
+        </IconButton>
         <Menu
           id="fade-menu"
           anchorEl={anchorEl}
@@ -72,7 +72,7 @@ const Footer = () => {
           open={open}
           onClose={handleClose}
           TransitionComponent={Fade}
-          classes={{ paper: classes.menuPaper}}
+          classes={{ paper: classes.menuPaper }}
         >
           <MenuItem onClick={handleClose} >
             <Link to="/about" className={classes.link}>ABOUT</Link>

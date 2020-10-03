@@ -204,7 +204,7 @@ const BuildProfile = () => {
       </p>
       <ProfileContext.Provider value={profileState}>
         <System />
-        <Genre />
+        <Genre edit={false} />
         <Game />
         <Avatar />
       </ProfileContext.Provider>

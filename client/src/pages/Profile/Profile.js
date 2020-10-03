@@ -33,8 +33,7 @@ const Profile = () => {
       }
     })
       .then(({ data }) => {
-        console.log(data)
-
+ 
         setPlayerState({
           ...playerState,
           playerExists: true,
@@ -67,19 +66,15 @@ const Profile = () => {
       {
         localStorage.getItem('user') ? (
           playerState.playerExists ?
-            <UserPlayer player={playerState} /> :
+            (
+              <>
+                <UserPlayer player={playerState} />
+                <Friends player={playerState} />
+              </>
+            ) :
             <BuildProfile />
         ) : window.location = '/'
       }
-      <hr />
-      {
-        localStorage.getItem('user') ? (
-          playerState.playerExists ? 
-          <Friends player={playerState} /> :
-          null
-        ) : null
-      }
-
     </>
   )
 }

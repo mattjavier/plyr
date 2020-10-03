@@ -3,11 +3,12 @@ import axios from 'axios'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import IconButton from '@material-ui/core/IconButton'
 import FormControl from '@material-ui/core/FormControl'
 import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -44,7 +45,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 275,
+    width: 272,
     backgroundColor: '#263238',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -74,9 +75,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '30px',
     textTransform: 'capitalize'
   },
+  deleteButton: {
+    color: '#f44336',
+    display: 'inline'
+  },
 }))
 
-const Register = () => {
+const DeleteUser = (props) => {
 
   // MODAL
   const classes = useStyles()
@@ -137,6 +142,11 @@ const Register = () => {
 
   registerState.handleInputChange = event => {
     setRegisterState({ ...registerState, [event.target.name]: event.target.value })
+  }
+
+  const deleteUser = () => {
+    console.log('delete user')
+    console.log(props.player.user)
   }
 
   registerState.handleRegister = event => {
@@ -264,9 +274,9 @@ const Register = () => {
   return (
     <>
       <div className={classes.button}>
-        <Button variant="contained" color="secondary" onClick={handleOpen}>
-          Register
-      </Button>
+        <IconButton className={classes.deleteButton} variant="contained" aria-label="delete" onClick={handleOpen}>
+          <DeleteForeverIcon /> delete profile
+          </IconButton>
         <Modal
           open={open}
           onClose={handleClose}
@@ -285,4 +295,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default DeleteUser
