@@ -65,12 +65,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 5,
     paddingRight: 5
   },
-  content: {
-    margin: 10,
-    borderRadius: 5,
-    width: '75%',
-    // IDK where to put this note, so I Figure here's as good as anywhere. I want to try to use clsx to assign classes conditionally to the messages' background colors...one for messages from you, another from messages from other users. Maybe primary for everyone else and secondary for from yourself?? IDK.
-  },
   inner: {
     padding: 5,
   },
@@ -110,10 +104,24 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     width: '100%',
   },
-  message: {
+  myMessage: {
     width: '100%',
     margin: '0px !Important',
-  }
+  },
+  myContent: {
+    backgroundColor: '#414679',
+    color: '#ffffff',
+    margin: 10,
+    borderRadius: 5,
+    width: '75%',
+  },
+  notMyContent: {
+    backgroundColor: '#845bb3',
+    color: '#ffffff',
+    margin: 10,
+    borderRadius: 5,
+    width: '75%',
+  },
 }))
 
 const Chat = () => {
@@ -148,6 +156,7 @@ const Chat = () => {
   socket.on('message', ({ name, message }) => {
     // console.log('general chat message returned')
     setChatState([...chatState, { name, message }])
+    console.log(chatState)
   })
 
   useEffect(() => {
@@ -157,7 +166,7 @@ const Chat = () => {
       }
     })
       .then(({ data }) => {
-        // console.log(data)
+        console.log(data)
         setMyselfState({ ...myselfState, myUsername: data.username })
       })
       .catch(err => console.log(err))
@@ -176,10 +185,23 @@ const Chat = () => {
       <Paper className={classes.paper}>
         <Paper className={classes.content}>Welcome to Global Chat</Paper>
         {
-          chatState.map(message => <Paper className={classes.content} elevation={5}>{message.name}: {message.message}</Paper>)
+          chatState.map(message => {
+            // IDK why this is giving error messages here. Basically, I'm trying to check if the message is from myself or not and assign one class to messages from myself and another class to messages from others. 
+            message.name === myselfState.myUsername ?
+              (<Paper className={classes.myContent} elevation={5}>
+                {/* Each individual message */}
+                {message.name}: {message.message}
+              </Paper>)
+              :
+              (<Paper className={classes.notMyContent} elevation={5}>
+                {/* Each individual message */}
+                {message.name}: {message.message}
+              </Paper>)
+          })
         }
       </Paper>
 
+      {/* Bottom of chat field */}
       <Paper className={classes.bottom} elevation={5}>
         <form className={classes.message} noValidate autoComplete="off" onSubmit={messageState.onMessageSubmit}>
           <FormControl className={clsx(classes.textField)} variant="outlined">
