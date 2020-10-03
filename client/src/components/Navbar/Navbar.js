@@ -146,7 +146,7 @@ const Navbar = () => {
               <List>
                 <ListItem>
                   <Link className={classes.link} to="/globalchat">
-                    <Button className={classes.link} onClick={toggleDrawer(false)}>Chat</Button>
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>Global Chat</Button>
                   </Link>
                 </ListItem>
                 <ListItem>
@@ -185,7 +185,7 @@ const Navbar = () => {
           {/* Links on navbar that are visible from screens small and larger */}
           <Hidden xsDown>
             <Link className={classes.link} to="/globalchat">
-              <Button className={classes.link}>Chat</Button>
+              <Button className={classes.link}>Global Chat</Button>
             </Link>
             <Link className={classes.link} to="/matches">
               <Button className={classes.link}>Matches</Button>

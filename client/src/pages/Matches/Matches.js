@@ -8,13 +8,14 @@ import axios from 'axios'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    margin: theme.spacing(2),
+    margin: 'auto',
+    width: '90%'
   },
   frame: {
     backgroundColor: '#4f5b62',
     borderRadius: 5,
     margin: 'auto',
-    padding: theme.spacing(1),
+    padding: 0,
     width: '100%',
     height: '100%'
   },
@@ -168,7 +169,7 @@ const Matches = () => {
               className={classes.head}
             >
               Matches
-        </Typography>
+            </Typography>
 
             <Grid className={classes.frame} container spacing={3}>
 
