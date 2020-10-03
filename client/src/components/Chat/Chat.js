@@ -262,7 +262,7 @@ const Chat = () => {
           flexWrap="wrap" 
           className={classes.content}
         >
-          Welcome to the Global Chat room!
+          Hi <span className={classes.username}>{myselfState.myUsername}!</span> Welcome to the Global Chat room!
         </Grid>
 
         {
