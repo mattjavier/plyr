@@ -38,7 +38,7 @@ io.on('connection', socket => {
 })
 
 // Host socket server on 3002
-server.listen(process.env.PORT || 3002)
+server.listen(3002)
 
 
 // Image npms

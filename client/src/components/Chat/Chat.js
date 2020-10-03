@@ -16,7 +16,7 @@ import Avatar from '@material-ui/core/Avatar'
 
 
 // Connects to server 3002 where socket is run
-const socket = io.connect(process.env.PORT || 'http://localhost:3002')
+const socket = io.connect('http://localhost:3002')
 
 let height = window.innerHeight - 294
 
@@ -231,6 +231,7 @@ const Chat = () => {
   })
 
   useEffect(() => {
+  
     axios.get('/api/users/players', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
