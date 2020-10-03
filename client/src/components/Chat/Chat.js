@@ -13,7 +13,8 @@ const Chat = () => {
 
     const [messageState, setMessageState] = useState({
         message: '',
-        name: ''
+        name: '',
+        room: 'global'
     })
     const [chatState, setChatState] = useState([])
 
@@ -72,10 +73,6 @@ const Chat = () => {
                     chatState.map(message => <p>{message.name}: {message.message}</p>)
                 ) : <p>Welcome to Global Chat</p>
             }
-
-            <hr />
-            <button onClick={() => console.log(chatState)}>Check Chat</button>
-            <button onClick={() => console.log(myselfState)}>Check myself data</button>
         </>
     )
 }
