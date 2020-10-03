@@ -114,6 +114,14 @@ const Navbar = () => {
 
   }, [])
 
+  // to control path of link for the logo
+  let path
+
+  if (localStorage.getItem('user')) {
+    path = '/matches'
+  } else {
+    path = '/'
+  }
 
   return (
     <div className={classes.root}>
@@ -138,7 +146,7 @@ const Navbar = () => {
               <List>
                 <ListItem>
                   <Link className={classes.link} to="/globalchat">
-                    <Button className={classes.link} onClick={toggleDrawer(false)}>Global Chat</Button>
+                    <Button className={classes.link} onClick={toggleDrawer(false)}>Chat</Button>
                   </Link>
                 </ListItem>
                 <ListItem>
@@ -165,9 +173,13 @@ const Navbar = () => {
               </List>
             </Drawer>
           </Hidden>
-          {/* App name */}
+
+          {/* App logo */}
+
           <Typography variant="h5" className={classes.title}>
-            <img className={classes.logo} src={plyr2} alt="player 2" />
+            <Link className={classes.link} to={path}>
+              <img className={classes.logo} src={plyr2} alt="player 2" />
+            </Link>
           </Typography>
 
           {/* Links on navbar that are visible from screens small and larger */}
@@ -192,7 +204,11 @@ const Navbar = () => {
           <div>
             {
               (!localStorage.getItem('user') || window.location.pathname === '/') ? null : (
-                <Avatar className={classes.avatar} src={playerState.avatar} />
+                <Link className={classes.link} to="/profile">
+                  <Button className={classes.link}>
+                    <Avatar className={classes.avatar} src={playerState.avatar} />
+                  </Button>
+                </Link>
               )
             }
           </div>
