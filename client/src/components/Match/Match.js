@@ -51,7 +51,7 @@ const Match = props => {
       <br />
       <Grid key="Username" item xs={12} elevation={5}>
         <Paper className={classes.paper}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} alignItems="center">
             <Grid item xs="40px">
               <div className={classes.avatar}>
                 {avatarCode(props.match.playerInfo.avatar)}

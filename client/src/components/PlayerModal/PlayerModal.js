@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     top: 50,
     borderRadius: 1,
     overflowY: 'scroll'
+  },
+  button: {
+    fontSize: 12
   }
 }))
 
@@ -47,7 +50,7 @@ const PlayerModal = props => {
 
   return (
     <div>
-      <Button variant="contained" color="secondary" onClick={handleOpen}>
+      <Button className={classes.button} variant="contained" color="secondary" onClick={handleOpen}>
         View Profile
       </Button>
       <Modal
