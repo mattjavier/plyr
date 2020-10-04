@@ -17,7 +17,7 @@ import Box from '@material-ui/core/Box'
 
 
 // Connects to server 3002 where socket is run
-const socket = io.connect('https://plyr-2.herokuapp.com/socket.io/socket.io.js')
+const socket = io.connect(process.env.NODE_ENV || `http://localhost:3002`)
 
 let height = window.innerHeight - 360
 
