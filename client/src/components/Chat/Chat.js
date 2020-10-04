@@ -85,14 +85,14 @@ const useStyles = makeStyles((theme) => ({
   box: {
     justifyContent: 'end',
     position: 'relative',
-    top: -5,
+    top: -10,
     right: '-60%',
     color: '#263238',
   },
   box2: {
     justifyContent: 'start',
     position: 'relative',
-    top: -5,
+    top: -10,
     left: '-60%',
     color: '#263238',
   },
