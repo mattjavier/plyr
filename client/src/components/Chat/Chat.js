@@ -352,7 +352,7 @@ const Chat = () => {
           </FormControl>
         </form>
       </Paper>
-      <button onClick={() => (console.log(chatState))}>Check chat state</button>
+      {/* <button onClick={() => (console.log(chatState))}>Check chat state</button> */}
     </div >
   )
 }
