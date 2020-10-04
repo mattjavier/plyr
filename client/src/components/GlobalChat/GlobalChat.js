@@ -7,7 +7,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 
-import Chat from '../../components/Chat'
+import Chat from '../Chat'
 
 const useStyles = makeStyles((theme) => ({
   root: {

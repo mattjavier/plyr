@@ -13,12 +13,15 @@ import FormControl from '@material-ui/core/FormControl'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
+import Box from '@material-ui/core/Box'
 
 
 // Connects to server 3002 where socket is run
-const socket = io.connect(process.env.PORT || 'http://localhost:3002')
+const socket = io.connect(process.env.PORT || `http://localhost:3002`)
 
-let height = window.innerHeight - 294
+let height = window.innerHeight - 360
+
+console.log(height)
 
 const useStyles = makeStyles((theme) => ({
   // Another generic note: This style list style list originally came from the UserPlayer component and I'm editing as I go. So there's definitely unused styles here that'll eventually need pruned out.
@@ -33,9 +36,9 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: '#4f5b62',
     margin: 'auto',
-    height: height,
     padding: 10,
     width: '100%',
+    height: height,
     overflowY: 'scroll',
     borderRadius: 0
   },
@@ -71,10 +74,24 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 5
   },
   content: {
-    height: 40,
+    // height: 40,
     color: '#ffffff',
-    marginBottom: 20
-    // IDK where to put this note, so I Figure here's as good as anywhere. I want to try to use clsx to assign classes conditionally to the messages' background colors...one for messages from you, another from messages from other users. Maybe primary for everyone else and secondary for from yourself?? IDK.
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  box: {
+    justifyContent: 'end',
+    position: 'relative',
+    top: -5,
+    right: '-60%',
+    color: '#263238',
+  },
+  box2: {
+    justifyContent: 'start',
+    position: 'relative',
+    top: -5,
+    left: '-60%',
+    color: '#263238',
   },
   inner: {
     padding: 5,
@@ -83,7 +100,8 @@ const useStyles = makeStyles((theme) => ({
     width: 25,
     height: 25,
     fontSize: 12,
-    marginRight: 10,
+    marginRight: 5,
+    marginTop: 10,
     boxShadow: theme.shadows[6],
     backgroundColor: '#263238',
     color: '#845bb3'
@@ -92,7 +110,8 @@ const useStyles = makeStyles((theme) => ({
     width: 25,
     height: 25,
     fontSize: 12,
-    marginLeft: 10,
+    marginLeft: 5,
+    marginTop: 10,
     boxShadow: theme.shadows[6],
     backgroundColor: '#263238',
     color: '#845bb3'
@@ -121,37 +140,33 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     width: '100%',
   },
-  bubble: {
-    color: '#ffffff'
-  },
-  myBubble: {
-    borderColor: '#845bb3'
-  },
-  myMessage: {
-    width: '100%',
-    margin: '0px !Important',
-  },
   username: {
     color: '#263238',
     fontWeight: 'bolder'
   },
-  myContent: {
-    backgroundColor: '#414679',
-    color: '#ffffff',
-    margin: 20,
-    borderRadius: 5,
-    width: '75%',
-  },
-  notMyContent: {
-    backgroundColor: '#845bb3',
-    color: '#ffffff',
-    margin: 10,
-    borderRadius: 5,
-    width: '75%',
-  },
+
 }))
 
-let mine
+const bubbles = {
+  mine: {
+    backgroundColor: '#676b93',
+    boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
+    color: '#ffffff',
+    margin: 10,
+    padding: 8,
+    borderRadius: 5,
+    width: '60%',
+  },
+  theirs: {
+    backgroundColor: '#414679',
+    boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
+    color: '#ffffff',
+    margin: 10,
+    padding: 8,
+    borderRadius: 5,
+    maxWidth: '60%'
+  }
+}
 
 const Chat = () => {
   const classes = useStyles()
@@ -167,45 +182,6 @@ const Chat = () => {
     room: 'global'
   })
   const [chatState, setChatState] = useState([])
-
-  chatState.render = ({name, message, avatar}) => {
-      // if (name === myselfState.myUsername) {
-      //   (<Grid 
-      //     container
-      //     flexWrap="wrap"
-      //     justify="flex-end"
-      //     alignItems="center"
-      //     className={classes.content}
-      //   >
-      //     <TextField
-      //       disabled
-      //       id="outlined-disabled"
-      //       label={name}
-      //       defaultValue={message}
-      //       variant="outlined"
-      //     />
-      //     <Avatar className={classes.myselfAvatar} src={avatar} />
-      //   </Grid>)
-      // } else {
-        
-      //   (<Grid 
-      //     container
-      //     flexWrap="wrap"
-      //     justify="flex-start"
-      //     alignItems="center"
-      //     className={classes.content}
-      //   >
-      //     <Avatar className={classes.avatar} src={avatar} />
-      //     <TextField
-      //       disabled
-      //       id="outlined-disabled"
-      //       label={name}
-      //       defaultValue={message}
-      //       variant="outlined"
-      //     />
-      //   </Grid>)
-      // }
-  }
 
   messageState.handleInputChange = event => {
     setMessageState({ ...messageState, [event.target.name]: event.target.value })
@@ -235,20 +211,12 @@ const Chat = () => {
     socket.on('recieve message', message => {
       setChatState([...chatState, message])
       console.log(message.message)
-    socket.off()
+      socket.off()
     })
   }, [chatState])
 
-
-// socket.on('message', ({name, message, avatar}) => {
-//     setChatState([...chatState, { name, message, avatar }])
-//     console.log(message)
-// })
-
-
-
   useEffect(() => {
-  
+
     axios.get('/api/users/players', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
@@ -266,7 +234,7 @@ const Chat = () => {
 
   return (
     <div className={classes.root}>
-    
+
       <Paper className={classes.top} elevation={5}>
         <Typography
           className={classes.room}>
@@ -276,9 +244,9 @@ const Chat = () => {
       <Grid
         className={classes.paper}
       >
-        <Grid 
+        <Grid
           item
-          flexWrap="wrap" 
+          flexWrap="wrap"
           className={classes.content}
         >
           Hi <span className={classes.username}>{myselfState.myUsername}!</span> Welcome to the Global Chat room!
@@ -286,40 +254,44 @@ const Chat = () => {
 
         {
           chatState.map(message => (
-            message.name === myselfState.myUsername ? 
-              (<Grid 
+            message.name === myselfState.myUsername ?
+
+              // Messages from myself
+              (<Grid
                 container
                 flexWrap="wrap"
                 justify="flex-end"
-                alignItems="center"
                 className={classes.content}
               >
-                <TextField
-                  disabled
-                  label={message.name}
-                  defaultValue={message.message}
+
+
+                <Box className={classes.box} component="div">{message.name}</Box>
+                <Paper
+                  style={bubbles.mine}
                   variant="outlined"
                   margin="dense"
-                  className={classes.myBubble}
-                />
+                >
+                  {message.message}
+                </Paper>
                 <Avatar className={classes.myselfAvatar} src={message.avatar} />
-              </Grid>) : 
-              (<Grid 
+              </Grid>) :
+
+              // messages from everyone else
+              (<Grid
                 container
                 flexWrap="wrap"
                 justify="flex-start"
-                alignItems="center"
                 className={classes.content}
               >
                 <Avatar className={classes.avatar} src={message.avatar} />
-                <TextField
-                  disabled
-                  label={message.name}
-                  defaultValue={message.message}
+                <Paper
+                  style={bubbles.theirs}
                   variant="outlined"
                   margin="dense"
-                  className={classes.myBubble}
-                />
+                >
+                  {message.message}
+                </Paper>
+                <Box className={classes.box2} component="div">{message.name}</Box>
               </Grid>)
           ))
         }
@@ -330,6 +302,7 @@ const Chat = () => {
         <form className={classes.message} noValidate autoComplete="off" onSubmit={messageState.onMessageSubmit}>
           <FormControl className={clsx(classes.textField)} variant="outlined">
             <OutlinedInput
+              autoFocus
               name="message"
               value={messageState.message}
               type="text"

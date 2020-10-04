@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
+    boxShadow: theme.shadows[6],
   },
   avatar: {
     display: 'flex',

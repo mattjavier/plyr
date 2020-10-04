@@ -12,6 +12,7 @@ import LogIn from './pages/LogIn'
 import Matches from './pages/Matches'
 import Profile from './pages/Profile'
 import GlobalChat from './pages/GlobalChat'
+import XboxChat from './components/XboxChat'
 
 const theme = createMuiTheme({
   palette: {
@@ -56,6 +57,7 @@ const App = () => {
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/matches" component={Matches} />
               <Route exact path="/GlobalChat" component={GlobalChat} />
+              <Route exact path="/Chat/xbox" component={XboxChat} />
             </Switch>
           </div>
           <Footer />
