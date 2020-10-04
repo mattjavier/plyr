@@ -17,8 +17,8 @@ import Box from '@material-ui/core/Box'
 
 
 // Connects to server 3002 where socket is run
-//const socket = io.connect(process.env.NODE_ENV || `http://localhost:3002`)
-const socket = io('https://plyr-2.herokuapp.com/globalchat', {transports: ['websocket']})
+const socket = io.connect(process.env.PORT || `http://localhost:3002`)
+// const socket = io('https://plyr-2.herokuapp.com/globalchat', {transports: ['websocket']})
 
 let height = window.innerHeight - 360
 
