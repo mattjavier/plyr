@@ -229,6 +229,7 @@ const Chat = () => {
       setChatState([...chatState, message])
       console.log(message.message)
       document.getElementById('chatField').scrollTop = document.getElementById('chatField').scrollHeight
+      socket.off()
     })
   }, [chatState])
 
