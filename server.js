@@ -16,7 +16,7 @@ const app = express()
 const socketio = require('socket.io')
 const http = require('http')
 const server = http.createServer(app)
-const io = socketio(server)
+const io = socketio(server, {transports: ['websocket']})
 
 // Socket connection functions
 io.on('connection', socket => {
