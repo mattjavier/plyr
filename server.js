@@ -42,8 +42,6 @@ io.on('connection', socket => {
 
 })
 
-io.set("transports", ["xhr-polling"]); 
-io.set("polling duration", 10); 
 // Host socket server on process.env.PORT or 3002
 server.listen(process.env.NODE_ENV || 3002)
 
