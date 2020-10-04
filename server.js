@@ -22,15 +22,12 @@ const io = socketio(server)
 io.on('connection', socket => {
   console.log(`Socket.io is running on port 3002`)
 
-
   // Recieve message from front end then send same message to everyone
-  socket.on('send message', ({ name, message, avatar }) => {
-    io.emit('recieve message', { name, message, avatar })
+  socket.on('send message', ({name, message, avatar}) => {
+    io.emit('recieve message', {name, message, avatar})
   })
 
-  
   socket.on('join', (user) => {
-    // socket.broadcast.emit('message', formatMessage('plyr chat bot', 'Someone has joined the chat!')
     console.log(`${user} connected`)
   })
 
