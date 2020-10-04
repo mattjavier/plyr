@@ -47,7 +47,7 @@ server.listen(process.env.NODE_ENV || 3002)
 
 
 // Image npms
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(bodyParser.json())
 
 
