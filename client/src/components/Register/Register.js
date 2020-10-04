@@ -44,6 +44,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
+    margin: 'auto',
     width: 275,
     backgroundColor: '#263238',
     border: '2px solid #000',
@@ -58,7 +59,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#161d22',
   },
   iconButton: {
-    color: '#7F58AD'
+    color: '#7F58AD',
+    position: 'relative',
+    right: -12,
   },
   button: {
     display: 'inline',
@@ -107,6 +110,9 @@ const Register = () => {
     } else if (snackType === 'missing') {
       snackSeverity = 'error'
       snackMessage = 'Form incomplete. All fields required.'
+    } else if (snackType === 'password') {
+      snackSeverity = 'error'
+      snackMessage = 'Passwords must match.'
     }
     console.log(snackSeverity)
     console.log(snackMessage)
@@ -149,31 +155,35 @@ const Register = () => {
       handleSnackClick('missing')
 
     } else {
-
-      setOpen(false)
-      console.log(registerState)
-      axios.post('/api/users/register', {
-        name: registerState.name,
-        username: registerState.username,
-        email: registerState.email,
-        password: registerState.password,
-      })
-        .then(() => {
-          console.log('Register complete')
-          // Toast or notification function goes here
-          setRegisterState({
-            ...registerState,
-            name: '',
-            email: '',
-            username: '',
-            password: ''
+      if (registerState.password !== registerState.confirmPassword) {
+        handleSnackClick('password')
+      } else {
+        setOpen(false)
+        console.log(registerState)
+        axios.post('/api/users/register', {
+          name: registerState.name,
+          username: registerState.username,
+          email: registerState.email,
+          password: registerState.password,
+        })
+          .then(() => {
+            console.log('Register complete')
+            // Toast or notification function goes here
+            setRegisterState({
+              ...registerState,
+              name: '',
+              email: '',
+              username: '',
+              password: '',
+              confirmPassword: '',
+            })
+            handleSnackClick('success')
           })
-          handleSnackClick('success')
-        })
-        .catch(err => {
-          console.log(err)
-          handleSnackClick('error')
-        })
+          .catch(err => {
+            console.log(err)
+            handleSnackClick('error')
+          })
+      }
     }
   }
 
@@ -255,6 +265,35 @@ const Register = () => {
               }
             />
           </FormControl>
+
+          {/* Confirm Password field */}
+          <FormControl className={classes.input} variant="outlined">
+            <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
+            <OutlinedInput
+              required
+              id="confirm-password"
+              label="Confirm Password"
+              variant="outlined"
+              name="confirmPassword"
+              type={registerState.showPassword ? 'text' : 'password'}
+              value={registerState.confirmPassword}
+              onChange={registerState.handleInputChange}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    className={classes.iconButton}
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {registerState.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+
+          {/* Submit button */}
           <Button className={classes.submit} variant="contained" color="primary" onClick={registerState.handleRegister}>Submit</Button>
         </form>
       </p>
