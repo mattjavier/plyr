@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
+import Box from '@material-ui/core/Box'
 
 
 // Connects to server 3002 where socket is run
@@ -73,11 +74,24 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 5
   },
   content: {
-    height: 40,
+    // height: 40,
     color: '#ffffff',
     marginTop: 10,
     marginBottom: 10,
-
+  },
+  box: {
+    justifyContent: 'end',
+    position: 'relative',
+    top: -5,
+    right: '-60%',
+    color: '#263238',
+  },
+  box2: {
+    justifyContent: 'start',
+    position: 'relative',
+    top: -5,
+    left: '-60%',
+    color: '#263238',
   },
   inner: {
     padding: 5,
@@ -86,7 +100,8 @@ const useStyles = makeStyles((theme) => ({
     width: 25,
     height: 25,
     fontSize: 12,
-    marginRight: 10,
+    marginRight: 5,
+    marginTop: 10,
     boxShadow: theme.shadows[6],
     backgroundColor: '#263238',
     color: '#845bb3'
@@ -95,7 +110,8 @@ const useStyles = makeStyles((theme) => ({
     width: 25,
     height: 25,
     fontSize: 12,
-    marginLeft: 10,
+    marginLeft: 5,
+    marginTop: 10,
     boxShadow: theme.shadows[6],
     backgroundColor: '#263238',
     color: '#845bb3'
@@ -134,22 +150,21 @@ const useStyles = makeStyles((theme) => ({
 const bubbles = {
   mine: {
     backgroundColor: '#676b93',
-    // borderColor: '#000000 !Important',
+    boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
     color: '#ffffff',
     margin: 10,
+    padding: 8,
     borderRadius: 5,
     width: '60%',
-    whiteSpace: 'normal',
-    '& label': {
-      color: "#ffffff"
-    }
   },
   theirs: {
     backgroundColor: '#414679',
+    boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
     color: '#ffffff',
     margin: 10,
+    padding: 8,
     borderRadius: 5,
-    width: '60%'
+    maxWidth: '60%'
   }
 }
 
@@ -246,21 +261,18 @@ const Chat = () => {
                 container
                 flexWrap="wrap"
                 justify="flex-end"
-                alignItems="center"
                 className={classes.content}
               >
-                <TextField
-                  disabled
-                  // So we need multiline to allow for long messages, but using multiline blocks us from sending more than 1 message.
-                  // multiline
-                  // rows="fit"
-                  rows={message.message.length / window.innerWidth}
+
+
+                <Box className={classes.box} component="div">{message.name}</Box>
+                <Paper
                   style={bubbles.mine}
-                  label={message.name}
-                  defaultValue={message.message}
                   variant="outlined"
                   margin="dense"
-                />
+                >
+                  {message.message}
+                </Paper>
                 <Avatar className={classes.myselfAvatar} src={message.avatar} />
               </Grid>) :
 
@@ -269,18 +281,17 @@ const Chat = () => {
                 container
                 flexWrap="wrap"
                 justify="flex-start"
-                alignItems="center"
                 className={classes.content}
               >
                 <Avatar className={classes.avatar} src={message.avatar} />
-                <TextField
-                  disabled
+                <Paper
                   style={bubbles.theirs}
-                  label={message.name}
-                  defaultValue={message.message}
                   variant="outlined"
                   margin="dense"
-                />
+                >
+                  {message.message}
+                </Paper>
+                <Box className={classes.box2} component="div">{message.name}</Box>
               </Grid>)
           ))
         }
