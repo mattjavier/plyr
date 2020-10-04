@@ -6,16 +6,10 @@ import Player from '../Player'
 import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: 'absolute',
-    width: '75%',
-    backgroundColor: theme.palette.background.default,
-    boxShadow: theme.shadows[5],
-    paddingTop: 1,
-  },
   modal: {
     position: 'absolute',
     top: 50,
+    // height: '90%',
     borderRadius: 1,
     overflowY: 'scroll'
   }
