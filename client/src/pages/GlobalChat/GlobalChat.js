@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormHelperText from '@material-ui/core/FormHelperText'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
+// import Typography from '@material-ui/core/Typography'
+// import InputLabel from '@material-ui/core/InputLabel'
+// import MenuItem from '@material-ui/core/MenuItem'
+// import FormHelperText from '@material-ui/core/FormHelperText'
+// import FormControl from '@material-ui/core/FormControl'
+// import Select from '@material-ui/core/Select'
 
 import Chat from '../../components/Chat'
 
@@ -15,26 +15,38 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     width: '90%'
   },
-  formControl: {
-    marginTop: theme.spacing(2),
-    margin: 'auto',
-    width: '50%',
-    backgroundColor: '#414679',
-    borderRadius: 5,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+  // formControl: {
+  //   marginTop: theme.spacing(2),
+  //   margin: 'auto',
+  //   width: '100%',
+  //   backgroundColor: '#414679',
+  //   color: '#ffffff',
+  //   borderRadius: 5,
+  //   padding: 0
+  // },
+  // select: {
+  //   backgroundColor: '#414679',
+  //   color: '#ffffff',
+  // },
+  // menuItem: {
+  //   backgroundColor: '#414679',
+  //   color: '#ffffff',
+  // }
 }))
+
+// const style = {
+//   backgroundColor: '#414679'
+// }
 
 const GlobalChat = () => {
   const classes = useStyles()
 
-  const [age, setAge] = React.useState('');
+  // const [room, setRoom] = React.useState('');
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setRoom(event.target.value);
+  //   console.log(room)
+  // };
 
 
   return (
@@ -43,25 +55,28 @@ const GlobalChat = () => {
         localStorage.getItem('user') ? (
           <div className={classes.root}>
 
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">Choose a Message Board</InputLabel>
+            {/* <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel style={style} id="demo-simple-select-outlined-label">Choose a Message Board</InputLabel>
               <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
-                value={age}
+                value={room}
                 onChange={handleChange}
                 label="Choose a Message Board"
+                className={classes.select}
               >
-                <MenuItem value="">
+                <MenuItem style={style} className={classes.menuItem} value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem className={classes.menuItem} value="xbox">xbox</MenuItem>
+                <MenuItem className={classes.menuItem} value="playstation">PlayStation</MenuItem>
+                <MenuItem className={classes.menuItem} value="nintendo">Nintendo Switch</MenuItem>
+                <MenuItem className={classes.menuItem} value="pc">PC</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
 
 
+            {/* <Chat room={room} /> */}
             <Chat />
           </div >
         ) : window.location.href = '/'
