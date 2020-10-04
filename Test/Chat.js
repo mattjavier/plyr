@@ -21,7 +21,7 @@ const socket = io.connect(process.env.PORT || `http://localhost:3002`)
 
 
 // this is to help set the hight of the chat window
-let height = window.innerHeight - 294
+let height = window.innerHeight - 360
 
 console.log(height)
 
@@ -158,7 +158,6 @@ const bubbles = {
     padding: 8,
     borderRadius: 5,
     width: '60%',
-    whitespace: 'normal',
   },
   theirs: {
     backgroundColor: '#414679',
@@ -167,27 +166,26 @@ const bubbles = {
     margin: 10,
     padding: 8,
     borderRadius: 5,
-    width: '60%',
-    whitespace: 'normal',
+    width: '60%'
   }
 }
 
-const Chat = () => {
+const Chat = (props) => {
   const classes = useStyles()
-  // console.log(props.room)
+  console.log(props.room)
 
   const [myselfState, setMyselfState] = useState({
     myUsername: '',
     avatar: '',
-    // room: ''
+    room: ''
   })
 
-  // console.log(myselfState.room)
+  console.log(myselfState.room)
 
   const [messageState, setMessageState] = useState({
     message: '',
     name: '',
-    // room: '',
+    room: '',
   })
 
   const [chatState, setChatState] = useState([])
@@ -219,8 +217,8 @@ const Chat = () => {
     setMessageState({ ...messageState, message: '' })
     socket.off('send message')
 
-
-
+ 
+    
   }
 
   useEffect(() => {
@@ -232,15 +230,15 @@ const Chat = () => {
   }, [chatState])
 
   useEffect(() => {
-
-    // console.log(props)
+    
+    console.log(props)
     axios.get('/api/users/players', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
     })
       .then(({ data, props }) => {
-        setMyselfState({ ...myselfState, myUsername: data.user.username, avatar: data.avatar })
+        setMyselfState({ ...myselfState, myUsername: data.user.username, avatar: data.avatar, room: props.room})
         socket.emit('join', data.user.username)
         // socket.broadcast.emit('plyr chat bot', 'Someone has joined the chat!')
         socket.off('join')
@@ -262,23 +260,12 @@ const Chat = () => {
         className={classes.paper}
         id="chatField"
       >
-
-
         <Grid
-          container
+          item
           flexWrap="wrap"
-          justify="flex-start"
           className={classes.content}
         >
-          <Avatar className={classes.avatar} src="" />
-          <Paper
-            style={bubbles.theirs}
-            variant="outlined"
-            margin="dense"
-          >
-            Hi <span className={classes.username}>{myselfState.myUsername}!</span> Welcome to the Global Chat room!
-          </Paper>
-          <Box className={classes.box2} component="div">plyr chat bot</Box>
+          Hi <span className={classes.username}>{myselfState.myUsername}!</span> Welcome to the Global Chat room!
         </Grid>
 
         {
