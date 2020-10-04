@@ -74,7 +74,10 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     height: 40,
-    color: '#ffffff'
+    color: '#ffffff',
+    marginTop: 10,
+    marginBottom: 10,
+
   },
   inner: {
     padding: 5,
@@ -121,37 +124,34 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     width: '100%',
   },
-  bubble: {
-    color: '#ffffff'
-  },
-  myBubble: {
-    borderColor: '#845bb3'
-  },
-  myMessage: {
-    width: '100%',
-    margin: '0px !Important',
-  },
   username: {
     color: '#263238',
     fontWeight: 'bolder'
   },
-  myContent: {
-    backgroundColor: '#414679',
-    color: '#ffffff',
-    margin: 20,
-    borderRadius: 5,
-    width: '75%',
-  },
-  notMyContent: {
-    backgroundColor: '#845bb3',
+
+}))
+
+const bubbles = {
+  mine: {
+    backgroundColor: '#676b93',
+    // borderColor: '#000000 !Important',
     color: '#ffffff',
     margin: 10,
     borderRadius: 5,
-    width: '75%',
+    width: '60%',
+    whiteSpace: 'normal',
+    '& label': {
+      color: "#ffffff"
+    }
   },
-}))
-
-let mine
+  theirs: {
+    backgroundColor: '#414679',
+    color: '#ffffff',
+    margin: 10,
+    borderRadius: 5,
+    width: '60%'
+  }
+}
 
 const Chat = () => {
   const classes = useStyles()
@@ -168,45 +168,6 @@ const Chat = () => {
   })
   const [chatState, setChatState] = useState([])
 
-  chatState.render = ({name, message, avatar}) => {
-      // if (name === myselfState.myUsername) {
-      //   (<Grid 
-      //     container
-      //     flexWrap="wrap"
-      //     justify="flex-end"
-      //     alignItems="center"
-      //     className={classes.content}
-      //   >
-      //     <TextField
-      //       disabled
-      //       id="outlined-disabled"
-      //       label={name}
-      //       defaultValue={message}
-      //       variant="outlined"
-      //     />
-      //     <Avatar className={classes.myselfAvatar} src={avatar} />
-      //   </Grid>)
-      // } else {
-        
-      //   (<Grid 
-      //     container
-      //     flexWrap="wrap"
-      //     justify="flex-start"
-      //     alignItems="center"
-      //     className={classes.content}
-      //   >
-      //     <Avatar className={classes.avatar} src={avatar} />
-      //     <TextField
-      //       disabled
-      //       id="outlined-disabled"
-      //       label={name}
-      //       defaultValue={message}
-      //       variant="outlined"
-      //     />
-      //   </Grid>)
-      // }
-  }
-
   messageState.handleInputChange = event => {
     setMessageState({ ...messageState, [event.target.name]: event.target.value })
   }
@@ -221,7 +182,7 @@ const Chat = () => {
 
     // If message is empty, end function here
     if (messageObj.message.trim() === '') {
-        return
+      return
     }
 
     console.log(messageObj)
@@ -235,20 +196,12 @@ const Chat = () => {
     socket.on('recieve message', message => {
       setChatState([...chatState, message])
       console.log(message.message)
-    socket.off()
+      socket.off()
     })
   }, [chatState])
 
-
-// socket.on('message', ({name, message, avatar}) => {
-//     setChatState([...chatState, { name, message, avatar }])
-//     console.log(message)
-// })
-
-
-
   useEffect(() => {
-  
+
     axios.get('/api/users/players', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
@@ -286,8 +239,10 @@ const Chat = () => {
 
         {
           chatState.map(message => (
-            message.name === myselfState.myUsername ? 
-              (<Grid 
+            message.name === myselfState.myUsername ?
+
+              // Messages from myself
+              (<Grid
                 container
                 flexWrap="wrap"
                 justify="flex-end"
@@ -296,15 +251,21 @@ const Chat = () => {
               >
                 <TextField
                   disabled
+                  // So we need multiline to allow for long messages, but using multiline blocks us from sending more than 1 message.
+                  // multiline
+                  // rows="fit"
+                  rows={message.message.length / window.innerWidth}
+                  style={bubbles.mine}
                   label={message.name}
                   defaultValue={message.message}
                   variant="outlined"
                   margin="dense"
-                  className={classes.myBubble}
                 />
                 <Avatar className={classes.myselfAvatar} src={message.avatar} />
-              </Grid>) : 
-              (<Grid 
+              </Grid>) :
+
+              // messages from everyone else
+              (<Grid
                 container
                 flexWrap="wrap"
                 justify="flex-start"
@@ -314,11 +275,11 @@ const Chat = () => {
                 <Avatar className={classes.avatar} src={message.avatar} />
                 <TextField
                   disabled
+                  style={bubbles.theirs}
                   label={message.name}
                   defaultValue={message.message}
                   variant="outlined"
                   margin="dense"
-                  className={classes.myBubble}
                 />
               </Grid>)
           ))
@@ -330,6 +291,7 @@ const Chat = () => {
         <form className={classes.message} noValidate autoComplete="off" onSubmit={messageState.onMessageSubmit}>
           <FormControl className={clsx(classes.textField)} variant="outlined">
             <OutlinedInput
+              autoFocus
               name="message"
               value={messageState.message}
               type="text"
@@ -352,7 +314,6 @@ const Chat = () => {
           </FormControl>
         </form>
       </Paper>
-      <button onClick={() => (console.log(chatState))}>Check chat state</button>
     </div >
   )
 }
