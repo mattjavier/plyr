@@ -88,17 +88,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#263238',
     color: '#845bb3'
   },
+  myselfAvatar: {
+    width: 25,
+    height: 25,
+    fontSize: 12,
+    marginLeft: 10,
+    boxShadow: theme.shadows[6],
+    backgroundColor: '#263238',
+    color: '#845bb3'
+  },
   room: {
     color: '#ffffff',
     letterSpacing: 2,
     paddingBottom: 10,
     paddingTop: 10,
     fontSize: 20
-  },
-  video: {
-    width: '100%',
-    borderRadius: 5,
-    boxShadow: theme.shadows[6],
   },
   text: {
     color: '#1a1a1a'
@@ -117,6 +121,12 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     width: '100%',
   },
+  bubble: {
+    color: '#ffffff'
+  },
+  myBubble: {
+    borderColor: '#845bb3'
+  },
   myMessage: {
     width: '100%',
     margin: '0px !Important',
@@ -128,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
   myContent: {
     backgroundColor: '#414679',
     color: '#ffffff',
-    margin: 10,
+    margin: 20,
     borderRadius: 5,
     width: '75%',
   },
@@ -158,6 +168,44 @@ const Chat = () => {
   })
   const [chatState, setChatState] = useState([])
 
+  chatState.render = ({name, message, avatar}) => {
+      // if (name === myselfState.myUsername) {
+      //   (<Grid 
+      //     container
+      //     flexWrap="wrap"
+      //     justify="flex-end"
+      //     alignItems="center"
+      //     className={classes.content}
+      //   >
+      //     <TextField
+      //       disabled
+      //       id="outlined-disabled"
+      //       label={name}
+      //       defaultValue={message}
+      //       variant="outlined"
+      //     />
+      //     <Avatar className={classes.myselfAvatar} src={avatar} />
+      //   </Grid>)
+      // } else {
+        
+      //   (<Grid 
+      //     container
+      //     flexWrap="wrap"
+      //     justify="flex-start"
+      //     alignItems="center"
+      //     className={classes.content}
+      //   >
+      //     <Avatar className={classes.avatar} src={avatar} />
+      //     <TextField
+      //       disabled
+      //       id="outlined-disabled"
+      //       label={name}
+      //       defaultValue={message}
+      //       variant="outlined"
+      //     />
+      //   </Grid>)
+      // }
+  }
 
   messageState.handleInputChange = event => {
     setMessageState({ ...messageState, [event.target.name]: event.target.value })
@@ -200,6 +248,7 @@ const Chat = () => {
 
 
   useEffect(() => {
+  
     axios.get('/api/users/players', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
@@ -224,23 +273,6 @@ const Chat = () => {
           Global Chat
         </Typography>
       </Paper>
-      {/* <Paper className={classes.paper}>
-        <div className={classes.content}>Welcome to Global Chat</div>
-        {
-          chatState.map(message => {
-            (message.name === myselfState.myUsername ?
-              (<Paper className={classes.myContent} elevation={5}>
-      
-                {message.name}: {message.message}
-              </Paper>)
-              :
-              (<Paper className={classes.notMyContent} elevation={5}>
-           
-                {message.name}: {message.message}
-              </Paper>))
-          })
-        }
-      </Paper> */}
       <Grid
         className={classes.paper}
       >
@@ -251,22 +283,45 @@ const Chat = () => {
         >
           Hi <span className={classes.username}>{myselfState.myUsername}!</span> Welcome to the Global Chat room!
         </Grid>
+
         {
-          chatState.map(message =>
-            <Grid
-              container
-              flexWrap="wrap"
-              justify="flex-start"
-              alignItems="center"
-              className={classes.content}
-            >
-              <Avatar className={classes.avatar} src={message.avatar} />
-              <span>
-                <span className={classes.username}>{message.name}:
-                </span> {message.message}
-              </span>
-            </Grid>
-          )
+          chatState.map(message => (
+            message.name === myselfState.myUsername ? 
+              (<Grid 
+                container
+                flexWrap="wrap"
+                justify="flex-end"
+                alignItems="center"
+                className={classes.content}
+              >
+                <TextField
+                  disabled
+                  label={message.name}
+                  defaultValue={message.message}
+                  variant="outlined"
+                  margin="dense"
+                  className={classes.myBubble}
+                />
+                <Avatar className={classes.myselfAvatar} src={message.avatar} />
+              </Grid>) : 
+              (<Grid 
+                container
+                flexWrap="wrap"
+                justify="flex-start"
+                alignItems="center"
+                className={classes.content}
+              >
+                <Avatar className={classes.avatar} src={message.avatar} />
+                <TextField
+                  disabled
+                  label={message.name}
+                  defaultValue={message.message}
+                  variant="outlined"
+                  margin="dense"
+                  className={classes.myBubble}
+                />
+              </Grid>)
+          ))
         }
       </Grid>
 
