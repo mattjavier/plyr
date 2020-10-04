@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: 'auto',
-    width: '90%'
+    width: '90%',
+    marginBottom: 20
   },
   frame: {
     backgroundColor: '#4f5b62',

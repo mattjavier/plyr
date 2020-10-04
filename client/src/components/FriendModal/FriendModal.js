@@ -72,7 +72,6 @@ const FriendModal = props => {
           highlight: data.highlight,
           pendingRequest: data.pendingRequest,
           friendsList: data.friendsList,
-          friendStatus: 'friends'
         })
 
       })
