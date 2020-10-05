@@ -173,12 +173,17 @@ const Matches = () => {
             </Typography>
 
             <Grid className={classes.frame} container spacing={3}>
+              {/* Easter Egg */}
+              <Match
+                easterEgg={true}
+              />
 
               {
                 matchesState.finalMatches.length > 0 ? (
                   matchesState.finalMatches.map(match => (
                     // console.log(match)
                     <Match
+                      easterEgg={false}
                       match={match}
                       key={match.username}
                     />

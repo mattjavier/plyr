@@ -62,7 +62,7 @@ const GlobalChat = () => {
             </FormControl>
 
 
-            <Chat />
+            {/* <Chat /> */}
           </div >
         ) : window.location.href = '/'
       }

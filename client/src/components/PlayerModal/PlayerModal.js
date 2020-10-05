@@ -50,9 +50,17 @@ const PlayerModal = props => {
 
   return (
     <div>
-      <Button className={classes.button} variant="contained" color="secondary" onClick={handleOpen}>
-        View Profile
-      </Button>
+      {
+        props.disabled === true ? (
+          <Button className={classes.button} variant="contained" color="secondary">
+            View Profile
+          </Button>
+        ) : (
+          <Button className={classes.button} variant="contained" color="secondary" onClick={handleOpen}>
+            View Profile
+          </Button>
+        )
+      }
       <Modal
         open={open}
         onClose={handleClose}
