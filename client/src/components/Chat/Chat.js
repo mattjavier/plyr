@@ -20,6 +20,8 @@ import Box from '@material-ui/core/Box'
 const socket = io.connect(process.env.PORT || `http://localhost:3002`)
 // const socket = io.connect('https://plyr-2.herokuapp.com/globalchat:3002' || 'http://localhost:3002')
 
+// test
+
 
 // this is to help set the hight of the chat window
 let height = window.innerHeight - 294
@@ -241,7 +243,7 @@ const Chat = () => {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
     })
-      .then(({ data, props }) => {
+      .then(({ data }) => {
         setMyselfState({ ...myselfState, myUsername: data.user.username, avatar: data.avatar })
         socket.emit('join', data.user.username)
         // socket.broadcast.emit('plyr chat bot', 'Someone has joined the chat!')

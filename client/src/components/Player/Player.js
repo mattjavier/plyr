@@ -200,8 +200,8 @@ const Player = props => {
                 {
                   props.player.xbox.length > 0 ? (
                     <>
-                      <Grid 
-                        container 
+                      <Grid
+                        container
                         justify="space-between"
                         alignItems="center"
                         direction="row"
@@ -214,11 +214,11 @@ const Player = props => {
                           {props.player.xbox}
                         </Typography>
                       </Grid>
-                      { 
-                        props.player.playstation.length > 0 ? ( <hr /> ) :
-                        ( props.player.nintendoSwitch.length > 0 ? ( <hr /> ) : 
-                          ( props.player.pc.length > 0 ? ( <hr /> ) : null )
-                        ) 
+                      {
+                        props.player.playstation.length > 0 ? (<hr />) :
+                          (props.player.nintendoSwitch.length > 0 ? (<hr />) :
+                            (props.player.pc.length > 0 ? (<hr />) : null)
+                          )
                       }
                     </>
                   ) : null
@@ -226,8 +226,8 @@ const Player = props => {
                 {
                   props.player.playstation.length > 0 ? (
                     <>
-                      <Grid 
-                        container 
+                      <Grid
+                        container
                         justify="space-between"
                         alignItems="center"
                         direction="row"
@@ -240,9 +240,9 @@ const Player = props => {
                           {props.player.playstation}
                         </Typography>
                       </Grid>
-                      { 
-                        props.player.nintendoSwitch.length > 0 ? ( <hr /> ) : 
-                        ( props.player.pc.length > 0 ? ( <hr/ > ) : null )
+                      {
+                        props.player.nintendoSwitch.length > 0 ? (<hr />) :
+                          (props.player.pc.length > 0 ? (<hr />) : null)
                       }
                     </>
                   ) : null
@@ -250,8 +250,8 @@ const Player = props => {
                 {
                   props.player.nintendoSwitch.length > 0 ? (
                     <>
-                      <Grid 
-                        container 
+                      <Grid
+                        container
                         justify="space-between"
                         alignItems="center"
                         direction="row"
@@ -264,7 +264,7 @@ const Player = props => {
                           {props.player.nintendoSwitch}
                         </Typography>
                       </Grid>
-                      { props.player.pc.length > 0 ? ( <hr /> ) : null }
+                      {props.player.pc.length > 0 ? (<hr />) : null}
                     </>
                   ) : null
                 }
@@ -294,8 +294,8 @@ const Player = props => {
               <div className={classes.inner}>
                 {
                   genres.length > 0 ? (
-                    <Grid 
-                      container 
+                    <Grid
+                      container
                       justify="space-between"
                       alignItems="flex-start"
                       direction="row"
@@ -324,8 +324,8 @@ const Player = props => {
                 <hr />
                 {
                   games.length > 0 ? (
-                    <Grid 
-                      container 
+                    <Grid
+                      container
                       justify="space-between"
                       alignItems="flex-start"
                       direction="row"
@@ -362,56 +362,56 @@ const Player = props => {
               sm={6}
               xs={12}
             >
-              <YoutubeEmbedVideo 
-                className={classes.video} 
-                videoId={props.player.highlight.slice(start, start + 11)} 
-                suggestions={false} 
+              <YoutubeEmbedVideo
+                className={classes.video}
+                videoId={props.player.highlight.slice(start, start + 11)}
+                suggestions={false}
               />
             </Grid>
-          ) : 
-          null
+          ) :
+            null
         }
       </Grid>
-        {
-          (props.player.friendStatus === "not friends" ) ? (
-            <div className={classes.friendBlock}>
-              <Button
-                variant="contained" 
-                color="primary" 
-                onClick={() => handleAddFriend(props.player._id)}
-              >
-                Add Friend
+      {
+        (props.player.friendStatus === "not friends") ? (
+          <div className={classes.friendBlock}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleAddFriend(props.player._id)}
+            >
+              Add Friend
               </Button>
-            </div>
-          ) : (props.player.friendStatus === "pending" ) ? (
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="flex-start"
-              className={classes.friendBlock}
-            >
-              <Grid item className={classes.friendStatus}>
-                Request Pending
+          </div>
+        ) : (props.player.friendStatus === "pending") ? (
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="flex-start"
+            className={classes.friendBlock}
+          >
+            <Grid item className={classes.friendStatus}>
+              Request Pending
               </Grid>
+          </Grid>
+        ) : (props.player.friendStatus === "friends") ? (
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="flex-start"
+            className={classes.friendBlock}
+          >
+            <Grid item className={classes.friendStatus}>
+              Friends
+              </Grid>
+            <Grid item>
+              <CheckIcon className={classes.checkIcon} />
             </Grid>
-          ) : (props.player.friendStatus === "friends" ) ? (
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="flex-start"
-              className={classes.friendBlock}
-            >
-              <Grid item className={classes.friendStatus}>
-                Friends
-              </Grid>
-              <Grid item>
-                <CheckIcon className={classes.checkIcon} />
-              </Grid>
-            </Grid>
-          ) : null
-        }
+          </Grid>
+        ) : null
+      }
     </Grid>
   )
 }
