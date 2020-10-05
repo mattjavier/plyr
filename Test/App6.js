@@ -60,8 +60,8 @@ const App = () => {
                     onChange={messageState.handleInputChange}
                     name="message"
                     value={messageState.message}
-                    label="Message"
-                />
+                    label="Message"> 
+                </textarea>
 
                 <button>Send Message</button>
             </form>

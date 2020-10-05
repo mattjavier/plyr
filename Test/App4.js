@@ -6,6 +6,7 @@ const App = () => {
 
     const [friendState, setFriendState] = useState({
         friendRequest: '',
+        friendsList: [],
         myPlayerId: '',
         myUsername: '',
         dummyPlayerId: '5f6b87d1536ec51f5490185f',
@@ -22,7 +23,7 @@ const App = () => {
     friendState.addFriend = event => {
         event.preventDefault()
         console.log('Sending friend request')
-        let myself = {
+        const myself = {
             name: friendState.myUsername,
             playerId: friendState.myPlayerId
         }
@@ -36,6 +37,10 @@ const App = () => {
             .catch(err => console.log(err))
     }
 
+    friendState.acceptRequest = event => {
+        event.preventDefault()
+        console.log('Accepting Request')
+    }
 
     useEffect(() => {
         axios.get('/api/users/myself', {
@@ -55,6 +60,7 @@ const App = () => {
            <h1>Friend Page</h1>
            <button onClick={friendState.addFriend}>Button inside modal</button>
            <button onClick={friendState.myself}>Test user info</button>
+           <button onClick={friendState.acceptRequest}>Accept</button>
         </>
     )
 }
