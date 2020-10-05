@@ -14,6 +14,7 @@ import Profile from './pages/Profile'
 import GlobalChat from './pages/GlobalChat'
 import XboxChat from './components/XboxChat'
 
+
 const theme = createMuiTheme({
   palette: {
     background: {

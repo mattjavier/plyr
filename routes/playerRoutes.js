@@ -53,7 +53,7 @@ router.delete('/players/:id', (req, res) => {
 
 // Friending Functionality
 
-//in this put, we need Adder NAme, Adder ID, the person who's getting added
+//this route is to send a friend request
 router.put('/players/addfriend/:id', (req, res) => {
     Player.findByIdAndUpdate(req.params.id, { $push: { pendingRequest: req.body } })
     .then(players => res.json(players))
