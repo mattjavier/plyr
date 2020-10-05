@@ -31,7 +31,10 @@ Plyr2 also employs an npm known as __YoutubeEmbedVideo__. This helps us easily e
 
 Lastly, Plyr2 makes use of __SocketIO__ which enables realtime communication between web clients and servers. This is how we have implemented a live chat system. 
 
-## Usage: 
+## Usage:
 First and foremost, you will need to register an account at Plyr2! Once that is done, you may now login with the credentials you have just created. Next, you may update your profile with as much or as little information as you want. Once you hit the "Save" button, you will be taken to the "Matches" page. Here you will be given some of the top users you will have compatibility with based on similar interests. From this page, you may view their profiles and highlights as well as request to be their friend. There is also a global chat feature where you can connect with any ohter Plyr who is online.    
 
 ### Screenshots:
+
+![Profile Builder](./client/src/assets/plyr2profile.png)
+![Matches Page](./client/src/assets/plyr2matches.png)
