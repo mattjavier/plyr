@@ -32,7 +32,9 @@ Plyr2 also employs an npm known as __YoutubeEmbedVideo__. This helps us easily e
 Lastly, Plyr2 makes use of __SocketIO__ which enables realtime communication between web clients and servers. This is how we have implemented a live chat system. 
 
 ## Usage:
-First and foremost, you will need to register an account at Plyr2! Once that is done, you may now login with the credentials you have just created. Next, you may update your profile with as much or as little information as you want. Once you hit the "Save" button, you will be taken to the "Matches" page. Here you will be given some of the top users you will have compatibility with based on similar interests. From this page, you may view their profiles and highlights as well as request to be their friend. There is also a global chat feature where you can connect with any ohter Plyr who is online.    
+First and foremost, you will need to register an account at Plyr2! Once that is done, you may now login with the credentials you have just created. Next, you may update your profile with as much or as little information as you want. Once you hit the "Save" button, you will be taken to the "Matches" page. Here you will be given some of the top users you will have compatibility with based on similar interests. From this page, you may view their profiles and highlights as well as request to be their friend. There is also a global chat feature where you can connect with any ohter Plyr who is online.
+
+Note: The chat feature does not currently work on the deployed application on Heroku. It only works on `localhost` on any of our collaborators' machines. Heroku is not connecting to the websockets used, so for the time being, the deployed application will be without a working chat. Below is a demo video on how chat would work locally.
 
 ### Screenshots:
 
