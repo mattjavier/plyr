@@ -119,7 +119,6 @@ const EditProfile = props => {
 
   const handleSwitchChange = () => {
     setCompetitive(!isCompetitive)
-    console.log(isCompetitive)
   }
 
   const [profileState, setProfileState] = useState({
@@ -170,15 +169,11 @@ const EditProfile = props => {
 
   profileState.handleAvatar = (event, values) => {
     setProfileState({ ...profileState, [event.target.name]: event.target.value })
-    console.log(profileState.avatar)
   }
 
   profileState.handleDeleteGames = (gameToDelete) => () => {
     setProfileState({ ...profileState, games: profileState.games.filter(game => gameToDelete !== game) })
   }
-
-  console.log(profileState.discord)
-  console.log(profileState.player_profile)
 
   profileState.handleSave = () => {
 
@@ -202,7 +197,6 @@ const EditProfile = props => {
           genres: profileState.genres,
           user: data._id
         }
-        console.log(player)
         axios.put(`/api/players/${profileState.player_profile}`, player)
           .then(() => {
 
